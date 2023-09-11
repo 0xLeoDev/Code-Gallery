@@ -1,5 +1,6 @@
 const canvasSketch = require("canvas-sketch");
 const random = require("canvas-sketch-util/random");
+const math = require("canvas-sketch-util/math");
 
 const settings = {
   dimensions: [2048, 2048],
@@ -27,6 +28,8 @@ const sketch = ({ context, width, height }) => {
 
         const dist = agent.pos.getDistance(other.pos);
         if (dist > 400) continue;
+
+        context.lineWidth = math.mapRange(dist, 0, 200, 12, 1);
 
         context.strokeStyle = "black";
 
