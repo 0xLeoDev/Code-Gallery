@@ -29,7 +29,7 @@ const sketch = ({ context, width, height }) => {
         const dist = agent.pos.getDistance(other.pos);
         if (dist > 400) continue;
 
-        context.lineWidth = math.mapRange(dist, 0, 200, 12, 1);
+        context.lineWidth = math.mapRange(dist, 0, 200, 10, 1);
 
         context.strokeStyle = "black";
 
