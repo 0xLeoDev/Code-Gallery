@@ -1,11 +1,14 @@
 const canvasSketch = require("canvas-sketch");
+const random = require("canvas-sketch-util/random");
+const math = require("canvas-sketch-util/math");
 
 const settings = {
   dimensions: [2048, 2048],
+  animate: false,
 };
 
 const sketch = () => {
-  return ({ context, width, height }) => {
+  return ({ context, width, height, frame }) => {
     context.fillStyle = "CornSilk";
     context.fillRect(0, 0, width, height);
 
@@ -13,8 +16,8 @@ const sketch = () => {
     const rows = 10;
     const numCells = cols * rows;
 
-    const gridw = width * 0.8;
-    const gridh = height * 0.8;
+    const gridw = width * 0.9;
+    const gridh = height * 0.9;
 
     const cellw = gridw / cols;
     const cellh = gridh / rows;
@@ -34,13 +37,18 @@ const sketch = () => {
       const w = cellw * 0.8;
       const h = cellh * 0.8;
 
+      const n = random.noise2D(x + frame * 5, y, 0.001);
+      const angle = n * Math.PI * 0.4;
+      const scale = math.mapRange(n, -1, 1, 1, 30);
+
       context.save();
       context.translate(x, y);
       context.translate(margx, margy);
       context.translate(cellw * 0.5, cellh * 0.5);
       console.log("x=" + x + " y=" + y);
+      context.rotate(angle);
 
-      context.lineWidth = 8;
+      context.lineWidth = scale;
       context.beginPath();
       context.moveTo(w * -0.5, 1);
       context.lineTo(w * 0.5, 1);
