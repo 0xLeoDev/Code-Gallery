@@ -7,6 +7,7 @@ const settings = {
 let text = "A";
 let fontSize = 1200;
 let fontFamily = "serif";
+let manager;
 
 const sketch = () => {
   return ({ context, width, height }) => {
@@ -16,7 +17,6 @@ const sketch = () => {
     context.fillStyle = "black";
     context.font = `${fontSize}px ${fontFamily}`;
     context.textBaseline = "top";
-    // context.textAlign = "center";
 
     const metrics = context.measureText(text);
     const mx = metrics.actualBoundingBoxLeft * -1;
@@ -41,4 +41,15 @@ const sketch = () => {
   };
 };
 
-canvasSketch(sketch, settings);
+const onKeyUp = (e) => {
+  text = e.key.toUpperCase();
+  manager.render();
+};
+
+document.addEventListener("keyup", onKeyUp);
+
+const start = async () => {
+  manager = await canvasSketch(sketch, settings);
+};
+
+start();
