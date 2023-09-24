@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "laceddays";
+  src: local("laceddays"),
+    url("./fonts/Laced Days Font/laceddays.otf") format("truetype");
+}
+body {
+  background: black;
+  color: whitesmoke;
+  font-size: xxx-large;
+  font-family: "laceddays";
+}
