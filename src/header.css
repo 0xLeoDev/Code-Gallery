@@ -1,5 +1,5 @@
 .header {
-  width: min(100% - 60px, 1100px);
+  width: min(100% - 90px, 1100px);
   margin-inline: auto;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -12,4 +12,7 @@
   font-family: "laceddays";
 
   /* background: darkblue; */
+}
+.logo:hover {
+  cursor: pointer;
 }
