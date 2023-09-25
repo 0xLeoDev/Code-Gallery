@@ -1,14 +1,15 @@
 import "./App.css";
-import "./fonts/Laced Days Font/laceddays.otf";
+import Footer from "./footer.js";
+import Header from "./header.js";
 
 function App() {
   return (
     <>
-      <div className="header">
-        <p>code gallery</p>
+      <Header />
+      <div className="App">
+        <div className="parent"></div>
       </div>
-      <div className="body"></div>
-      <div className="footer"></div>
+      <Footer />
     </>
   );
 }
