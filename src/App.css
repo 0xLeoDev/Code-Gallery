@@ -1,7 +1,8 @@
 :root {
   background: #202020;
-  color: whitesmoke;
+  color: rgb(245, 245, 245);
   display: block;
+
   text-align: center;
   align-content: center;
 }
