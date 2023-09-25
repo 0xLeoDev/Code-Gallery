@@ -1,4 +1,3 @@
-import "./fonts/Laced Days Font/laceddays.otf";
 import "./header.css";
 import { Turn as Hamburger } from "hamburger-react";
 

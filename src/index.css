@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace, laceddays, "laceddays";
 }
+
+@font-face {
+  font-family: "laceddays";
+  src: local("laceddays"),
+    url("./fonts/Laced Days Font/laceddays.otf") format("truetype");
+}
