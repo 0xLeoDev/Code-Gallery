@@ -11,6 +11,11 @@
 }
 
 .arrow {
+  background: rgb(32, 32, 32, 0.9);
+  border: 5px solid #202020;
+  padding: 2px;
+  border-radius: 10%;
+
   position: relative;
   width: 30px;
   height: 30px;
