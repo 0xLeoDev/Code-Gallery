@@ -4,12 +4,12 @@ const math = require("canvas-sketch-util/math");
 
 const settings = {
   dimensions: [1080, 1080],
-  animate: false,
+  animate: true,
 };
 
 const sketch = () => {
   return ({ context, width, height, frame }) => {
-    context.fillStyle = "CornSilk";
+    context.fillStyle = "#1a1a1a";
     context.fillRect(0, 0, width, height);
 
     const cols = 10;
@@ -49,6 +49,7 @@ const sketch = () => {
       context.rotate(angle);
 
       context.lineWidth = scale;
+      context.strokeStyle = "f5f5f5";
       context.beginPath();
       context.moveTo(w * -0.5, 1);
       context.lineTo(w * 0.5, 1);

@@ -3,7 +3,7 @@ const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 const settings = {
-  dimensions: [2048, 2048],
+  dimensions: [1080, 1080],
   animate: true,
 };
 
@@ -17,7 +17,7 @@ const sketch = ({ context, width, height }) => {
   }
 
   return ({ context, width, height }) => {
-    context.fillStyle = "CornSilk";
+    context.fillStyle = "#1a1a1a";
     context.fillRect(0, 0, width, height);
 
     for (let i = 0; i < agents.length; i++) {
@@ -27,11 +27,11 @@ const sketch = ({ context, width, height }) => {
         const other = agents[j];
 
         const dist = agent.pos.getDistance(other.pos);
-        if (dist > 400) continue;
+        if (dist > 200) continue;
 
         context.lineWidth = math.mapRange(dist, 0, 200, 10, 1);
 
-        context.strokeStyle = "black";
+        context.strokeStyle = "#f5f5f5";
 
         context.beginPath();
         context.moveTo(agent.pos.x, agent.pos.y);
@@ -86,15 +86,15 @@ class Agent {
   }
 
   draw(context) {
-    context.fillStyle = "white";
+    context.fillStyle = "#1a1a1a";
     context.save();
     context.translate(this.pos.x, this.pos.y);
-    context.lineWidth = 6;
+    context.lineWidth = 3;
 
     context.beginPath();
     context.arc(0, 0, this.radius, 0, Math.PI * 2);
     context.fill();
-    context.strokeStyle = "black";
+    context.strokeStyle = "#f5f5f5";
     context.stroke();
     context.restore();
   }

@@ -1,12 +1,12 @@
 const canvasSketch = require("canvas-sketch");
 
 const settings = {
-  dimensions: [2048, 2048],
+  dimensions: [1080, 1080],
 };
 
 const sketch = () => {
   return ({ context, width, height }) => {
-    context.fillStyle = "#F5F5F5";
+    context.fillStyle = "#1a1a1a";
     context.fillRect(0, 0, width, height);
 
     let numOfRec = 7; // 1-14
@@ -23,6 +23,7 @@ const sketch = () => {
       context.beginPath();
       context.fillRect(x, y, size, size);
       context.rect(x, y, size, size);
+      context.strokeStyle = "1a1a1a";
       context.stroke();
     };
 
@@ -35,7 +36,7 @@ const sketch = () => {
 
         let randomise = Math.random();
         if (randomise > randomiser) {
-          let color = "#bae4b3";
+          let color = "#Ff5f5f5";
           droveRec(
             x + rectSize * 0.1,
             y + rectSize * 0.1,
@@ -45,7 +46,7 @@ const sketch = () => {
 
           let randomise = Math.random();
           if (randomise > randomiser) {
-            let color = "#74c476";
+            // let color = "#74c476";
             droveRec(
               x + rectSize * 0.2,
               y + rectSize * 0.2,
@@ -55,7 +56,7 @@ const sketch = () => {
 
             let randomise = Math.random();
             if (randomise > randomiser) {
-              let color = "#31a354";
+              // let color = "";
               droveRec(
                 x + rectSize * 0.3,
                 y + rectSize * 0.3,
@@ -65,7 +66,7 @@ const sketch = () => {
 
               let randomise = Math.random();
               if (randomise > randomiser) {
-                let color = "#006d2c";
+                let color = "red";
                 droveRec(
                   x + rectSize * 0.4,
                   y + rectSize * 0.4,
@@ -74,7 +75,7 @@ const sketch = () => {
                 );
 
                 if (randomise > randomiser) {
-                  let color = "black";
+                  let color = "red";
 
                   droveRec(
                     x + rectSize * 0.49,

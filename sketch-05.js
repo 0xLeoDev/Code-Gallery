@@ -55,7 +55,7 @@ const sketch = ({ context, width, height }) => {
     const typeData = typeContext.getImageData(0, 0, cols, rows).data;
     console.log(typeData);
 
-    context.fillStyle = "black";
+    context.fillStyle = "#1a1a1a";
     context.fillRect(0, 0, width, height);
 
     context.textBaseline = "middle";
@@ -77,7 +77,7 @@ const sketch = ({ context, width, height }) => {
       const b = typeData[i * 4 + 2];
       const a = typeData[i * 4 + 3];
 
-      context.fillStyle = "white";
+      context.fillStyle = "#f5f5f5";
       // context.fillStyle = `rgb(${r},${g},${b})`;
 
       glyph = getGlyph(r);
