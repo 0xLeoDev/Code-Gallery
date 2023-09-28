@@ -1,6 +1,5 @@
 import "./App.css";
 import Footer from "./footer.js";
-import Header from "./header.js";
 import { Route, Routes } from "react-router-dom";
 
 import MainPanel from "./MainPanel.js";
@@ -14,7 +13,6 @@ import NotFound from "./NotFound.js";
 function App() {
   return (
     <>
-      <Header />
       <Routes>
         <Route path="/" element={<MainPanel />} />
         <Route path="/sketch-01" element={<Sketch1 />} />

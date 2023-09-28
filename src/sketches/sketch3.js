@@ -1,5 +1,6 @@
 import "./Sketch.css";
 import Arows from "../Arows.js";
+import Header from "../header";
 
 function Sketch3() {
   let pathLeft = "/sketch-02";
@@ -7,6 +8,7 @@ function Sketch3() {
 
   return (
     <>
+      <Header />
       <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
         <div className="canvas">sketch-03</div>
