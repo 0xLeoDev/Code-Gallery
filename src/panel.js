@@ -4,18 +4,9 @@ function Panel() {
   return (
     <>
       <div className="App">
-        <div className="canvas">.</div>
+        <div className="canvas">main panel</div>
         <div className="panel">
-          <h2 className="skethTitle">sketch-01</h2>
-          <h3>Option 1</h3>
-          <p>slider 1</p>
-          <h3>Option 2</h3>
-          <p>option 2</p>
-          <h3>Option 3</h3>
-          <p>option 3</p>
-          <h3>Option 4</h3>
-          <p>option 4</p>
-          <button>save as png</button>
+          <h2 className="skethTitle">main panel</h2>
         </div>
       </div>
     </>

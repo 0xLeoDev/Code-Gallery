@@ -1,4 +1,4 @@
-import "./arows.css";
+import "./Arows.css";
 
 function Arows() {
   return (
