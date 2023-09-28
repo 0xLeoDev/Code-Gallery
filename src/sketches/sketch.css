@@ -1,6 +1,6 @@
 h2 {
   align-self: flex-end;
-  font-style: italic;
+  /* font-style: italic; */
 }
 h3 {
   align-self: flex-start;

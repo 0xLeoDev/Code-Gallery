@@ -8,7 +8,7 @@ function Header() {
   return (
     <>
       <div className="header">
-        <div className="logo" onClick={() => navigate("/")}>
+        <div title="homepage" className="logo" onClick={() => navigate("/")}>
           code gallery
         </div>
         <Hamburger

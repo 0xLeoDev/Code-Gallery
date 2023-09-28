@@ -8,10 +8,18 @@ function Arows(props) {
 
   return (
     <>
-      <div onClick={() => navigate(pathLeft)} className="arrowLeft">
+      <div
+        title={pathLeft}
+        onClick={() => navigate(pathLeft)}
+        className="arrowLeft"
+      >
         <div class="arrow"></div>
       </div>
-      <div onClick={() => navigate(pathRight)} className="arrowRight">
+      <div
+        title={pathRight}
+        onClick={() => navigate(pathRight)}
+        className="arrowRight"
+      >
         <div class="arrow"></div>
       </div>
     </>
