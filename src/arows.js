@@ -1,22 +1,17 @@
 import "./Arows.css";
+import { useNavigate } from "react-router-dom";
 
-function Arows() {
+function Arows(props) {
+  const navigate = useNavigate();
+  let pathLeft = props.pathLeft;
+  let pathRight = props.pathRight;
+
   return (
     <>
-      <div
-        onClick={() => {
-          alert("left");
-        }}
-        className="arrowLeft"
-      >
+      <div onClick={() => navigate(pathLeft)} className="arrowLeft">
         <div class="arrow"></div>
       </div>
-      <div
-        onClick={() => {
-          alert("right");
-        }}
-        className="arrowRight"
-      >
+      <div onClick={() => navigate(pathRight)} className="arrowRight">
         <div class="arrow"></div>
       </div>
     </>

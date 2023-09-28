@@ -2,10 +2,12 @@ import "./Sketch.css";
 import Arows from "../Arows.js";
 
 function Sketch4() {
+  let pathLeft = "/sketch-03";
+  let pathRight = "/sketch-05";
+
   return (
     <>
-      <Arows />
-
+      <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
         <div className="canvas">sketch-04</div>
         <div className="panel">

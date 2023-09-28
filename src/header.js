@@ -1,16 +1,14 @@
 import "./header.css";
 import { Turn as Hamburger } from "hamburger-react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="header">
-        <div
-          className="logo"
-          onClick={() => {
-            window.location.reload();
-          }}
-        >
+        <div className="logo" onClick={() => navigate("/")}>
           code gallery
         </div>
         <Hamburger
