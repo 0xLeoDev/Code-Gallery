@@ -11,16 +11,18 @@ function Header() {
         <div title="homepage" className="logo" onClick={() => navigate("/")}>
           code gallery
         </div>
-        <Hamburger
-          color="#f5f5f5"
-          onToggle={(toggled) => {
-            if (toggled) {
-              alert("open");
-            } else {
-              alert("closed");
-            }
-          }}
-        />
+        <div title="sketches list">
+          <Hamburger
+            color="#f5f5f5"
+            onToggle={(toggled) => {
+              if (toggled) {
+                // alert("open");
+              } else {
+                // alert("closed");
+              }
+            }}
+          />
+        </div>
       </div>
     </>
   );

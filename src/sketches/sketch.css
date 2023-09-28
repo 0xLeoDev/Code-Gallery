@@ -2,9 +2,6 @@ h2 {
   align-self: flex-end;
   /* font-style: italic; */
 }
-h3 {
-  align-self: flex-start;
-}
 
 .App {
   width: min(100% - 140px, 1100px);
@@ -17,22 +14,36 @@ h3 {
   height: 83vh;
   margin-bottom: 60px;
 
-  /* background: pink; */
+  /* background: pinks; */
 }
 .canvas {
   aspect-ratio: 1/1;
   height: 80%;
   /* width: 200px; */
-  background-color: #1a1a1a;
-  border: 10px solid #f5f5f5;
+  background-color: var(--second-bg-color);
+  border: 10px solid var(--text-border-color);
 
   padding: 2%;
 
-  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
-    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
-    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+  box-shadow: #f02eaa66 -5px 5px, #f02eaa4d -10px 10px, #f02eaa33 -15px 15px,
+    #f02eaa1a -20px 20px, #f02eaa0d -25px 25px;
 
-  /* background-color: pink; */
+  background-size: contain;
+}
+#canva-01 {
+  background-image: url("../IMG/sketch-prew-01.png");
+}
+#canva-02 {
+  background-image: url("../IMG/sketch-prew-02.png");
+}
+#canva-03 {
+  background-image: url("../IMG/sketch-prew-03.png");
+}
+#canva-04 {
+  background-image: url("../IMG/sketch-prew-04.png");
+}
+#canva-05 {
+  background-image: url("../IMG/sketch-prew-05.png");
 }
 
 /* ------------ */
@@ -49,13 +60,18 @@ h3 {
 
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
   background: #1a1a1a;
 
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
     rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
     rgba(240, 46, 170, 0.05) 25px 25px;
+}
+
+.optionsList {
+  width: 100%;
+  align-items: stretch;
 }
 
 button {
