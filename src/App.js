@@ -1,4 +1,5 @@
 import "./App.css";
+import NotFound from "./NotFound.js";
 import Footer from "./footer.js";
 import { Route, Routes } from "react-router-dom";
 
@@ -8,7 +9,6 @@ import Sketch2 from "./sketches/Sketch2.js";
 import Sketch3 from "./sketches/Sketch3.js";
 import Sketch4 from "./sketches/Sketch4.js";
 import Sketch5 from "./sketches/Sketch5.js";
-import NotFound from "./NotFound.js";
 
 function App() {
   return (

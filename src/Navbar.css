@@ -1,0 +1,27 @@
+.navbar {
+  width: 100%;
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.navbarHeader {
+  font-size: 2.4vw;
+
+  width: 100%;
+  text-align: left;
+}
+
+/* #canva-02 {
+  background-image: url("../IMG/sketch-prew-02.png");
+}
+#canva-03 {
+  background-image: url("../IMG/sketch-prew-03.png");
+}
+#canva-04 {
+  background-image: url("../IMG/sketch-prew-04.png");
+}
+#canva-05 {
+  background-image: url("../IMG/sketch-prew-05.png");
+}  */

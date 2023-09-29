@@ -2,7 +2,7 @@
   --main-bg-color: #202020;
   --second-bg-color: #1a1a1a;
   --text-border-color: #f5f5f5;
-  --decorative-color: hsl(322, 87%, 56%);
+  --decorative-color: rgb(225, 82, 173);
   --inppp: "322, 87%, 56%";
 
   background: var(--main-bg-color);
