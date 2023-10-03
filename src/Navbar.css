@@ -33,24 +33,11 @@
   scale: 1.1;
   color: var(--decorative-color);
 }
-
-/* ------------- */
-
 .navLink.active {
   text-decoration: underline;
   color: var(--decorative-color);
   scale: none;
 }
-
-/* #canva-02 {
-  background-image: url("../IMG/sketch-prew-02.png");
+.navLink.active:hover {
+  cursor: default;
 }
-#canva-03 {
-  background-image: url("../IMG/sketch-prew-03.png");
-}
-#canva-04 {
-  background-image: url("../IMG/sketch-prew-04.png");
-}
-#canva-05 {
-  background-image: url("../IMG/sketch-prew-05.png");
-}  */

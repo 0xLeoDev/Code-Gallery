@@ -25,7 +25,7 @@ function Sketch3(props) {
 
         {navbarStatus == false && (
           <div className="panel">
-            <h2 className="skethTitle">sketch-02</h2>
+            <h2 className="skethTitle">sketch-03</h2>
             <div className="optionsList">
               <h3>Option 1</h3>
               <p>slider 1</p>
