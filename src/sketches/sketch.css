@@ -1,34 +1,29 @@
-h2 {
-  align-self: flex-end;
-  font-weight: 300;
-}
-
 .App {
   width: min(100% - 140px, 1100px);
+  display: flex;
   margin-inline: auto;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /* align-items: center;
+  justify-content: space-between; */
 
   height: 83vh;
   margin-bottom: 60px;
-
-  /* background: pinks; */
+  flex-wrap: wrap;
 }
 .canvas {
+  /* min-width: 40px; */
   aspect-ratio: 1/1;
   height: 80%;
   /* width: 200px; */
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
-
   padding: 2%;
 
   box-shadow: #f02eaa66 -5px 5px, #f02eaa4d -10px 10px, #f02eaa33 -15px 15px,
     #f02eaa1a -20px 20px, #f02eaa0d -25px 25px;
 
   background-size: contain;
+  margin: auto;
 }
 
 #canva-01 {
@@ -49,13 +44,12 @@ h2 {
 
 /* ------------ */
 .panel {
-  /* aspect-ratio: 1/1; */
-  width: 30%;
+  /* width: auto; */
+  min-width: 27%;
   height: 90%;
-  /* width: 200px; */
-  background-color: #202020;
-  border: 10px solid #f5f5f5;
-  margin-left: 60px;
+  background-color: var(--second-bg-color);
+  border: 10px solid var(--text-border-color);
+  margin: auto;
 
   padding: 2%;
 
@@ -63,26 +57,29 @@ h2 {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: #1a1a1a;
+  background: var(--second-bg-color);
 
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
     rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
     rgba(240, 46, 170, 0.05) 25px 25px;
 }
+h2 {
+  align-self: flex-end;
+  font-weight: 300;
+}
 
 .optionsList {
   width: 100%;
-  /* align-items: stretch; */
 }
 
 button {
-  border: 7px solid #f5f5f5;
-  background-color: #202020;
+  border: 7px solid var(--text-border-color);
+  background-color: var(--main-bg-color);
   border-radius: 0;
   font-family: "laceddays";
   font-size: 20px;
   padding: 2%;
-  color: #f5f5f5;
+  color: var(--text-border-color);
   width: 90%;
   align-self: strech;
 }

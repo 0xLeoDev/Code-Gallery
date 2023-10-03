@@ -1,6 +1,6 @@
 .header {
   width: min(100% - 90px, 1100px);
-  margin-inline: auto;
+  margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
 
@@ -11,8 +11,6 @@
   font-size: 60px;
   font-family: "laceddays";
   font-weight: 100;
-
-  /* background: darkblue; */
 }
 .logo:hover {
   cursor: pointer;

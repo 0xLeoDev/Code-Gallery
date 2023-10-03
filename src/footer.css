@@ -1,14 +1,15 @@
 .footer {
-  /* background: #202020; */
   width: 100%;
   text-align: center;
   padding: 8px;
   position: fixed;
   bottom: 0;
+  background: var(--main-bg-color);
 }
 .socialIcon {
   margin: 0 10px 0;
 }
 .socialIcon:hover {
   cursor: pointer;
+  scale: 1.05;
 }
