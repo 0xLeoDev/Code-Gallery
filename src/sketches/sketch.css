@@ -1,6 +1,6 @@
 h2 {
   align-self: flex-end;
-  /* font-style: italic; */
+  font-weight: 300;
 }
 
 .App {
@@ -30,6 +30,7 @@ h2 {
 
   background-size: contain;
 }
+
 #canva-01 {
   background-image: url("../IMG/sketch-prew-01.png");
 }
@@ -71,7 +72,7 @@ h2 {
 
 .optionsList {
   width: 100%;
-  align-items: stretch;
+  /* align-items: stretch; */
 }
 
 button {
