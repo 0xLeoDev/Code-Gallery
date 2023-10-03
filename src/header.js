@@ -1,4 +1,4 @@
-import "./header.css";
+import "./Header.css";
 import { Turn as Hamburger } from "hamburger-react";
 import { useNavigate } from "react-router-dom";
 

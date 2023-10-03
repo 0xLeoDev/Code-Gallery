@@ -1,4 +1,4 @@
-import "./footer.css";
+import "./Footer.css";
 import etherscan from "./IMG/etherscan.png";
 import github from "./IMG/github.png";
 import medium from "./IMG/medium.png";

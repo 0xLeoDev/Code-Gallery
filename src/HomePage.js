@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import "./MainPanel.css";
+import "./HomePage.css";
 import themeIcon from "./IMG/sun_W.png";
 
 import logo_b from "./IMG/logo_b.png";
@@ -9,7 +9,7 @@ import preview03 from "./IMG/sketch-prew-03.png";
 import preview04 from "./IMG/sketch-prew-04.png";
 import preview05 from "./IMG/sketch-prew-05.png";
 
-function MainPanel() {
+function HomePage() {
   const setPreview = (newPreview) => {
     let preview = document.getElementById("preview");
     preview.src = newPreview;
@@ -84,4 +84,4 @@ function MainPanel() {
   );
 }
 
-export default MainPanel;
+export default HomePage;

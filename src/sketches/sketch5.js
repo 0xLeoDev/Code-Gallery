@@ -1,6 +1,6 @@
 import "./Sketch.css";
 import Arows from "../Arows.js";
-import Header from "../header";
+import Header from "../Header";
 import Navbar from "../Navbar.js";
 
 import React, { useState } from "react";
