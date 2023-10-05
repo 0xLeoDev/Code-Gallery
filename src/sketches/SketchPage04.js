@@ -5,7 +5,7 @@ import Navbar from "../Navbar.js";
 
 import React, { useState } from "react";
 
-function Sketch4() {
+function SketchPage04() {
   let pathLeft = "/sketch-03";
   let pathRight = "/sketch-05";
 
@@ -44,4 +44,4 @@ function Sketch4() {
   );
 }
 
-export default Sketch4;
+export default SketchPage04;

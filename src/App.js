@@ -4,22 +4,22 @@ import Footer from "./Footer.js";
 import { Route, Routes } from "react-router-dom";
 
 import HomePage from "./HomePage.js";
-import Sketch1 from "./sketches/Sketch1.js";
-import Sketch2 from "./sketches/Sketch2.js";
-import Sketch3 from "./sketches/Sketch3.js";
-import Sketch4 from "./sketches/Sketch4.js";
-import Sketch5 from "./sketches/Sketch5.js";
+import SketchPage01 from "./sketches/SketchPage01.js";
+import SketchPage02 from "./sketches/SketchPage02.js";
+import SketchPage03 from "./sketches/SketchPage03.js";
+import SketchPage04 from "./sketches/SketchPage04.js";
+import SketchPage05 from "./sketches/SketchPage05.js";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/sketch-01" element={<Sketch1 />} />
-        <Route path="/sketch-02" element={<Sketch2 />} />
-        <Route path="/sketch-03" element={<Sketch3 />} />
-        <Route path="/sketch-04" element={<Sketch4 />} />
-        <Route path="/sketch-05" element={<Sketch5 />} />
+        <Route path="/sketch-01" element={<SketchPage01 />} />
+        <Route path="/sketch-02" element={<SketchPage02 />} />
+        <Route path="/sketch-03" element={<SketchPage03 />} />
+        <Route path="/sketch-04" element={<SketchPage04 />} />
+        <Route path="/sketch-05" element={<SketchPage05 />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
 

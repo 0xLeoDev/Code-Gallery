@@ -1,13 +1,13 @@
 import "./Sketch.css";
 import Arows from "../Arows.js";
-import Header from "../Header";
 import Navbar from "../Navbar.js";
+import Header from "../Header";
 
 import React, { useState } from "react";
 
-function Sketch2(props) {
-  let pathLeft = "/sketch-01";
-  let pathRight = "/sketch-03";
+function SketchPage01() {
+  let pathLeft = "/sketch-05";
+  let pathRight = "/sketch-02";
 
   const [navbarStatus, setNavbarStatus] = useState(false);
 
@@ -16,7 +16,7 @@ function Sketch2(props) {
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
-        <div className="canvas" id="canva-02"></div>
+        <div className="canvas" id="canva-01"></div>
 
         {navbarStatus == true && (
           <div className="panel">
@@ -26,7 +26,7 @@ function Sketch2(props) {
 
         {navbarStatus == false && (
           <div className="panel">
-            <h2 className="skethTitle">sketch-02</h2>
+            <h2 className="skethTitle">sketch-01</h2>
             <div className="optionsList">
               <h3>Option 1</h3>
               <p>slider 1</p>
@@ -45,4 +45,4 @@ function Sketch2(props) {
   );
 }
 
-export default Sketch2;
+export default SketchPage01;

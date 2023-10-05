@@ -5,9 +5,9 @@ import Navbar from "../Navbar.js";
 
 import React, { useState } from "react";
 
-function Sketch5() {
-  let pathLeft = "/sketch-04";
-  let pathRight = "/sketch-01";
+function SketchPage03(props) {
+  let pathLeft = "/sketch-02";
+  let pathRight = "/sketch-04";
 
   const [navbarStatus, setNavbarStatus] = useState(false);
 
@@ -16,7 +16,7 @@ function Sketch5() {
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
-        <div className="canvas" id="canva-05"></div>
+        <div className="canvas" id="canva-03"></div>
         {navbarStatus == true && (
           <div className="panel">
             <Navbar />
@@ -25,7 +25,7 @@ function Sketch5() {
 
         {navbarStatus == false && (
           <div className="panel">
-            <h2 className="skethTitle">sketch-05</h2>
+            <h2 className="skethTitle">sketch-03</h2>
             <div className="optionsList">
               <h3>Option 1</h3>
               <p>slider 1</p>
@@ -44,4 +44,4 @@ function Sketch5() {
   );
 }
 
-export default Sketch5;
+export default SketchPage03;
