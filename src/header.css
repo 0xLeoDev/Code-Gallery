@@ -1,0 +1,17 @@
+.header {
+  width: min(100% - 90px, 1100px);
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: end;
+
+  justify-content: space-between;
+  font-size: 60px;
+  font-family: "laceddays";
+  font-weight: 100;
+}
+.logo:hover {
+  cursor: pointer;
+}

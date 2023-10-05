@@ -1,0 +1,83 @@
+.headerMainPage {
+  width: min(100% - 140px, 1100px);
+  display: flex;
+  margin-inline: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 60px;
+  font-family: "laceddays";
+}
+.App {
+  width: min(100% - 140px, 1100px);
+  display: flex;
+  margin-inline: auto;
+
+  align-items: center;
+  /* justify-content: space-between; */
+
+  height: 83vh;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+.previewContainer {
+  aspect-ratio: 1/1;
+  height: 80%;
+  background-color: var(--second-bg-color);
+  border: 10px solid var(--text-border-color);
+
+  /* padding: 2%; */
+
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
+    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
+    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+
+  display: flex;
+  justify-content: center;
+
+  margin: auto;
+}
+
+/* ------------ */
+.menuContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 27%;
+  height: 90%;
+  border: 10px solid var(--text-border-color);
+
+  padding: 2%;
+
+  background: var(--second-bg-color);
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
+
+  margin: auto;
+}
+
+.menulHeader {
+  font-family: "laceddays";
+  font-size: 2.4vw;
+  text-align: center;
+}
+.linkList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10%;
+}
+.link {
+  padding: 5%;
+  font-family: "laceddays";
+  font-size: 2.3vw;
+  text-decoration: none;
+  color: var(--text-border-color);
+}
+.link:hover {
+  scale: 1.1;
+  color: var(--decorative-color);
+}

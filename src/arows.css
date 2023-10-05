@@ -1,0 +1,61 @@
+.arrowLeft {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+}
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: rotate(180deg);
+}
+
+.arrow {
+  background: rgb(32, 32, 32, 0.9);
+  border: 5px solid #202020;
+  padding: 2px;
+  border-radius: 10%;
+
+  position: relative;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: 1.5s;
+  overflow: hidden;
+}
+
+.arrow:before {
+  position: absolute;
+  display: block;
+  content: "";
+  color: #f5f5f5;
+  width: 16px;
+  height: 16px;
+  border-top: solid 4px;
+  border-left: solid 4px;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0% 0%;
+  transform: rotatez(-45deg);
+}
+.arrow:hover:before {
+  animation: aniArrow01 1s cubic-bezier(0, 0.6, 1, 0.4) infinite 0.5s;
+}
+
+@keyframes aniArrow01 {
+  0% {
+    transform: rotatez(-45deg) translateY(30px) translateX(30px);
+  }
+  100% {
+    transform: rotatez(-45deg) translateY(-35px) translateX(-35px);
+  }
+}
+
+@keyframes aniArrow02 {
+  0% {
+    transform: translateX(45px);
+  }
+  100% {
+    transform: translateX(-44px);
+  }
+}
