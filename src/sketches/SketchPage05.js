@@ -2,6 +2,7 @@ import "./Sketch.css";
 import Arows from "../Arows.js";
 import Header from "../Header";
 import Navbar from "../Navbar.js";
+import Sketch05 from "./Sketch05";
 
 import React, { useState } from "react";
 
@@ -16,7 +17,9 @@ function SketchPage05() {
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
-        <div className="canvas" id="canva-05"></div>
+        <div className="canvas">
+          <Sketch05 />
+        </div>
         {navbarStatus == true && (
           <div className="panel">
             <Navbar />
