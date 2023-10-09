@@ -15,10 +15,10 @@ function SketchPage01() {
   const [navbarStatus, setNavbarStatus] = useState(false);
   const [dataURI, setDataURI] = useState(null);
 
-  const saveAsPng = () => {
-    const canvas = canvasRef01.current;
+  const saveAsPng = (canvas) => {
+    console.log(canvas);
     const dataURI = canvas.toDataURL("image / png");
-    //
+
     const aTag = document.createElement("a");
     aTag.href = dataURI;
     aTag.setAttribute("download", "Code Gallery by 0xLeoDev");
@@ -33,7 +33,7 @@ function SketchPage01() {
       <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
         <div className="canvas">
-          <Sketch01 setDataURI={setDataURI} />
+          <Sketch01 saveAsPng={saveAsPng} />
         </div>
         {navbarStatus == true && (
           <div className="panel">

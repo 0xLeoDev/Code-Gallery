@@ -113,6 +113,15 @@ const Sketch01 = (props) => {
     draw(context, canvas, width, height, numOfRec, bacgroundColor);
   }, [draw]);
 
+  const clicked = () => {
+    const canvas = canvasRef01.current;
+    console.log(canvas);
+
+    console.log(dataURInew);
+    const a = dataURInew;
+    props.saveAsPng(canvas);
+  };
+
   return (
     <>
       <canvas
@@ -122,7 +131,7 @@ const Sketch01 = (props) => {
         height={"1080px"}
         {...props}
       />
-      <button onClick={() => console.log(dataURInew)}>click</button>
+      <button onClick={clicked}>click</button>
     </>
   );
 };
