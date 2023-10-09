@@ -3,7 +3,7 @@ const canvasSketch = require("canvas-sketch");
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
-const Sketch03 = (props) => {
+const Sketch02 = (props) => {
   const canvasRef = useRef(null);
 
   const [numOfRec, setNumOfRec] = useState(4);
@@ -21,6 +21,7 @@ const Sketch03 = (props) => {
     const context = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
+    console.log("useEfect width: " + width + "height " + height);
     draw(context, canvas, width, height, numOfRec, bacgroundColor);
   }, [draw]);
 
@@ -35,4 +36,4 @@ const Sketch03 = (props) => {
   );
 };
 
-export default Sketch03;
+export default Sketch02;

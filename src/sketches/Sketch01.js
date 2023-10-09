@@ -4,9 +4,11 @@ const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 const Sketch01 = (props) => {
-  const canvasRef = useRef(null);
+  const canvasRef01 = useRef(null);
 
-  const [numOfRec, setNumOfRec] = useState(5);
+  const [dataURI, setDataURI] = useState(null);
+
+  const [numOfRec, setNumOfRec] = useState(6);
   const [bacgroundColor, setBacgroundColor] = useState("#1a1a1a");
   const [lineColor, setLineColor] = useState();
   const [decorativeColor, setDecorativeColor] = useState();
@@ -97,23 +99,31 @@ const Sketch01 = (props) => {
     }
   };
 
+  const dataURInew = useRef("");
+
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef01.current;
+
+    const dataURI = canvas.toDataURL("image / png");
+    dataURInew.current = dataURI;
+
     const context = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
-    console.log("useEfect width: " + width + "height " + height);
     draw(context, canvas, width, height, numOfRec, bacgroundColor);
   }, [draw]);
 
   return (
-    <canvas
-      style={{ width: "100%", height: "100%" }}
-      width={"1080px"}
-      height={"1080px"}
-      ref={canvasRef}
-      {...props}
-    />
+    <>
+      <canvas
+        ref={canvasRef01}
+        style={{ width: "100%", height: "100%" }}
+        width={"1080px"}
+        height={"1080px"}
+        {...props}
+      />
+      <button onClick={() => console.log(dataURInew)}>click</button>
+    </>
   );
 };
 

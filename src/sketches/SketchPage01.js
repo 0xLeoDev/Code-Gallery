@@ -4,13 +4,28 @@ import Navbar from "../Navbar.js";
 import Header from "../Header";
 import Sketch01 from "./Sketch01";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function SketchPage01() {
+  const canvasRef01 = useRef(null);
+
   let pathLeft = "/sketch-05";
   let pathRight = "/sketch-02";
 
   const [navbarStatus, setNavbarStatus] = useState(false);
+  const [dataURI, setDataURI] = useState(null);
+
+  const saveAsPng = () => {
+    const canvas = canvasRef01.current;
+    const dataURI = canvas.toDataURL("image / png");
+    //
+    const aTag = document.createElement("a");
+    aTag.href = dataURI;
+    aTag.setAttribute("download", "Code Gallery by 0xLeoDev");
+    document.body.appendChild(aTag);
+    aTag.click();
+    aTag.remove();
+  };
 
   return (
     <>
@@ -18,15 +33,13 @@ function SketchPage01() {
       <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
         <div className="canvas">
-          <Sketch01 />
+          <Sketch01 setDataURI={setDataURI} />
         </div>
-
         {navbarStatus == true && (
           <div className="panel">
             <Navbar />
           </div>
         )}
-
         {navbarStatus == false && (
           <div className="panel">
             <h2 className="skethTitle">sketch-01</h2>
@@ -40,9 +53,15 @@ function SketchPage01() {
               <h3>Option 4</h3>
               <p>option 4</p>
             </div>
-            <button>save as png</button>
+            <button onClick={saveAsPng}>save as png</button>
           </div>
         )}
+        <canvas
+          ref={canvasRef01}
+          style={{ background: "pink", width: "100%", height: "100%" }}
+          width={"100px"}
+          height={"300px"}
+        />
       </div>
     </>
   );
