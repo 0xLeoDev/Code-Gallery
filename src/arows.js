@@ -27,14 +27,14 @@ function Arows(props) {
         onClick={() => navigate(pathLeft)}
         className="arrowLeft"
       >
-        <div class="arrow"></div>
+        <div className="arrow"></div>
       </div>
       <div
         title={pathRight}
         onClick={() => navigate(pathRight)}
         className="arrowRight"
       >
-        <div class="arrow"></div>
+        <div className="arrow"></div>
       </div>
     </>
   );
