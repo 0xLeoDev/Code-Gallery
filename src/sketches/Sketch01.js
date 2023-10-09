@@ -99,40 +99,23 @@ const Sketch01 = (props) => {
     }
   };
 
-  const dataURInew = useRef("");
-
   useEffect(() => {
     const canvas = canvasRef01.current;
-
-    const dataURI = canvas.toDataURL("image / png");
-    dataURInew.current = dataURI;
-
     const context = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
     draw(context, canvas, width, height, numOfRec, bacgroundColor);
+    props.saveDataURIinParrent(canvas);
   }, [draw]);
 
-  const clicked = () => {
-    const canvas = canvasRef01.current;
-    console.log(canvas);
-
-    console.log(dataURInew);
-    const a = dataURInew;
-    props.saveAsPng(canvas);
-  };
-
   return (
-    <>
-      <canvas
-        ref={canvasRef01}
-        style={{ width: "100%", height: "100%" }}
-        width={"1080px"}
-        height={"1080px"}
-        {...props}
-      />
-      <button onClick={clicked}>click</button>
-    </>
+    <canvas
+      ref={canvasRef01}
+      style={{ width: "100%", height: "100%" }}
+      width={"1080px"}
+      height={"1080px"}
+      {...props}
+    />
   );
 };
 

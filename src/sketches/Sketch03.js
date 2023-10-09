@@ -21,8 +21,8 @@ const Sketch02 = (props) => {
     const context = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
-    console.log("useEfect width: " + width + "height " + height);
     draw(context, canvas, width, height, numOfRec, bacgroundColor);
+    props.saveDataURIinParrent(canvas);
   }, [draw]);
 
   return (

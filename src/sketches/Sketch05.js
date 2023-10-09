@@ -22,6 +22,7 @@ const Sketch05 = (props) => {
     const width = canvas.width;
     const height = canvas.height;
     draw(context, canvas, width, height, numOfRec, bacgroundColor);
+    props.saveDataURIinParrent(canvas);
   }, [draw]);
 
   return (

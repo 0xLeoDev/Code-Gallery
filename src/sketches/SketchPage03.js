@@ -4,7 +4,7 @@ import Header from "../Header";
 import Navbar from "../Navbar.js";
 import Sketch03 from "./Sketch03";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 function SketchPage03(props) {
   let pathLeft = "/sketch-02";
@@ -12,13 +12,19 @@ function SketchPage03(props) {
 
   const [navbarStatus, setNavbarStatus] = useState(false);
 
+  let canvasDataURI = useRef("");
+  const saveDataURIinParrent = (canvas) => {
+    const dataURI = canvas.toDataURL("image / png");
+    canvasDataURI = dataURI;
+  };
+
   return (
     <>
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
         <div className="canvas">
-          <Sketch03 />
+          <Sketch03 saveDataURIinParrent={saveDataURIinParrent} />
         </div>
         {navbarStatus == true && (
           <div className="panel">
@@ -39,7 +45,9 @@ function SketchPage03(props) {
               <h3>Option 4</h3>
               <p>option 4</p>
             </div>
-            <button>save as png</button>
+            <button onClick={() => props.saveAsPng(canvasDataURI)}>
+              save as png
+            </button>
           </div>
         )}
       </div>

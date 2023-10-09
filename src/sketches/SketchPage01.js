@@ -6,25 +6,16 @@ import Sketch01 from "./Sketch01";
 
 import React, { useState, useEffect, useRef } from "react";
 
-function SketchPage01() {
-  const canvasRef01 = useRef(null);
-
+function SketchPage01(props) {
   let pathLeft = "/sketch-05";
   let pathRight = "/sketch-02";
 
   const [navbarStatus, setNavbarStatus] = useState(false);
-  const [dataURI, setDataURI] = useState(null);
 
-  const saveAsPng = (canvas) => {
-    console.log(canvas);
+  let canvasDataURI = useRef("");
+  const saveDataURIinParrent = (canvas) => {
     const dataURI = canvas.toDataURL("image / png");
-
-    const aTag = document.createElement("a");
-    aTag.href = dataURI;
-    aTag.setAttribute("download", "Code Gallery by 0xLeoDev");
-    document.body.appendChild(aTag);
-    aTag.click();
-    aTag.remove();
+    canvasDataURI = dataURI;
   };
 
   return (
@@ -33,7 +24,7 @@ function SketchPage01() {
       <Arows pathLeft={pathLeft} pathRight={pathRight} />
       <div className="App">
         <div className="canvas">
-          <Sketch01 saveAsPng={saveAsPng} />
+          <Sketch01 saveDataURIinParrent={saveDataURIinParrent} />
         </div>
         {navbarStatus == true && (
           <div className="panel">
@@ -53,15 +44,11 @@ function SketchPage01() {
               <h3>Option 4</h3>
               <p>option 4</p>
             </div>
-            <button onClick={saveAsPng}>save as png</button>
+            <button onClick={() => props.saveAsPng(canvasDataURI)}>
+              save as png
+            </button>
           </div>
         )}
-        <canvas
-          ref={canvasRef01}
-          style={{ background: "pink", width: "100%", height: "100%" }}
-          width={"100px"}
-          height={"300px"}
-        />
       </div>
     </>
   );

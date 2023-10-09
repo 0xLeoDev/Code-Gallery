@@ -7,18 +7,18 @@ function Arows(props) {
   let pathLeft = props.pathLeft;
   let pathRight = props.pathRight;
 
-  useEffect(() => {
-    const onKeyDown = ({ key }) => {
-      if (key === "ArrowRight") {
-        navigate(pathRight);
-      }
-      if (key === "ArrowLeft") {
-        navigate(pathLeft);
-      }
-    };
+  // useEffect(() => {
+  //   const onKeyDown = ({ key }) => {
+  //     if (key === "ArrowRight") {
+  //       navigate(pathRight);
+  //     }
+  //     if (key === "ArrowLeft") {
+  //       navigate(pathLeft);
+  //     }
+  //   };
 
-    document.addEventListener("keydown", onKeyDown);
-  }, []);
+  //   document.addEventListener("keydown", onKeyDown);
+  // }, []);
 
   return (
     <>
