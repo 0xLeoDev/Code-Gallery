@@ -74,8 +74,7 @@ const Sketch02 = (props) => {
         agents.push(new Agent(x, y));
       }
 
-      if (!canvasRef.current) return; // prevent animation running after component is unmounted
-      renderFrame(context, canvas, width, height);
+      renderFrame();
     } catch (error) {}
   };
 

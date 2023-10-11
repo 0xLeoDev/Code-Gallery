@@ -8,20 +8,32 @@ const Sketch04 = (props) => {
 
   const [bacgroundColor, setBacgroundColor] = useState("yellow");
 
-  const draw = (context, canvas, width, height, bacgroundColor) => {
-    context.fillStyle = bacgroundColor;
-    context.fillRect(0, 0, width, height);
+  const renderFrame = () => {
+    try {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      const width = canvas.width;
+      const height = canvas.height;
+
+      context.fillStyle = bacgroundColor;
+      context.fillRect(0, 0, width, height);
+    } catch (error) {}
+  };
+
+  const initCanvas = () => {
+    try {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      const width = canvas.width;
+      const height = canvas.height;
+
+      renderFrame();
+    } catch (error) {}
   };
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    const width = canvas.width;
-    const height = canvas.height;
-    const frame = canvas.frame08;
-    draw(context, canvas, width, height, bacgroundColor, frame);
-    props.saveDataURIinParrent(canvas);
-  }, [draw]);
+    initCanvas();
+  }, []);
 
   return (
     <canvas
