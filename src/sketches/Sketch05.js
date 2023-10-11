@@ -7,8 +7,9 @@ const Sketch05 = (props) => {
   const canvasRef = useRef(null);
 
   const [bacgroundColor, setBacgroundColor] = useState("orange");
+  let angle = 0.1;
 
-  const draw = (context, canvas, width, height, bacgroundColor) => {
+  const draw = (context, canvas, width, height) => {
     context.fillStyle = bacgroundColor;
     context.fillRect(0, 0, width, height);
 
@@ -30,27 +31,27 @@ const Sketch05 = (props) => {
     console.log(angle);
   };
 
-  let angle = 0.1;
   const renderFrame = () => {
+    //update animations avery frame (redrove it)
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
-    draw(context, canvas, width, height, bacgroundColor);
-    props.saveDataURIinParrent(canvas);
+    draw(context, canvas, width, height);
+
+    requestAnimationFrame(renderFrame);
+    props.saveDataURIinParrent(canvas); //save URI to parent
   };
 
-  let frame = 1;
-  const tick = () => {
-    frame += 1;
-    console.log(frame);
+  const initCanvas = () => {
+    //This part is rendered only onece
+
     if (!canvasRef.current) return; // prevent animation running after component is unmounted
     renderFrame();
-    requestAnimationFrame(tick);
   };
 
   useEffect(() => {
-    requestAnimationFrame(tick);
+    initCanvas();
   }, []);
 
   return (

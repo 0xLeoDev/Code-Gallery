@@ -10,7 +10,6 @@ const Sketch02 = (props) => {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      console.log("runing Point");
     }
   }
   class Agent {
@@ -18,10 +17,11 @@ const Sketch02 = (props) => {
       this.pos = new Vector(x, y);
       this.radius = random.range(6, 12);
       this.vel = new Vector(random.range(-1, 1), random.range(-1, 1));
-      console.log("runing new Agent");
+      console.log(
+        "Creating new Agent. Positon: " + this.pos.x + "/ " + this.pos.y
+      );
     }
     draw(context) {
-      console.log("agent.draw");
       context.save();
       context.fillStyle = "white";
       context.lineWidth = 5;
@@ -33,48 +33,53 @@ const Sketch02 = (props) => {
       context.restore();
     }
     upadate() {
-      console.log("agent.update");
       this.pos.x += this.vel.x;
-      this.pos.y += this.pos.y;
+      this.pos.y += this.vel.y;
     }
   }
   const agents = [];
 
-  const draw = (context, canvas, width, height, frameIt) => {
-    context.fillStyle = "lightblue";
-    context.fillRect(0, 0, width, height);
-
-    for (let i = 0; i < 1; i++) {
-      const x = random.range(0, width);
-      const y = random.range(0, height);
-      agents.push(new Agent(x, y));
-    }
-    agents.forEach((agent) => {
-      agent.upadate();
-      agent.draw(context);
-    });
-    frame += 1;
-    console.log(frame);
-  };
-
   const renderFrame = () => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    const width = canvas.width;
-    const height = canvas.height;
-    draw(context, canvas, width, height);
-    // props.saveDataURIinParrent(canvas);
-    // requestAnimationFrame(draw);
+    try {
+      console.log("Rendering frame.");
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      const width = canvas.width;
+      const height = canvas.height;
+
+      context.fillStyle = "lightblue";
+      context.fillRect(0, 0, width, height);
+
+      agents.forEach((agent) => {
+        // console.log("forEach");
+        agent.upadate();
+        agent.draw(context);
+      });
+      props.saveDataURIinParrent(canvas);
+      requestAnimationFrame(renderFrame);
+    } catch (error) {}
   };
 
-  let frame = 1;
-  const tick = () => {
-    if (!canvasRef.current) return; // prevent animation running after component is unmounted
-    renderFrame();
+  const initCanvas = () => {
+    try {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      const width = canvas.width;
+      const height = canvas.height;
+
+      for (let i = 0; i < 10; i++) {
+        const x = random.range(0, width);
+        const y = random.range(0, height);
+        agents.push(new Agent(x, y));
+      }
+
+      if (!canvasRef.current) return; // prevent animation running after component is unmounted
+      renderFrame(context, canvas, width, height);
+    } catch (error) {}
   };
 
   useEffect(() => {
-    requestAnimationFrame(tick);
+    initCanvas();
   }, []);
 
   return (
