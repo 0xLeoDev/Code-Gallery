@@ -6,24 +6,52 @@ const math = require("canvas-sketch-util/math");
 const Sketch05 = (props) => {
   const canvasRef = useRef(null);
 
-  const [numOfRec, setNumOfRec] = useState(4);
-  const [bacgroundColor, setBacgroundColor] = useState("pink");
-  const [lineColor, setLineColor] = useState();
-  const [decorativeColor, setDecorativeColor] = useState();
+  const [bacgroundColor, setBacgroundColor] = useState("orange");
 
-  const draw = (context, canvas, width, height, numOfRec, bacgroundColor) => {
+  const draw = (context, canvas, width, height, bacgroundColor) => {
     context.fillStyle = bacgroundColor;
     context.fillRect(0, 0, width, height);
+
+    context.fillStyle = "black";
+    const x = width * 0.5;
+    const y = height * 0.5;
+    const w = width * 0.1;
+    const h = height * 0.1;
+
+    context.save();
+    context.translate(x, y);
+    context.rotate(angle);
+    context.beginPath();
+    context.rect(w * -0.5, h * -0.5, w, h);
+    context.fill();
+    context.restore();
+
+    angle += 0.01;
+    console.log(angle);
   };
 
-  useEffect(() => {
+  let angle = 0.1;
+  const renderFrame = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
-    draw(context, canvas, width, height, numOfRec, bacgroundColor);
+    draw(context, canvas, width, height, bacgroundColor);
     props.saveDataURIinParrent(canvas);
-  }, [draw]);
+  };
+
+  let frame = 1;
+  const tick = () => {
+    frame += 1;
+    console.log(frame);
+    if (!canvasRef.current) return; // prevent animation running after component is unmounted
+    renderFrame();
+    requestAnimationFrame(tick);
+  };
+
+  useEffect(() => {
+    requestAnimationFrame(tick);
+  }, []);
 
   return (
     <canvas

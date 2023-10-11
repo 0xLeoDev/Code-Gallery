@@ -6,12 +6,9 @@ const math = require("canvas-sketch-util/math");
 const Sketch04 = (props) => {
   const canvasRef = useRef(null);
 
-  const [numOfRec, setNumOfRec] = useState(4);
-  const [bacgroundColor, setBacgroundColor] = useState("pink");
-  const [lineColor, setLineColor] = useState();
-  const [decorativeColor, setDecorativeColor] = useState();
+  const [bacgroundColor, setBacgroundColor] = useState("yellow");
 
-  const draw = (context, canvas, width, height, numOfRec, bacgroundColor) => {
+  const draw = (context, canvas, width, height, bacgroundColor) => {
     context.fillStyle = bacgroundColor;
     context.fillRect(0, 0, width, height);
   };
@@ -22,7 +19,7 @@ const Sketch04 = (props) => {
     const width = canvas.width;
     const height = canvas.height;
     const frame = canvas.frame08;
-    draw(context, canvas, width, height, numOfRec, bacgroundColor, frame);
+    draw(context, canvas, width, height, bacgroundColor, frame);
     props.saveDataURIinParrent(canvas);
   }, [draw]);
 
