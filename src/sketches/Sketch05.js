@@ -39,8 +39,8 @@ const Sketch05 = (props) => {
     const height = canvas.height;
     draw(context, canvas, width, height);
 
-    requestAnimationFrame(renderFrame);
     props.saveDataURIinParrent(canvas); //save URI to parent
+    requestAnimationFrame(renderFrame);
   };
 
   const initCanvas = () => {

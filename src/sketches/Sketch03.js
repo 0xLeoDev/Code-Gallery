@@ -23,7 +23,8 @@ const Sketch02 = (props) => {
     }
     draw(context) {
       context.save();
-      context.fillStyle = "white";
+      context.fillStyle = "#1a1a1a";
+      context.strokeStyle = "#f1f1f1";
       context.lineWidth = 5;
       context.translate(this.pos.x, this.pos.y);
       context.beginPath();
@@ -47,7 +48,7 @@ const Sketch02 = (props) => {
       const width = canvas.width;
       const height = canvas.height;
 
-      context.fillStyle = "lightblue";
+      context.fillStyle = "#1a1a1a";
       context.fillRect(0, 0, width, height);
 
       agents.forEach((agent) => {
