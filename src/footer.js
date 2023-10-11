@@ -6,9 +6,9 @@ import twitter from "./IMG/twitter.png";
 
 function Footer() {
   return (
-    <div class="footer">
+    <div className="footer">
       <img
-        class="socialIcon"
+        className="socialIcon"
         width="30"
         height="30"
         src={medium}
@@ -16,7 +16,7 @@ function Footer() {
         onClick={() => window.open("https://medium.com/")}
       />
       <img
-        class="socialIcon"
+        className="socialIcon"
         width="30"
         height="30"
         src={twitter}
@@ -24,7 +24,7 @@ function Footer() {
         onClick={() => window.open("https://twitter.com/home")}
       />
       <img
-        class="socialIcon"
+        className="socialIcon"
         width="30"
         height="30"
         src={github}
@@ -32,7 +32,7 @@ function Footer() {
         onClick={() => window.open("https://github.com/")}
       />
       <img
-        class="socialIcon"
+        className="socialIcon"
         width="30"
         height="30"
         src={etherscan}

@@ -3,7 +3,7 @@ const canvasSketch = require("canvas-sketch");
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
-const Sketch03 = (props) => {
+const Sketch02 = (props) => {
   const canvasRef = useRef(null);
 
   const [numOfRec, setNumOfRec] = useState(4);
@@ -22,6 +22,7 @@ const Sketch03 = (props) => {
     const width = canvas.width;
     const height = canvas.height;
     draw(context, canvas, width, height, numOfRec, bacgroundColor);
+    props.saveDataURIinParrent(canvas);
   }, [draw]);
 
   return (
@@ -35,4 +36,4 @@ const Sketch03 = (props) => {
   );
 };
 
-export default Sketch03;
+export default Sketch02;

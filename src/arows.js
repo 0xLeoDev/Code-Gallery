@@ -7,18 +7,18 @@ function Arows(props) {
   let pathLeft = props.pathLeft;
   let pathRight = props.pathRight;
 
-  useEffect(() => {
-    const onKeyDown = ({ key }) => {
-      if (key === "ArrowRight") {
-        navigate(pathRight);
-      }
-      if (key === "ArrowLeft") {
-        navigate(pathLeft);
-      }
-    };
+  // useEffect(() => {
+  //   const onKeyDown = ({ key }) => {
+  //     if (key === "ArrowRight") {
+  //       navigate(pathRight);
+  //     }
+  //     if (key === "ArrowLeft") {
+  //       navigate(pathLeft);
+  //     }
+  //   };
 
-    document.addEventListener("keydown", onKeyDown);
-  }, []);
+  //   document.addEventListener("keydown", onKeyDown);
+  // }, []);
 
   return (
     <>
@@ -27,14 +27,14 @@ function Arows(props) {
         onClick={() => navigate(pathLeft)}
         className="arrowLeft"
       >
-        <div class="arrow"></div>
+        <div className="arrow"></div>
       </div>
       <div
         title={pathRight}
         onClick={() => navigate(pathRight)}
         className="arrowRight"
       >
-        <div class="arrow"></div>
+        <div className="arrow"></div>
       </div>
     </>
   );
