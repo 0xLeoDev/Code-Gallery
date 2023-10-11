@@ -20,7 +20,7 @@ const Sketch04 = (props) => {
     } catch (error) {}
   };
 
-  const initCanvas = () => {
+  const initCanva = () => {
     try {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
@@ -32,7 +32,7 @@ const Sketch04 = (props) => {
   };
 
   useEffect(() => {
-    initCanvas();
+    initCanva();
   }, []);
 
   return (

@@ -4,12 +4,22 @@ const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 const Sketch02 = (props) => {
+  // sppeed
+  // quantity
+  // bounce or pass
+  // line intenticity
+
   const canvasRef = useRef(null);
 
   class Vector {
     constructor(x, y) {
       this.x = x;
       this.y = y;
+    }
+    getDistance(v) {
+      const dx = this.x - v.x;
+      const dy = this.y - v.y;
+      return Math.sqrt(dx * dx + dy * dy);
     }
   }
   class Agent {
@@ -37,6 +47,16 @@ const Sketch02 = (props) => {
       this.pos.x += this.vel.x;
       this.pos.y += this.vel.y;
     }
+    bounceOrPass(width, height) {
+      if (this.pos.x <= 0 || this.pos.x >= width) {
+        this.vel.x *= -1;
+      }
+      if (this.pos.y <= 1) {
+        this.pos.y = height;
+      } else if (this.pos.y >= height) {
+        this.pos.y = 1;
+      }
+    }
   }
   const agents = [];
 
@@ -51,24 +71,43 @@ const Sketch02 = (props) => {
       context.fillStyle = "#1a1a1a";
       context.fillRect(0, 0, width, height);
 
+      for (let i = 0; i < agents.length; i++) {
+        const agent = agents[i];
+
+        for (let j = i + 1; j < agents.length; j++) {
+          const other = agents[j];
+
+          const dist = agent.pos.getDistance(other.pos);
+          if (dist > 200) continue;
+
+          context.lineWidth = math.mapRange(dist, 0, 200, 10, 1);
+
+          context.strokeStyle = "#f5f5f5";
+
+          context.beginPath();
+          context.moveTo(agent.pos.x, agent.pos.y);
+          context.lineTo(other.pos.x, other.pos.y);
+          context.stroke();
+        }
+      }
+
       agents.forEach((agent) => {
-        // console.log("forEach");
         agent.upadate();
         agent.draw(context);
+        agent.bounceOrPass(width, height);
       });
-      props.saveDataURIinParrent(canvas);
+      // props.saveDataURIinParrent(canvas);
       requestAnimationFrame(renderFrame);
     } catch (error) {}
   };
 
-  const initCanvas = () => {
+  const initCanva = () => {
     try {
       const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
       const width = canvas.width;
       const height = canvas.height;
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 20; i++) {
         const x = random.range(0, width);
         const y = random.range(0, height);
         agents.push(new Agent(x, y));
@@ -79,7 +118,7 @@ const Sketch02 = (props) => {
   };
 
   useEffect(() => {
-    initCanvas();
+    initCanva();
   }, []);
 
   return (
