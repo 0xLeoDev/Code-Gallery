@@ -1,13 +1,17 @@
+import { Switch } from "@mui/material";
 import React, { useRef, useEffect, useState } from "react";
 const canvasSketch = require("canvas-sketch");
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 const Sketch02 = (props) => {
-  // sppeed
-  // quantity
-  // bounce or pass
-  // line intenticity
+  let bounce = false; // it might be better to use traditona variables useState when changed couse rerendering the pagae
+
+  const handleSwitchBounceChange = () => {
+    bounce = !bounce;
+    //  setBounce((prevBounce) => !prevBounce);
+    // alert(bounce);
+  };
 
   const canvasRef = useRef(null);
 
@@ -47,9 +51,19 @@ const Sketch02 = (props) => {
       this.pos.x += this.vel.x;
       this.pos.y += this.vel.y;
     }
-    bounceOrPass(width, height) {
+    bounce(width, height) {
       if (this.pos.x <= 0 || this.pos.x >= width) {
         this.vel.x *= -1;
+      }
+      if (this.pos.y <= 0 || this.pos.y >= height) {
+        this.vel.y *= -1;
+      }
+    }
+    pass(width, height) {
+      if (this.pos.x <= 1) {
+        this.pos.x = width;
+      } else if (this.pos.x >= height) {
+        this.pos.x = 1;
       }
       if (this.pos.y <= 1) {
         this.pos.y = height;
@@ -94,9 +108,13 @@ const Sketch02 = (props) => {
       agents.forEach((agent) => {
         agent.upadate();
         agent.draw(context);
-        agent.bounceOrPass(width, height);
+        if (bounce == true) {
+          agent.bounce(width, height);
+        } else {
+          agent.pass(width, height);
+        }
       });
-      // props.saveDataURIinParrent(canvas);
+      props.saveDataURIinParrent(canvas);
       requestAnimationFrame(renderFrame);
     } catch (error) {}
   };
@@ -122,13 +140,16 @@ const Sketch02 = (props) => {
   }, []);
 
   return (
-    <canvas
-      style={{ width: "100%", height: "100%" }}
-      width={"1080px"}
-      height={"1080px"}
-      ref={canvasRef}
-      {...props}
-    />
+    <>
+      <canvas
+        style={{ width: "100%", height: "100%" }}
+        width={"1080px"}
+        height={"1080px"}
+        ref={canvasRef}
+        {...props}
+      />
+      <Switch onChange={handleSwitchBounceChange} />
+    </>
   );
 };
 
