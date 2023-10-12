@@ -46,6 +46,16 @@ function SketchPage03(props) {
           <div className="panel">
             <h2 className="skethTitle">sketch-03</h2>
             <div className="optionsList">
+              <h3>Quantity</h3>
+              <Slider
+                color="secondary"
+                aria-label="Temperature"
+                defaultValue={value}
+                // getAriaValueText={valuetext}
+                valueLabelDisplay="auto"
+                min={1}
+                max={50}
+              />
               <h3>Bounce or pass</h3>
               <Stack
                 spacing={2}
@@ -73,16 +83,6 @@ function SketchPage03(props) {
                 marks
                 min={1}
                 max={20}
-              />
-              <h3>Quantity</h3>
-              <Slider
-                color="secondary"
-                aria-label="Temperature"
-                defaultValue={value}
-                // getAriaValueText={valuetext}
-                valueLabelDisplay="auto"
-                min={1}
-                max={50}
               />
               <h3>Line intensity</h3>
               <Slider

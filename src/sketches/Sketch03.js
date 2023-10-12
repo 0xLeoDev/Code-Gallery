@@ -6,11 +6,12 @@ const math = require("canvas-sketch-util/math");
 
 const Sketch02 = (props) => {
   let bounce = false; // it might be better to use traditona variables useState when changed couse rerendering the pagae
+  let lineIntensity = 700; // 0->1800
+  let numOfAgents = 10;
+  let speed = 10; // 0.25 0.5 1 2 5 10
 
   const handleSwitchBounceChange = () => {
     bounce = !bounce;
-    //  setBounce((prevBounce) => !prevBounce);
-    // alert(bounce);
   };
 
   const canvasRef = useRef(null);
@@ -48,8 +49,8 @@ const Sketch02 = (props) => {
       context.restore();
     }
     upadate() {
-      this.pos.x += this.vel.x;
-      this.pos.y += this.vel.y;
+      this.pos.x += this.vel.x * speed;
+      this.pos.y += this.vel.y * speed;
     }
     bounce(width, height) {
       if (this.pos.x <= 0 || this.pos.x >= width) {
@@ -92,19 +93,24 @@ const Sketch02 = (props) => {
           const other = agents[j];
 
           const dist = agent.pos.getDistance(other.pos);
-          if (dist > 200) continue;
+          if (dist > lineIntensity) continue;
 
-          context.lineWidth = math.mapRange(dist, 0, 200, 10, 1);
+          context.lineWidth = math.mapRange(dist, 0, lineIntensity, 10, 1);
 
           context.strokeStyle = "#f5f5f5";
 
           context.beginPath();
-          context.moveTo(agent.pos.x, agent.pos.y);
-          context.lineTo(other.pos.x, other.pos.y);
+          context.moveTo(
+            agent.pos.x + agent.vel.x * speed,
+            agent.pos.y + agent.vel.y * speed
+          );
+          context.lineTo(
+            other.pos.x + other.vel.x * speed,
+            other.pos.y + other.vel.y * speed
+          );
           context.stroke();
         }
       }
-
       agents.forEach((agent) => {
         agent.upadate();
         agent.draw(context);
@@ -114,6 +120,7 @@ const Sketch02 = (props) => {
           agent.pass(width, height);
         }
       });
+
       props.saveDataURIinParrent(canvas);
       requestAnimationFrame(renderFrame);
     } catch (error) {}
@@ -125,7 +132,7 @@ const Sketch02 = (props) => {
       const width = canvas.width;
       const height = canvas.height;
 
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < numOfAgents; i++) {
         const x = random.range(0, width);
         const y = random.range(0, height);
         agents.push(new Agent(x, y));
