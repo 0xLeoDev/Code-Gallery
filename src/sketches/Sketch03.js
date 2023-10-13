@@ -1,11 +1,13 @@
-import { Slider, Switch } from "@mui/material";
 import React, { useRef, useEffect, useState } from "react";
-const canvasSketch = require("canvas-sketch");
+import { Slider, Switch } from "@mui/material";
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 const Sketch02 = (props) => {
-  let initialNumOfAgents = 1;
+  const canvasRef = useRef(null);
+  const agents = [];
+
+  let initialQuantity = 3;
   const handleChangeQuantity = (event, newValue) => {
     let numbOfNewAgents = newValue - agents.length;
     if (numbOfNewAgents >= 1) {
@@ -26,7 +28,10 @@ const Sketch02 = (props) => {
     }
   };
 
-  let bounce = false; // it might be better to use traditona variables useState when changed couse rerendering the pagae
+  let bounce = false;
+  const handleSwitchBounceChange = () => {
+    bounce = !bounce;
+  };
 
   let lineIntensity = 200;
   const handleChangeLineIntensity = (event, newValue) => {
@@ -37,22 +42,12 @@ const Sketch02 = (props) => {
     }
   };
 
-  // let lineIntensity = 700; // 0->1800
-  let speed = 1; // 0.25 0.5 1 2 5 10
+  let speed = 1;
   const handleChangeSpeed = (event, newValue) => {
     if (typeof newValue === "number") {
-      // let newValueCorrected = (newValue * 10 * 1080) / 100;
-      // lineIntensity = newValueCorrected;
-      // console.log(newValueCorrected);
       speed = newValue;
     }
   };
-
-  const handleSwitchBounceChange = () => {
-    bounce = !bounce;
-  };
-
-  const canvasRef = useRef(null);
 
   class Vector {
     constructor(x, y) {
@@ -111,7 +106,6 @@ const Sketch02 = (props) => {
       }
     }
   }
-  const agents = [];
 
   const renderFrame = () => {
     try {
@@ -170,7 +164,7 @@ const Sketch02 = (props) => {
       const width = canvas.width;
       const height = canvas.height;
 
-      for (let i = 0; i < initialNumOfAgents; i++) {
+      for (let i = 0; i < initialQuantity; i++) {
         const x = random.range(0, width);
         const y = random.range(0, height);
         agents.push(new Agent(x, y));
@@ -196,14 +190,14 @@ const Sketch02 = (props) => {
       <p> quantity </p>
       <Slider
         color="secondary"
-        defaultValue={initialNumOfAgents}
+        defaultValue={initialQuantity}
         valueLabelDisplay="auto"
         step={1}
         min={1}
         max={50}
         onChange={handleChangeQuantity}
       />
-      <Switch onChange={handleSwitchBounceChange} />
+      <Switch color="secondary" onChange={handleSwitchBounceChange} />
       <p> line </p>
       <Slider
         color="secondary"

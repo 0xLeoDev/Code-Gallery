@@ -46,15 +46,17 @@ function SketchPage03(props) {
           <div className="panel">
             <h2 className="skethTitle">sketch-03</h2>
             <div className="optionsList">
-              <h3>Quantity</h3>
+              <h3>Quantity:</h3>
               <Slider
                 color="secondary"
-                defaultValue={value}
+                // defaultValue={initialQuantity}
                 valueLabelDisplay="auto"
+                step={1}
                 min={1}
                 max={50}
+                // onChange={handleChangeQuantity}
               />
-              <h3>Bounce or pass</h3>
+              <h3>Bounce or pass:</h3>
               <Stack
                 spacing={2}
                 direction="row"
@@ -70,25 +72,26 @@ function SketchPage03(props) {
                 <p> pass</p>
               </Stack>
 
-              <h3>Sppeed</h3>
+              <h3>Sppeed:</h3>
               <Slider
                 color="secondary"
-                defaultValue={10}
+                //     defaultValue={initialQuantity}
+                valueLabelDisplay="auto"
+                step={1}
+                min={1}
+                max={50}
+                //      onChange={handleChangeQuantity}
+              />
+              <h3>Line intensity:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={3}
                 valueLabelDisplay="auto"
                 step={1}
                 marks
-                min={1}
-                max={20}
-              />
-              <h3>Line intensity</h3>
-              <Slider
-                color="secondary"
-                defaultValue={40}
-                valueLabelDisplay="auto"
-                step={10}
-                marks
                 min={0}
-                max={100}
+                max={10}
+                //      onChange={handleChangeLineIntensity}
               />
             </div>
             <button onClick={() => props.saveAsPng(canvasDataURI)}>
