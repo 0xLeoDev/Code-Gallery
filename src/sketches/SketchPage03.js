@@ -49,9 +49,7 @@ function SketchPage03(props) {
               <h3>Quantity</h3>
               <Slider
                 color="secondary"
-                aria-label="Temperature"
                 defaultValue={value}
-                // getAriaValueText={valuetext}
                 valueLabelDisplay="auto"
                 min={1}
                 max={50}
@@ -75,9 +73,7 @@ function SketchPage03(props) {
               <h3>Sppeed</h3>
               <Slider
                 color="secondary"
-                aria-label="Temperature"
                 defaultValue={10}
-                // getAriaValueText={valuetext}
                 valueLabelDisplay="auto"
                 step={1}
                 marks
@@ -87,9 +83,7 @@ function SketchPage03(props) {
               <h3>Line intensity</h3>
               <Slider
                 color="secondary"
-                aria-label="Temperature"
                 defaultValue={40}
-                // getAriaValueText={valuetext}
                 valueLabelDisplay="auto"
                 step={10}
                 marks

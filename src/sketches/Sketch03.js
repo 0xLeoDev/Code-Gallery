@@ -1,14 +1,52 @@
-import { Switch } from "@mui/material";
+import { Slider, Switch } from "@mui/material";
 import React, { useRef, useEffect, useState } from "react";
 const canvasSketch = require("canvas-sketch");
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 const Sketch02 = (props) => {
+  let initialNumOfAgents = 1;
+  const handleChangeQuantity = (event, newValue) => {
+    let numbOfNewAgents = newValue - agents.length;
+    if (numbOfNewAgents >= 1) {
+      for (let i = 0; i < numbOfNewAgents; i++) {
+        const canvas = canvasRef.current;
+        const width = canvas.width;
+        const height = canvas.height;
+        const x = random.range(0, width);
+        const y = random.range(0, height);
+        agents.push(new Agent(x, y));
+      }
+    }
+    if (numbOfNewAgents <= -1) {
+      console.log(numbOfNewAgents);
+      console.log(Math.abs(numbOfNewAgents));
+      agents.splice(0, Math.abs(numbOfNewAgents));
+      console.log(agents.length);
+    }
+  };
+
   let bounce = false; // it might be better to use traditona variables useState when changed couse rerendering the pagae
-  let lineIntensity = 700; // 0->1800
-  let numOfAgents = 10;
-  let speed = 10; // 0.25 0.5 1 2 5 10
+
+  let lineIntensity = 200;
+  const handleChangeLineIntensity = (event, newValue) => {
+    if (typeof newValue === "number") {
+      let newValueCorrected = (newValue * 10 * 1080) / 100;
+      lineIntensity = newValueCorrected;
+      console.log(newValueCorrected);
+    }
+  };
+
+  // let lineIntensity = 700; // 0->1800
+  let speed = 1; // 0.25 0.5 1 2 5 10
+  const handleChangeSpeed = (event, newValue) => {
+    if (typeof newValue === "number") {
+      // let newValueCorrected = (newValue * 10 * 1080) / 100;
+      // lineIntensity = newValueCorrected;
+      // console.log(newValueCorrected);
+      speed = newValue;
+    }
+  };
 
   const handleSwitchBounceChange = () => {
     bounce = !bounce;
@@ -132,7 +170,7 @@ const Sketch02 = (props) => {
       const width = canvas.width;
       const height = canvas.height;
 
-      for (let i = 0; i < numOfAgents; i++) {
+      for (let i = 0; i < initialNumOfAgents; i++) {
         const x = random.range(0, width);
         const y = random.range(0, height);
         agents.push(new Agent(x, y));
@@ -155,7 +193,40 @@ const Sketch02 = (props) => {
         ref={canvasRef}
         {...props}
       />
+      <p> quantity </p>
+      <Slider
+        color="secondary"
+        defaultValue={initialNumOfAgents}
+        valueLabelDisplay="auto"
+        step={1}
+        min={1}
+        max={50}
+        onChange={handleChangeQuantity}
+      />
       <Switch onChange={handleSwitchBounceChange} />
+      <p> line </p>
+      <Slider
+        color="secondary"
+        defaultValue={3}
+        valueLabelDisplay="auto"
+        step={1}
+        marks
+        min={0}
+        max={10}
+        onChange={handleChangeLineIntensity}
+      />
+      <p> speed </p>
+      <Slider
+        color="secondary"
+        defaultValue={speed}
+        valueLabelDisplay="auto"
+        step={1}
+        marks
+        min={0}
+        max={10}
+        onChange={handleChangeSpeed}
+      />
+      <p> line </p>
     </>
   );
 };
