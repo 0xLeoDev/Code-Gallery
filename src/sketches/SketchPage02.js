@@ -1,30 +1,67 @@
 import "./Sketch.css";
 import Arows from "../Arows.js";
-import Header from "../Header";
 import Navbar from "../Navbar.js";
-import Sketch02 from "./Sketch02";
-
-import React, { useState, useRef } from "react";
+import Header from "../Header";
+import React, { useRef, useEffect, useState } from "react";
+const random = require("canvas-sketch-util/random");
+const math = require("canvas-sketch-util/math");
 
 function SketchPage02(props) {
-  let pathLeft = "/sketch-01";
-  let pathRight = "/sketch-03";
+  let arowPathLeft = "/sketch-01";
+  let arowPathRight = "/sketch-03";
 
   const [navbarStatus, setNavbarStatus] = useState(false);
 
-  let canvasDataURI = useRef("");
-  const saveDataURIinParrent = (canvas) => {
+  const canvasRef = useRef(null);
+
+  const renderFrame = () => {
+    try {
+      console.log("Rendering a frame.");
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      const width = canvas.width;
+      const height = canvas.height;
+
+      context.fillStyle = "orange";
+      context.fillRect(0, 0, width, height);
+
+      requestAnimationFrame(renderFrame);
+    } catch (error) {}
+  };
+
+  const initCanva = () => {
+    try {
+      const canvas = canvasRef.current;
+      const width = canvas.width;
+      const height = canvas.height;
+
+      renderFrame();
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    initCanva();
+  }, []);
+
+  const saveDataURIinParrent = () => {
+    const canvas = canvasRef.current;
     const dataURI = canvas.toDataURL("image / png");
-    canvasDataURI = dataURI;
+    props.saveAsPng(dataURI);
   };
 
   return (
     <>
       <Header setNavbarStatus={setNavbarStatus} />
-      <Arows pathLeft={pathLeft} pathRight={pathRight} />
+      <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
       <div className="App">
         <div className="canvas">
-          <Sketch02 saveDataURIinParrent={saveDataURIinParrent} />
+          <canvas
+            ref={canvasRef}
+            style={{ width: "100%", height: "100%" }}
+            width={"1080px"}
+            height={"1080px"}
+            {...props}
+          />
         </div>
 
         {navbarStatus == true && (
@@ -46,9 +83,7 @@ function SketchPage02(props) {
               <h3>Option 4</h3>
               <p>option 4</p>
             </div>
-            <button onClick={() => props.saveAsPng(canvasDataURI)}>
-              save as png
-            </button>
+            <button onClick={saveDataURIinParrent}>save as png</button>
           </div>
         )}
       </div>

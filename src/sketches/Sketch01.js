@@ -8,10 +8,8 @@ const Sketch01 = (props) => {
 
   const [dataURI, setDataURI] = useState(null);
 
-  const [numOfRec, setNumOfRec] = useState(6);
-  const [bacgroundColor, setBacgroundColor] = useState("#1a1a1a");
-  const [lineColor, setLineColor] = useState();
-  const [decorativeColor, setDecorativeColor] = useState();
+  let bacgroundColor = "#1a1a1a";
+  let numOfRec = 6;
 
   const draw = (context, canvas, width, height, numOfRec, bacgroundColor) => {
     context.fillStyle = bacgroundColor;
