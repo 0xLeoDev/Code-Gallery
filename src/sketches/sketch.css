@@ -17,7 +17,6 @@
   /* width: 200px; */
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
-  //padding: 2%;
 
   box-shadow: #f02eaa66 -5px 5px, #f02eaa4d -10px 10px, #f02eaa33 -15px 15px,
     #f02eaa1a -20px 20px, #f02eaa0d -25px 25px;
@@ -25,24 +24,6 @@
   background-size: contain;
   margin: auto;
 }
-/* 
-#canva-01 {
-  background-image: url("../IMG/sketch-prew-01.png");
-}
-#canva-02 {
-  background-image: url("../IMG/sketch-prew-02.png");
-}
-#canva-03 {
-  background-image: url("../IMG/sketch-prew-03.png");
-}
-#canva-04 {
-  background-image: url("../IMG/sketch-prew-04.png");
-}
-#canva-05 {
-  background-image: url("../IMG/sketch-prew-05.png");
-} */
-
-/* ------------ */
 .panel {
   /* width: auto; */
   min-width: 27%;
