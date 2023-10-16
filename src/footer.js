@@ -4,6 +4,7 @@ import github from "./IMG/github.png";
 import medium from "./IMG/medium.png";
 import twitter from "./IMG/twitter.png";
 
+//
 function Footer() {
   return (
     <div className="footer">
