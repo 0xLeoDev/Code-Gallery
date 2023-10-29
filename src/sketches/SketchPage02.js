@@ -67,7 +67,7 @@ function SketchPage02(props) {
         context.save();
         context.translate(cx, cy);
         context.rotate(-angle);
-        context.lineWidth = random.range(5, 20); // dugo biaych
+        context.lineWidth = random.range(5, 20);
         context.strokeStyle = "#f5f5f5";
         context.beginPath();
         context.arc(
@@ -80,6 +80,11 @@ function SketchPage02(props) {
         context.stroke();
         context.restore();
       }
+      let deley = "10000000";
+
+      setTimeout(() => {
+        requestAnimationFrame(initCanva);
+      }, 1000);
 
       //  renderFrame();
     } catch (error) {}

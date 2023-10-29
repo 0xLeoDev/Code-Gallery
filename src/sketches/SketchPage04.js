@@ -3,8 +3,6 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
-import { Slider } from "@mui/material";
-
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
@@ -15,27 +13,6 @@ function SketchPage04(props) {
   const [navbarStatus, setNavbarStatus] = useState(false);
 
   const canvasRef = useRef(null);
-  let frame = 1;
-
-  let speed = 6;
-  const handleChangeSpeed = (event, newValue) => {
-    speed = newValue * 2;
-  };
-
-  let cols = 5;
-  const handleChangeColumns = (event, newValue) => {
-    cols = newValue;
-  };
-
-  let rows = 15;
-  const handleChangeRows = (event, newValue) => {
-    rows = newValue;
-  };
-
-  let rotation = 0.1;
-  const handleChangeRotation = (event, newValue) => {
-    rotation = newValue * 5 * 10 ** -2;
-  };
 
   const renderFrame = () => {
     try {
@@ -48,10 +25,12 @@ function SketchPage04(props) {
       context.fillStyle = "#1a1a1a";
       context.fillRect(0, 0, width, height);
 
+      const cols = 10;
+      const rows = 10;
       const numCells = cols * rows;
 
-      const gridw = width * 0.95;
-      const gridh = height * 0.95;
+      const gridw = width * 0.9;
+      const gridh = height * 0.9;
 
       const cellw = gridw / cols;
       const cellh = gridh / rows;
@@ -69,8 +48,8 @@ function SketchPage04(props) {
         const w = cellw * 0.8;
         const h = cellh * 0.8;
 
-        const n = random.noise2D(x + frame * speed * 0.5, y, 0.001);
-        const angle = n * Math.PI * rotation;
+        const n = random.noise2D(x + 1 * 5, y, 0.001); //  1=> "frame"
+        const angle = n * Math.PI * 0.4;
         const scale = math.mapRange(n, -1, 1, 1, 30);
 
         context.save();
@@ -88,13 +67,17 @@ function SketchPage04(props) {
 
         context.restore();
       }
-      frame += 1;
-      requestAnimationFrame(renderFrame);
+
+      // requestAnimationFrame(renderFrame);
     } catch (error) {}
   };
 
   const initCanva = () => {
     try {
+      const canvas = canvasRef.current;
+      const width = canvas.width;
+      const height = canvas.height;
+
       renderFrame();
     } catch (error) {}
   };
@@ -133,44 +116,14 @@ function SketchPage04(props) {
           <div className="panel">
             <h2 className="skethTitle">sketch-04</h2>
             <div className="optionsList">
-              <h3>Speed:</h3>
-              <Slider
-                color="secondary"
-                defaultValue={3}
-                valueLabelDisplay="auto"
-                marks
-                min={0}
-                max={10}
-                onChange={handleChangeSpeed}
-              />
-              <h3>Columns:</h3>
-              <Slider
-                color="secondary"
-                defaultValue={cols}
-                valueLabelDisplay="auto"
-                min={1}
-                max={50}
-                onChange={handleChangeColumns}
-              />
-              <h3>Rows:</h3>
-              <Slider
-                color="secondary"
-                defaultValue={rows}
-                valueLabelDisplay="auto"
-                min={1}
-                max={50}
-                onChange={handleChangeRows}
-              />
-              <h3>Rotation:</h3>
-              <Slider
-                color="secondary"
-                defaultValue={2}
-                marks
-                valueLabelDisplay="auto"
-                min={0}
-                max={10}
-                onChange={handleChangeRotation}
-              />
+              <h3>Option 1</h3>
+              <p>slider 1</p>
+              <h3>Option 2</h3>
+              <p>option 2</p>
+              <h3>Option 3</h3>
+              <p>option 3</p>
+              <h3>Option 4</h3>
+              <p>option 4</p>
             </div>
             <button onClick={saveDataURIinParrent}>save as png</button>
           </div>
