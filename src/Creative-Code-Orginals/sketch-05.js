@@ -53,7 +53,6 @@ const sketch = ({ context, width, height }) => {
     typeContext.restore();
 
     const typeData = typeContext.getImageData(0, 0, cols, rows).data;
-    console.log("type data");
     console.log(typeData);
 
     context.fillStyle = "#1a1a1a";
@@ -64,7 +63,6 @@ const sketch = ({ context, width, height }) => {
 
     // context.drawImage(typeCanvas, 0, 0);
 
-    console.log("num of cell " + numCells);
     for (let i = 0; i < numCells; i++) {
       fontSize = cols;
 
@@ -83,7 +81,6 @@ const sketch = ({ context, width, height }) => {
       // context.fillStyle = `rgb(${r},${g},${b})`;
 
       glyph = getGlyph(r);
-      console.log("r " + glyph);
 
       context.font = `${cell * 2}px ${fontFamily}`;
       if (Math.random() < 0.05) context.font = `${cell * 6}px ${fontFamily}`;
@@ -107,12 +104,13 @@ const getGlyph = (v) => {
   if (v < 100) return ".";
   if (v < 150) return "-";
   if (v < 200) return "+";
-  console.log("Get g" + v);
+
+  const glyphs = "_=/".split("");
+  console.log(glyphs);
 
   return random.pick(glyphs);
 };
 
-////
 const onKeyUp = (e) => {
   text = e.key.toUpperCase();
   manager.render();
