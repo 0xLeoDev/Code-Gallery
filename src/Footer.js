@@ -30,7 +30,7 @@ function Footer() {
         height="30"
         src={github}
         alt="githubLogo"
-        onClick={() => window.open("https://github.com/")}
+        onClick={() => window.open("https://github.com/0xLeoDev")}
       />
       <img
         className="socialIcon"

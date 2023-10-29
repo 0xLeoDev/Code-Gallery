@@ -14,7 +14,7 @@ function SketchPage01(props) {
 
   const canvasRef = useRef(null);
   let bacgroundColor = "#1a1a1a";
-  let numOfRec = 6;
+  let numOfRec = 5;
 
   const renderFrame = () => {
     try {
@@ -119,7 +119,6 @@ function SketchPage01(props) {
           }
         }
       }
-
       //   renderFrame();
     } catch (error) {}
   };
