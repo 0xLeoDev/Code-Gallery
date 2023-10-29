@@ -33,7 +33,7 @@ function HomePage() {
 
         <div className="menuContainer">
           <div className="menulHeader">
-            Choose the sketch <br /> to work with:
+            Choose the sketch <br /> to play with:
           </div>
           <div className="linkList">
             <NavLink
