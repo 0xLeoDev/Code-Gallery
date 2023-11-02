@@ -1,3 +1,14 @@
+@media only screen and (max-width: 660px) {
+  body {
+    .header {
+      font-size: 9vw;
+    }
+
+    .logo {
+      align-self: center;
+    }
+  }
+}
 .header {
   width: min(100% - 90px, 1100px);
   margin: auto;

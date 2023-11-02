@@ -1,6 +1,7 @@
 @media only screen and (max-width: 1000px) {
   body {
     .App {
+      /* background-color: red; */
       width: min(100% - 140px, 500px);
       margin-bottom: 300px;
     }

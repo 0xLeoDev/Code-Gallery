@@ -196,7 +196,9 @@ function SketchPage03(props) {
                 onChange={handleChangeLineIntensity}
               />
             </div>
-            <button onClick={saveDataURIinParrent}>save as png</button>
+            <button className="button-main" onClick={saveDataURIinParrent}>
+              save as png
+            </button>
           </div>
         )}
       </div>

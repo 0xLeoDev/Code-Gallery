@@ -1,3 +1,41 @@
+@media only screen and (max-width: 1100px) {
+  body {
+    .App {
+      width: min(100% - 140px, 500px);
+      margin-bottom: 80px;
+      height: auto;
+    }
+    .canvas {
+      width: 90%;
+      aspect-ratio: 1/1;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    .panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+      width: 90%;
+      height: auto;
+      margin-bottom: 10px;
+      padding: 0;
+    }
+    .optionsList {
+      width: 90%;
+      margin-bottom: 20px;
+    }
+    .skethTitle {
+      margin: 10px;
+    }
+
+    .button-main {
+      margin-bottom: 10px;
+    }
+  }
+}
+
 .App {
   width: min(100% - 140px, 1100px);
   display: flex;
@@ -8,10 +46,8 @@
   flex-wrap: wrap;
 }
 .canvas {
-  /* min-width: 40px; */
   aspect-ratio: 1/1;
   height: 80%;
-  /* width: 200px; */
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
 
@@ -22,7 +58,6 @@
   margin: auto;
 }
 .panel {
-  /* width: auto; */
   min-width: 27%;
   height: 90%;
   background-color: var(--second-bg-color);
@@ -41,7 +76,7 @@
     rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
     rgba(240, 46, 170, 0.05) 25px 25px;
 }
-h2 {
+.skethTitle {
   align-self: flex-end;
   font-weight: 300;
 }
@@ -58,8 +93,11 @@ button {
   font-size: 20px;
   padding: 2%;
   color: var(--text-border-color);
-  width: 90%;
+  width: 100%;
   align-self: strech;
+}
+.button-main {
+  width: 90%;
 }
 button:hover {
   cursor: pointer;

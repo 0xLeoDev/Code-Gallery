@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <>
       <div className="navbar">
-        <h2 className="navbarHeader">Navigate to:</h2>
+        <div className="navbarHeader">Navigate to:</div>
         <div className="navbarList">
           <NavLink className="navLink" to="/">
             home page
@@ -52,7 +52,7 @@ function Navbar() {
             sketch-05
           </NavLink>
         </div>
-        <div>created by: 0xLeoDev</div>
+        <div className="menu-footer">created by: 0xLeoDev</div>
       </div>
     </>
   );

@@ -21,3 +21,34 @@
   margin: 8%;
   margin-top: 0;
 }
+
+/*  */
+.menulHeader {
+  margin: 20px;
+  width: 100%;
+  font-family: "laceddays";
+  font-size: 2.4vw;
+  text-align: center;
+}
+.linkList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.menu-footer {
+  margin: 20px;
+}
+
+.link {
+  padding: 5%;
+  font-family: "laceddays";
+  font-size: 2.3vw;
+  text-decoration: none;
+  color: var(--text-border-color);
+}
+.link:hover {
+  scale: 1.1;
+  color: var(--decorative-color);
+}
