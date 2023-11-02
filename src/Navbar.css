@@ -73,3 +73,6 @@
 .navLink.active:hover {
   cursor: default;
 }
+.menu-footer {
+  font-size: 18px;
+}
