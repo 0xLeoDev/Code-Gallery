@@ -164,8 +164,10 @@ function SketchPage01(props) {
               <p>option 3</p>
               <h3>Option 4</h3>
               <p>option 4</p>
-              <button onClick={initCanva}>refresh canva</button>
             </div>
+            <button className="button-main" onClick={initCanva}>
+              refresh canva
+            </button>
             <button className="button-main" onClick={saveDataURIinParrent}>
               save as png
             </button>

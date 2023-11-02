@@ -93,12 +93,10 @@ button {
   font-size: 20px;
   padding: 2%;
   color: var(--text-border-color);
-  width: 100%;
+  width: 90%;
   align-self: strech;
 }
-.button-main {
-  width: 90%;
-}
+
 button:hover {
   cursor: pointer;
   background-color: rgba(240, 46, 170, 0.2);

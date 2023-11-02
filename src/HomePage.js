@@ -75,7 +75,7 @@ function HomePage() {
               sketch-05
             </NavLink>
           </div>
-          <div className="menu-footer">created by: 0xLeoDev</div>
+          <div className="menuFooter">created by: 0xLeoDev</div>
         </div>
       </div>
     </>
