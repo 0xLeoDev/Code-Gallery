@@ -1,3 +1,5 @@
+# Code Gallery
+
 <img alt="logo"  src="./ReadmeFiles/logo.png">
 
 #### Live demo: [link](https://0xleodev.github.io/Code-Gallery/)
@@ -16,6 +18,6 @@ Each of the 5 sketches sketches represents the use of various key programming co
 <img alt="sample 1"  src="./ReadmeFiles/sample(1).png" width="19%">
 <img alt="sample 2"  src="./ReadmeFiles/sample(2).png" width="19%">
 <img alt="sample 3"  src="./ReadmeFiles/sample(3).png" width="19%">
-<img alt="sample 4"  src="./ReadmeFiles/sample(4).png" width="19%">
 <img alt="sample 5"  src="./ReadmeFiles/sample(5).png" width="19%">
+<img alt="sample 4"  src="./ReadmeFiles/sample(4).png" width="19%">
 </p>
