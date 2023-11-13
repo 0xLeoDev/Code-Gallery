@@ -19,14 +19,13 @@ function HomePage() {
     <>
       <div className="headerMainPage">
         <img
+          className="themeIcon"
           title="change theme"
-          width="40"
-          height="40"
           src={themeIcon}
           alt="themeIcon"
         />
       </div>
-      <div className="App">
+      <div className="app">
         <div className="previewContainer">
           <img id="preview" src={logo_b} alt="preview" />
         </div>

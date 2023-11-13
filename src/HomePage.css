@@ -1,14 +1,15 @@
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1000px) {
   body {
-    .App {
-      width: min(100% - 140px, 500px);
-      margin-bottom: 300px;
+    .app {
+      height: 100%;
+      width: min(100% - 60px, 500px);
+      margin-bottom: 70px;
     }
     .previewContainer {
       aspect-ratio: 1/1;
-      width: 90%;
+      width: 95%;
       height: auto;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
     .menuContainer {
       display: flex;
@@ -16,7 +17,7 @@
       justify-content: space-between;
       align-items: center;
 
-      width: 90%;
+      width: 95%;
       height: auto;
       margin-bottom: 10px;
     }
@@ -36,16 +37,26 @@
 
 @media only screen and (max-width: 660px) {
   body {
+    .headerMainPage {
+      width: min(100% - 60px, 1100px);
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    .themeIcon {
+      width: 35px;
+      height: 35px;
+    }
     .menulHeader {
-      font-size: 3.8vw;
-      width: 90%;
+      font-size: 4.8vw;
+      font-weight: 600;
     }
     .link {
+      font-weight: 600;
       padding: 2%;
-      font-size: 4.4vw;
+      font-size: 5vw;
     }
     .menuFooter {
-      font-size: 2.4vw;
+      font-size: 3.5vw;
     }
   }
 }
@@ -59,7 +70,7 @@
   font-size: 60px;
   font-family: "laceddays";
 }
-.App {
+.app {
   width: min(100% - 140px, 1100px);
   display: flex;
   margin-inline: auto;
@@ -75,9 +86,6 @@
   height: 80%;
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
-
-  /* padding: 2%; */
-
   box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
     rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
     rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
@@ -86,6 +94,10 @@
   justify-content: center;
 
   margin: auto;
+}
+.themeIcon {
+  width: 40px;
+  height: 40px;
 }
 
 /* ------------ */

@@ -40,6 +40,8 @@
   align-items: center;
 }
 .navbarHeader {
+  font-weight: 600;
+
   font-family: "laceddays";
   margin: 10px;
   font-size: 30px;
@@ -54,6 +56,8 @@
   align-items: center;
 }
 .navLink {
+  font-weight: 600;
+
   padding: 5%;
   font-family: "laceddays";
   font-size: 32px;
