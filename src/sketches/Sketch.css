@@ -85,14 +85,13 @@
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
 
-  padding: 2%;
-
   background: var(--second-bg-color);
 
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
     rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
     rgba(240, 46, 170, 0.05) 25px 25px;
 
+  padding: 2%;
   margin: auto;
 }
 .skethTitle {
@@ -105,19 +104,22 @@
 }
 
 button {
-  border: 7px solid var(--text-border-color);
+  align-self: strech;
   background-color: var(--main-bg-color);
-  border-radius: 0;
+
+  width: 90%;
+
   font-family: "laceddays";
   font-size: 20px;
-  padding: 2%;
   color: var(--text-border-color);
-  width: 90%;
-  align-self: strech;
+
+  border: 7px solid var(--text-border-color);
+  border-radius: 0;
+  padding: 2%;
 }
 
 button:hover {
-  cursor: pointer;
   background-color: rgba(240, 46, 170, 0.2);
+  cursor: pointer;
   transform: scale(0.98);
 }

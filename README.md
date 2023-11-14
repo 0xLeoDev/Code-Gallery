@@ -12,6 +12,8 @@ You can play with the sketches with the provided consols and save the art you've
 
 Each of the 5 sketches sketches represents the use of various key programming concepts.
 
+Personally I find the 3rd one to be the most addictive. [link](https://0xleodev.github.io/Code-Gallery/)
+
 ## Sample arts:
 
 <p align="center">

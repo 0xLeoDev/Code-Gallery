@@ -175,7 +175,7 @@ function SketchPage03(props) {
                 />
                 <p> pass</p>
               </Stack>
-              <h3>Sppeed:</h3>
+              <h3>Speed:</h3>
               <Slider
                 color="secondary"
                 defaultValue={speed}

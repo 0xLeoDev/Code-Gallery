@@ -5,6 +5,7 @@ import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
+const colormap = require("colormap");
 
 function SketchPage01(props) {
   let arowPathLeft = "/sketch-05";
@@ -14,7 +15,28 @@ function SketchPage01(props) {
 
   const canvasRef = useRef(null);
   let bacgroundColor = "#1a1a1a";
-  let numOfRec = 5;
+
+  let speed = 2; // 0 -10
+  let cols = 80; // 15 - 150
+  let rows = 15; // 1- 15
+  let amplitude = 50;
+  let lineLenght = 150;
+
+  let frame = 1;
+  let xMargin,
+    yMargin,
+    columnWidth,
+    columnHeight,
+    gridWidth,
+    gridHeight,
+    x,
+    y,
+    n,
+    lineWidth,
+    color;
+  let points = [];
+  let frequency = 0.002;
+  const numCells = cols * rows;
 
   const renderFrame = () => {
     try {
@@ -24,12 +46,66 @@ function SketchPage01(props) {
       const width = canvas.width;
       const height = canvas.height;
 
+      context.fillStyle = bacgroundColor;
+      context.fillRect(0, 0, width, height);
+
+      context.save();
+      context.translate(xMargin, yMargin);
+      context.translate(columnWidth * 0.5, columnHeight * 0.5);
+
+      context.strokeStyle = "white";
+      context.lineWidth = 4;
+
+      // update pos
+      points.forEach((point) => {
+        n = random.noise2D(
+          point.ix + frame * speed,
+          point.iy,
+          frequency,
+          amplitude
+        );
+        point.x = point.ix + n;
+        point.y = point.iy + n;
+      });
+
+      let lastx, lasty;
+
+      //draw lines
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols - 1; c++) {
+          const curr = points[r * cols + c + 0];
+          const next = points[r * cols + c + 1];
+
+          const mx = curr.x + (next.x - curr.x) * 0.5;
+          const my = curr.y + (next.y - curr.y) * 0.5;
+
+          if (!c) {
+            lastx = mx - columnWidth;
+            lasty = my - (r / rows) * lineLenght;
+          }
+
+          context.lineWidth = curr.lineWidth;
+          context.strokeStyle = curr.color;
+          context.beginPath();
+          context.moveTo(lastx, lasty);
+
+          context.quadraticCurveTo(curr.x, curr.y, mx, my);
+          context.stroke();
+
+          lastx = mx - (c / cols) * lineLenght;
+          lasty = my - (r / rows) * lineLenght;
+        }
+      }
+
+      context.restore();
+
+      frame += 1;
       requestAnimationFrame(renderFrame);
     } catch (error) {}
   };
 
   const initCanva = () => {
-    console.log("init");
+    console.log("initCanva");
     try {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
@@ -39,87 +115,34 @@ function SketchPage01(props) {
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
 
-      let numOfGaps = numOfRec + 1;
+      const colors = colormap({
+        // colormap: "freesurface-red",
+        // colormap: "magma",
+        colormap: "density",
+        nshades: amplitude,
+      });
 
-      let gapSize = 20;
-      let rectSize = (width - gapSize * numOfGaps) / numOfRec;
+      gridWidth = width * 0.9;
+      gridHeight = height * 0.9;
+      columnWidth = gridWidth / cols;
+      columnHeight = gridHeight / rows;
+      xMargin = (width - gridWidth) * 0.5;
+      yMargin = (height - gridHeight) * 0.5;
 
-      let randomiser = 0.3;
+      for (let i = 0; i < numCells; i++) {
+        x = (i % cols) * columnWidth;
+        y = Math.floor(i / cols) * columnHeight;
+        n = random.noise2D(x, y, frequency, amplitude);
+        lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
 
-      let droveRec = (x, y, size, color) => {
-        context.lineWidth = width * 0.005;
-        context.fillStyle = color;
-        context.beginPath();
-        context.fillRect(x, y, size, size);
-        context.rect(x, y, size, size);
-        context.strokeStyle = "#1a1a1a";
-        context.stroke();
-      };
+        color =
+          colors[
+            Math.floor(math.mapRange(n, -amplitude, amplitude, 0, amplitude))
+          ];
 
-      for (let i = 0; i < numOfRec; i++) {
-        for (let j = 0; j < numOfRec; j++) {
-          let x = gapSize + (rectSize + gapSize) * i;
-          let y = gapSize + (rectSize + gapSize) * j;
-          let color = "#edf8e9";
-          droveRec(x, y, rectSize, color);
-
-          let randomise = Math.random();
-          if (randomise > randomiser) {
-            let color = "#Ff5f5f5";
-            droveRec(
-              x + rectSize * 0.1,
-              y + rectSize * 0.1,
-              rectSize - rectSize * 0.2,
-              color
-            );
-
-            let randomise = Math.random();
-            if (randomise > randomiser) {
-              // let color = "#74c476";
-              droveRec(
-                x + rectSize * 0.2,
-                y + rectSize * 0.2,
-                rectSize - rectSize * 0.4,
-                color
-              );
-
-              let randomise = Math.random();
-              if (randomise > randomiser) {
-                // let color = "";
-                droveRec(
-                  x + rectSize * 0.3,
-                  y + rectSize * 0.3,
-                  rectSize - rectSize * 0.6,
-                  color
-                );
-
-                let randomise = Math.random();
-                if (randomise > randomiser) {
-                  let color = "red";
-                  droveRec(
-                    x + rectSize * 0.4,
-                    y + rectSize * 0.4,
-                    rectSize - rectSize * 0.8,
-                    color
-                  );
-
-                  if (randomise > randomiser) {
-                    let color = "red";
-
-                    droveRec(
-                      x + rectSize * 0.49,
-                      y + rectSize * 0.49,
-                      rectSize - rectSize * 0.98,
-                      color
-                    );
-                  }
-                }
-              }
-            }
-          }
-        }
+        points.push(new Point({ x, y, lineWidth, color }));
       }
-      //   renderFrame();
+      renderFrame();
     } catch (error) {}
   };
 
@@ -179,3 +202,24 @@ function SketchPage01(props) {
 }
 
 export default SketchPage01;
+
+class Point {
+  constructor({ x, y, lineWidth, color }) {
+    this.x = x;
+    this.y = y;
+    this.lineWidth = lineWidth;
+    this.color = color;
+
+    this.ix = x;
+    this.iy = y;
+  }
+  draw(context) {
+    context.save();
+    context.translate(this.x, this.y);
+    context.fillStyle = "white";
+    context.beginPath();
+    context.arc(0, 0, 10, 0, Math.PI * 2);
+    context.fill();
+    context.restore();
+  }
+}
