@@ -172,7 +172,9 @@ function SketchPage04(props) {
                 onChange={handleChangeRotation}
               />
             </div>
-            <button onClick={saveDataURIinParrent}>save as png</button>
+            <button className="button-main" onClick={saveDataURIinParrent}>
+              save as png
+            </button>
           </div>
         )}
       </div>

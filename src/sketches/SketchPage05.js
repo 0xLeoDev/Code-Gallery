@@ -172,7 +172,9 @@ function SketchPage05(props) {
             <div className="optionsList">
               <h3>Type your initials</h3>
             </div>
-            <button onClick={saveDataURIinParrent}>save as png</button>
+            <button className="button-main" onClick={saveDataURIinParrent}>
+              save as png
+            </button>
           </div>
         )}
       </div>

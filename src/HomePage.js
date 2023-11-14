@@ -19,22 +19,19 @@ function HomePage() {
     <>
       <div className="headerMainPage">
         <img
+          className="themeIcon"
           title="change theme"
-          width="40"
-          height="40"
           src={themeIcon}
           alt="themeIcon"
         />
       </div>
-      <div className="App">
+      <div className="app">
         <div className="previewContainer">
           <img id="preview" src={logo_b} alt="preview" />
         </div>
 
         <div className="menuContainer">
-          <div className="menulHeader">
-            Choose the sketch <br /> to play with:
-          </div>
+          <div className="menulHeader">Choose the sketch play with:</div>
           <div className="linkList">
             <NavLink
               onMouseOver={() => setPreview(preview01)}
@@ -77,7 +74,7 @@ function HomePage() {
               sketch-05
             </NavLink>
           </div>
-          <div>created by: 0xLeoDev</div>
+          <div className="menuFooter">created by: 0xLeoDev</div>
         </div>
       </div>
     </>

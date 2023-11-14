@@ -1,3 +1,66 @@
+@media only screen and (max-width: 1000px) {
+  body {
+    .app {
+      height: 100%;
+      width: min(100% - 60px, 500px);
+      margin-bottom: 70px;
+    }
+    .previewContainer {
+      aspect-ratio: 1/1;
+      width: 95%;
+      height: auto;
+      margin-bottom: 30px;
+    }
+    .menuContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+      width: 95%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    .menulHeader {
+      font-size: 25px;
+    }
+    .link {
+      padding: 2%;
+      font-size: 30px;
+    }
+    .menuFooter {
+      font-size: 16px;
+      margin: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  body {
+    .headerMainPage {
+      width: min(100% - 60px, 1100px);
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    .themeIcon {
+      width: 35px;
+      height: 35px;
+    }
+    .menulHeader {
+      font-size: 4.8vw;
+      font-weight: 600;
+    }
+    .link {
+      font-weight: 600;
+      padding: 2%;
+      font-size: 5vw;
+    }
+    .menuFooter {
+      font-size: 3.5vw;
+    }
+  }
+}
+
 .headerMainPage {
   width: min(100% - 140px, 1100px);
   display: flex;
@@ -7,13 +70,12 @@
   font-size: 60px;
   font-family: "laceddays";
 }
-.App {
+.app {
   width: min(100% - 140px, 1100px);
   display: flex;
   margin-inline: auto;
 
   align-items: center;
-  /* justify-content: space-between; */
 
   height: 83vh;
   margin-bottom: 60px;
@@ -24,9 +86,6 @@
   height: 80%;
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
-
-  /* padding: 2%; */
-
   box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
     rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
     rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
@@ -36,6 +95,10 @@
 
   margin: auto;
 }
+.themeIcon {
+  width: 40px;
+  height: 40px;
+}
 
 /* ------------ */
 .menuContainer {
@@ -44,11 +107,9 @@
   justify-content: space-between;
   align-items: center;
 
-  width: 27%;
+  width: 30%;
   height: 90%;
   border: 10px solid var(--text-border-color);
-
-  padding: 2%;
 
   background: var(--second-bg-color);
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
@@ -59,6 +120,8 @@
 }
 
 .menulHeader {
+  margin: 20px;
+  width: 90%;
   font-family: "laceddays";
   font-size: 2.4vw;
   text-align: center;
@@ -68,8 +131,13 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 10%;
 }
+
+.menuFooter {
+  font-size: 18px;
+  margin: 20px;
+}
+
 .link {
   padding: 5%;
   font-family: "laceddays";
