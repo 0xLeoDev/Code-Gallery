@@ -99,7 +99,7 @@ function SketchPage02(props) {
     <>
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
-      <div className="App">
+      <div className="mainPageContainer">
         <div className="canvas">
           <canvas
             ref={canvasRef}

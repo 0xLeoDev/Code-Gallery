@@ -132,7 +132,7 @@ function SketchPage03(props) {
     <>
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
-      <div className="App">
+      <div className="mainPageContainer">
         <div className="canvas">
           <canvas
             style={{ width: "100%", height: "100%" }}

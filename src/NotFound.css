@@ -1,13 +1,13 @@
 .container {
-  width: min(100% - 140px, 1100px);
-  margin-inline: auto;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-inline: auto;
 
+  width: min(100% - 140px, 1100px);
   height: 83vh;
+
   margin-bottom: 60px;
 }
 .firstLine {

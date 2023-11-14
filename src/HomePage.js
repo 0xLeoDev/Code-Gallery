@@ -17,14 +17,6 @@ function HomePage() {
 
   return (
     <>
-      <div className="headerMainPage">
-        <img
-          className="themeIcon"
-          title="change theme"
-          src={themeIcon}
-          alt="themeIcon"
-        />
-      </div>
       <div className="app">
         <div className="previewContainer">
           <img id="preview" src={logo_b} alt="preview" />

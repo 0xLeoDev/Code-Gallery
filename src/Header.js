@@ -11,7 +11,7 @@ function Header(props) {
         <div title="homepage" className="logo" onClick={() => navigate("/")}>
           code gallery
         </div>
-        <div title="navbar">
+        <div title="navbar" className="navBurrger">
           <Hamburger
             color="#f5f5f5"
             onToggle={(toggled) => {

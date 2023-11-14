@@ -1,14 +1,14 @@
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
   body {
     .app {
       height: 100%;
       width: min(100% - 60px, 500px);
-      margin-bottom: 70px;
     }
     .previewContainer {
-      aspect-ratio: 1/1;
-      width: 95%;
       height: auto;
+      width: 95%;
+      aspect-ratio: 1/1;
+
       margin-bottom: 30px;
     }
     .menuContainer {
@@ -17,9 +17,8 @@
       justify-content: space-between;
       align-items: center;
 
-      width: 95%;
       height: auto;
-      margin-bottom: 10px;
+      width: 95%;
     }
     .menulHeader {
       font-size: 25px;
@@ -37,15 +36,6 @@
 
 @media only screen and (max-width: 660px) {
   body {
-    .headerMainPage {
-      width: min(100% - 60px, 1100px);
-      margin-top: 15px;
-      margin-bottom: 15px;
-    }
-    .themeIcon {
-      width: 35px;
-      height: 35px;
-    }
     .menulHeader {
       font-size: 4.8vw;
       font-weight: 600;
@@ -60,46 +50,33 @@
     }
   }
 }
-
-.headerMainPage {
-  width: min(100% - 140px, 1100px);
-  display: flex;
-  margin-inline: auto;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 60px;
-  font-family: "laceddays";
-}
 .app {
-  width: min(100% - 140px, 1100px);
   display: flex;
-  margin-inline: auto;
-
+  flex-wrap: wrap;
   align-items: center;
 
   height: 83vh;
-  margin-bottom: 60px;
-  flex-wrap: wrap;
+  width: min(100% - 140px, 1100px);
+
+  margin-top: 40px;
+  margin-bottom: 100px;
+  margin-inline: auto;
 }
 .previewContainer {
+  display: flex;
+  justify-content: center;
+
   aspect-ratio: 1/1;
   height: 80%;
+
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
   box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
     rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
     rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
 
-  display: flex;
-  justify-content: center;
-
   margin: auto;
 }
-.themeIcon {
-  width: 40px;
-  height: 40px;
-}
-
 /* ------------ */
 .menuContainer {
   display: flex;
@@ -109,8 +86,8 @@
 
   width: 30%;
   height: 90%;
-  border: 10px solid var(--text-border-color);
 
+  border: 10px solid var(--text-border-color);
   background: var(--second-bg-color);
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
     rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
@@ -118,34 +95,35 @@
 
   margin: auto;
 }
-
 .menulHeader {
-  margin: 20px;
   width: 90%;
+
   font-family: "laceddays";
   font-size: 2.4vw;
   text-align: center;
+
+  margin: 20px;
 }
 .linkList {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   width: 100%;
 }
-
-.menuFooter {
-  font-size: 18px;
-  margin: 20px;
-}
-
 .link {
-  padding: 5%;
   font-family: "laceddays";
-  font-size: 2.3vw;
+  font-size: 30px;
   text-decoration: none;
   color: var(--text-border-color);
+
+  padding: 15px;
 }
 .link:hover {
   scale: 1.1;
   color: var(--decorative-color);
+}
+.menuFooter {
+  font-size: 18px;
+  margin: 20px;
 }
