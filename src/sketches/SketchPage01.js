@@ -3,6 +3,8 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
+import { Slider } from "@mui/material";
+
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 const colormap = require("colormap");
@@ -16,11 +18,25 @@ function SketchPage01(props) {
   const canvasRef = useRef(null);
   let bacgroundColor = "#1a1a1a";
 
-  let speed = 2; // 0 -10
-  let cols = 80; // 15 - 150
-  let rows = 15; // 1- 15
+  let speed = 2;
+  const handleChangeSpeed = (event, newValue) => {
+    speed = newValue;
+  };
+  let columns = 75; // 15 - 150 TO DENCITY 1-10
+  const handleChangeColumns = (event, newValue) => {
+    columns = newValue * 15;
+  };
+
+  let rows = 15;
+  const handleChangeRows = (event, newValue) => {
+    rows = newValue;
+  };
+
   let amplitude = 50;
+  const handleChangeAmplitude = (event, newValue) => {};
+
   let lineLenght = 150;
+  const handleChangeLineLenght = (event, newValue) => {};
 
   let frame = 1;
   let xMargin,
@@ -36,7 +52,7 @@ function SketchPage01(props) {
     color;
   let points = [];
   let frequency = 0.002;
-  const numCells = cols * rows;
+  const numCells = columns * rows;
 
   const renderFrame = () => {
     try {
@@ -52,9 +68,6 @@ function SketchPage01(props) {
       context.save();
       context.translate(xMargin, yMargin);
       context.translate(columnWidth * 0.5, columnHeight * 0.5);
-
-      context.strokeStyle = "white";
-      context.lineWidth = 4;
 
       // update pos
       points.forEach((point) => {
@@ -72,9 +85,9 @@ function SketchPage01(props) {
 
       //draw lines
       for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols - 1; c++) {
-          const curr = points[r * cols + c + 0];
-          const next = points[r * cols + c + 1];
+        for (let c = 0; c < columns - 1; c++) {
+          const curr = points[r * columns + c + 0];
+          const next = points[r * columns + c + 1];
 
           const mx = curr.x + (next.x - curr.x) * 0.5;
           const my = curr.y + (next.y - curr.y) * 0.5;
@@ -92,7 +105,7 @@ function SketchPage01(props) {
           context.quadraticCurveTo(curr.x, curr.y, mx, my);
           context.stroke();
 
-          lastx = mx - (c / cols) * lineLenght;
+          lastx = mx - (c / columns) * lineLenght;
           lasty = my - (r / rows) * lineLenght;
         }
       }
@@ -124,14 +137,14 @@ function SketchPage01(props) {
 
       gridWidth = width * 0.9;
       gridHeight = height * 0.9;
-      columnWidth = gridWidth / cols;
+      columnWidth = gridWidth / columns;
       columnHeight = gridHeight / rows;
       xMargin = (width - gridWidth) * 0.5;
       yMargin = (height - gridHeight) * 0.5;
 
       for (let i = 0; i < numCells; i++) {
-        x = (i % cols) * columnWidth;
-        y = Math.floor(i / cols) * columnHeight;
+        x = (i % columns) * columnWidth;
+        y = Math.floor(i / columns) * columnHeight;
         n = random.noise2D(x, y, frequency, amplitude);
         lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
 
@@ -179,18 +192,54 @@ function SketchPage01(props) {
           <div className="panel">
             <h2 className="skethTitle">sketch-01</h2>
             <div className="optionsList">
-              <h3>Option 1</h3>
-              <p>slider 1</p>
-              <h3>Option 2</h3>
-              <p>option 2</p>
-              <h3>Option 3</h3>
-              <p>option 3</p>
-              <h3>Option 4</h3>
-              <p>option 4</p>
+              <h3>Speed:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={speed}
+                valueLabelDisplay="auto"
+                min={0}
+                max={10}
+                marks
+                onChange={handleChangeSpeed}
+              />
+              <h3>Columns:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={columns}
+                valueLabelDisplay="auto"
+                min={15}
+                max={150}
+                onChange={handleChangeColumns}
+              />
+              <h3>Rows:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={rows}
+                valueLabelDisplay="auto"
+                min={1}
+                max={30}
+                onChange={handleChangeRows}
+              />
+              <h3>Amplitude:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={amplitude}
+                valueLabelDisplay="auto"
+                min={1}
+                max={30}
+                onChange={handleChangeAmplitude}
+              />{" "}
+              <h3>Line Lenght:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={lineLenght}
+                valueLabelDisplay="auto"
+                min={1}
+                max={30}
+                onChange={handleChangeLineLenght}
+              />
             </div>
-            <button className="button-main" onClick={initCanva}>
-              refresh canva
-            </button>
+
             <button className="button-main" onClick={saveDataURIinParrent}>
               save as png
             </button>
