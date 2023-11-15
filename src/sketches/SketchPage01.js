@@ -44,22 +44,15 @@ function SketchPage01(props) {
   const [dots, setDots] = useState(false);
 
   const handleSwitchDotsOrLine = () => {
-    // setDots(!dots);
-    // initCanva();
-    // console.log(dots);
+    setDots(!dots);
+    initCanva();
+    console.log(dots);
   };
-
   const handleChangeSpeed = (event, newValue) => {
     speed = newValue;
   };
-
   const handleChangeColumns = (event, newValue) => {
-    let columnDifference = newValue - columns;
-    let sumPointsToAddOrRemove = Math.abs(rows * columnDifference);
     columns = newValue;
-
-    console.log("columns " + columns);
-
     const canvas = canvasRef.current;
     const width = canvas.width;
     const height = canvas.height;
@@ -67,25 +60,10 @@ function SketchPage01(props) {
     let gridHeight = height * 0.9;
     let columnWidth = gridWidth / columns;
     let columnHeight = gridHeight / rows;
+    let numCells = rows * columns;
 
-    if (columnDifference < 0) {
-      points.splice(0, sumPointsToAddOrRemove);
-    } else {
-      for (let i = 0; i < sumPointsToAddOrRemove; i++) {
-        let x = (i % columns) * columnWidth;
-        let y = Math.floor(i / columns) * columnHeight;
-        n = random.noise2D(x, y, frequency, amplitude);
-        lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
-        color =
-          colors[
-            Math.floor(
-              math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
-            )
-          ];
-        points.push(new Point({ x, y, lineWidth, color }));
-      }
-    }
-    for (let i = 0; i < points.length; i++) {
+    points = [];
+    for (let i = 0; i < numCells; i++) {
       let x = (i % columns) * columnWidth;
       let y = Math.floor(i / columns) * columnHeight;
       n = random.noise2D(x, y, frequency, amplitude);
@@ -96,15 +74,11 @@ function SketchPage01(props) {
             math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
           )
         ];
-      points[i].updatePos(x, y, lineWidth, color);
     }
   };
 
   const handleChangeRows = (event, newValue) => {
-    let rowDifference = newValue - rows;
-    let sumPointsToAddOrRemove = Math.abs(columns * rowDifference);
     rows = newValue;
-
     const canvas = canvasRef.current;
     const width = canvas.width;
     const height = canvas.height;
@@ -112,29 +86,21 @@ function SketchPage01(props) {
     let gridHeight = height * 0.9;
     let columnWidth = gridWidth / columns;
     let columnHeight = gridHeight / rows;
+    let numCells = rows * columns;
 
-    if (rowDifference < 0) {
-      points.splice(0, sumPointsToAddOrRemove);
-    } else {
-      for (let i = 0; i < sumPointsToAddOrRemove; i++) {
-        let x = (i % columns) * columnWidth;
-        let y = Math.floor(i / columns) * columnHeight;
-
-        n = random.noise2D(x, y, frequency, amplitude);
-        lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
-        color =
-          colors[
-            Math.floor(
-              math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
-            )
-          ];
-        points.push(new Point({ x, y, lineWidth, color }));
-      }
-    }
-    for (let i = 0; i < points.length; i++) {
+    points = [];
+    for (let i = 0; i < numCells; i++) {
       let x = (i % columns) * columnWidth;
       let y = Math.floor(i / columns) * columnHeight;
-      points[i].updatePos(x, y);
+      n = random.noise2D(x, y, frequency, amplitude);
+      lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
+      color =
+        colors[
+          Math.floor(
+            math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
+          )
+        ];
+      points.push(new Point({ x, y, lineWidth, color }));
     }
   };
 
@@ -148,7 +114,6 @@ function SketchPage01(props) {
 
   const renderFrame = () => {
     try {
-      // console.log("Rendering a frame.");
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       const width = canvas.width;
@@ -158,14 +123,8 @@ function SketchPage01(props) {
       columnWidth = gridWidth / columns;
       columnHeight = gridHeight / rows;
 
-      // console.log(
-      //   "columnWidth: " + columnWidth + " columnHeight: " + columnHeight
-      // );
-      // console.log("columns " + columns + " rows " + rows);
-
       canvasMarginX = (width - gridWidth) * 0.5;
       canvasMarginY = (height - gridHeight) * 0.5;
-      //
 
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
@@ -175,6 +134,20 @@ function SketchPage01(props) {
       context.translate(columnWidth * 0.5, columnHeight * 0.5);
 
       let lastx, lasty;
+
+      // update pos
+      points.forEach((point) => {
+        n = random.noise2D(
+          point.ix + frame * speed,
+          point.iy,
+          frequency,
+          amplitude
+        );
+        point.x = point.ix + n;
+        point.y = point.iy + n;
+      });
+
+      // drow dots lines
 
       if (dots == true) {
         points.forEach((point) => {
@@ -190,9 +163,6 @@ function SketchPage01(props) {
             const my = curr.y + (next.y - curr.y) * 0.5;
 
             if (!c) {
-              // lastx = mx - columnWidth;
-              // lasty = my - (r / rows) * lineLenght;
-
               lastx = mx - (c / columns) * lineLenght;
               lasty = my - (r / rows) * lineLenght;
               continue;
@@ -211,17 +181,6 @@ function SketchPage01(props) {
           }
         }
       }
-      // update pos
-      points.forEach((point) => {
-        n = random.noise2D(
-          point.ix + frame * speed,
-          point.iy,
-          frequency,
-          amplitude
-        );
-        point.x = point.ix + n;
-        point.y = point.iy + n;
-      });
 
       context.restore();
 
@@ -231,7 +190,6 @@ function SketchPage01(props) {
   };
 
   const initCanva = () => {
-    // console.log("initCanva");
     try {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
@@ -245,8 +203,6 @@ function SketchPage01(props) {
       gridHeight = height * 0.9;
       columnWidth = gridWidth / columns;
       columnHeight = gridHeight / rows;
-      // xMargin = (width - gridWidth) * 0.5;
-      // yMargin = (height - gridHeight) * 0.5;
       let numCells = columns * rows;
 
       for (let i = 0; i < numCells; i++) {
@@ -261,7 +217,6 @@ function SketchPage01(props) {
           ];
         points.push(new Point({ x, y, lineWidth, color }));
       }
-      console.log(points);
 
       renderFrame();
     } catch (error) {}
