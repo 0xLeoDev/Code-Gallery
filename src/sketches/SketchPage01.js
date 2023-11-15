@@ -3,7 +3,7 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
-import { Slider } from "@mui/material";
+import { Slider, Stack, Switch } from "@mui/material";
 
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
@@ -16,59 +16,10 @@ function SketchPage01(props) {
   const [navbarStatus, setNavbarStatus] = useState(false);
 
   const canvasRef = useRef(null);
+  let frame = 1;
   let bacgroundColor = "#1a1a1a";
-
-  let speed = 2;
-  const handleChangeSpeed = (event, newValue) => {
-    speed = newValue;
-  };
-  let columns = 75; // 15 - 150 TO DENCITY 1-10
-  const handleChangeColumns = (event, newValue) => {};
-
-  let rows = 15;
-  const handleChangeRows = (event, newValue) => {
-    let difference = rows - newValue;
-    let numbOfNewPoints = columns * difference;
-    rows = newValue;
-
-    if (difference > 0) {
-      points.splice(0, numbOfNewPoints);
-    } else {
-      for (let i = 0; i < numbOfNewPoints; i++) {
-        console.log("else");
-        const colors = colormap({
-          // colormap: "freesurface-red",
-          // colormap: "magma",
-          colormap: "density",
-          nshades: amplitude,
-        });
-        x = (i % columns) * columnWidth;
-        y = Math.floor(i / columns) * columnHeight;
-        n = random.noise2D(x, y, frequency, amplitude);
-        lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
-        color =
-          colors[
-            Math.floor(math.mapRange(n, -amplitude, amplitude, 0, amplitude))
-          ];
-        points.push(new Point({ x, y, lineWidth, color }));
-      }
-    }
-    let numPoints = points.length;
-    console.log("points " + numPoints);
-  };
-
-  let amplitude = 50;
-  const handleChangeAmplitude = (event, newValue) => {
-    amplitude = newValue * 10;
-  };
-
-  let lineLenght = 66;
-  const handleChangeLineLenght = (event, newValue) => {
-    lineLenght = (newValue * 500) / 30;
-  };
-
-  let xMargin,
-    yMargin,
+  let canvasMarginX,
+    canvasMarginY,
     columnWidth,
     columnHeight,
     gridWidth,
@@ -78,10 +29,122 @@ function SketchPage01(props) {
     n,
     lineWidth,
     color;
-  let frame = 1;
   let points = [];
   let frequency = 0.002;
-  let numCells = columns * rows;
+  let speed = 2;
+  let columns = 30; // 15-150
+  let rows = 5;
+  let amplitude = 30;
+  let lineLenght = 66;
+  const colors = colormap({
+    colormap: "density",
+    nshades: amplitude,
+  });
+
+  const [dots, setDots] = useState(false);
+
+  const handleSwitchDotsOrLine = () => {
+    // setDots(!dots);
+    // initCanva();
+    // console.log(dots);
+  };
+
+  const handleChangeSpeed = (event, newValue) => {
+    speed = newValue;
+  };
+
+  const handleChangeColumns = (event, newValue) => {
+    let columnDifference = newValue - columns;
+    let sumPointsToAddOrRemove = Math.abs(rows * columnDifference);
+    columns = newValue;
+
+    console.log("columns " + columns);
+
+    const canvas = canvasRef.current;
+    const width = canvas.width;
+    const height = canvas.height;
+    let gridWidth = width * 0.9;
+    let gridHeight = height * 0.9;
+    let columnWidth = gridWidth / columns;
+    let columnHeight = gridHeight / rows;
+
+    if (columnDifference < 0) {
+      points.splice(0, sumPointsToAddOrRemove);
+    } else {
+      for (let i = 0; i < sumPointsToAddOrRemove; i++) {
+        let x = (i % columns) * columnWidth;
+        let y = Math.floor(i / columns) * columnHeight;
+        n = random.noise2D(x, y, frequency, amplitude);
+        lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
+        color =
+          colors[
+            Math.floor(
+              math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
+            )
+          ];
+        points.push(new Point({ x, y, lineWidth, color }));
+      }
+    }
+    for (let i = 0; i < points.length; i++) {
+      let x = (i % columns) * columnWidth;
+      let y = Math.floor(i / columns) * columnHeight;
+      n = random.noise2D(x, y, frequency, amplitude);
+      lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
+      color =
+        colors[
+          Math.floor(
+            math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
+          )
+        ];
+      points[i].updatePos(x, y, lineWidth, color);
+    }
+  };
+
+  const handleChangeRows = (event, newValue) => {
+    let rowDifference = newValue - rows;
+    let sumPointsToAddOrRemove = Math.abs(columns * rowDifference);
+    rows = newValue;
+
+    const canvas = canvasRef.current;
+    const width = canvas.width;
+    const height = canvas.height;
+    let gridWidth = width * 0.9;
+    let gridHeight = height * 0.9;
+    let columnWidth = gridWidth / columns;
+    let columnHeight = gridHeight / rows;
+
+    if (rowDifference < 0) {
+      points.splice(0, sumPointsToAddOrRemove);
+    } else {
+      for (let i = 0; i < sumPointsToAddOrRemove; i++) {
+        let x = (i % columns) * columnWidth;
+        let y = Math.floor(i / columns) * columnHeight;
+
+        n = random.noise2D(x, y, frequency, amplitude);
+        lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
+        color =
+          colors[
+            Math.floor(
+              math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
+            )
+          ];
+        points.push(new Point({ x, y, lineWidth, color }));
+      }
+    }
+    for (let i = 0; i < points.length; i++) {
+      let x = (i % columns) * columnWidth;
+      let y = Math.floor(i / columns) * columnHeight;
+      points[i].updatePos(x, y);
+    }
+  };
+
+  const handleChangeAmplitude = (event, newValue) => {
+    amplitude = newValue * 10;
+  };
+
+  const handleChangeLineLenght = (event, newValue) => {
+    lineLenght = (newValue * 500) / 30;
+  };
 
   const renderFrame = () => {
     try {
@@ -90,7 +153,8 @@ function SketchPage01(props) {
       const context = canvas.getContext("2d");
       const width = canvas.width;
       const height = canvas.height;
-
+      gridWidth = width * 0.9;
+      gridHeight = height * 0.9;
       columnWidth = gridWidth / columns;
       columnHeight = gridHeight / rows;
 
@@ -99,17 +163,54 @@ function SketchPage01(props) {
       // );
       // console.log("columns " + columns + " rows " + rows);
 
-      xMargin = (width - gridWidth) * 0.5;
-      yMargin = (height - gridHeight) * 0.5;
+      canvasMarginX = (width - gridWidth) * 0.5;
+      canvasMarginY = (height - gridHeight) * 0.5;
       //
 
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
 
       context.save();
-      context.translate(xMargin, yMargin); //translate mergin
+      context.translate(canvasMarginX, canvasMarginY);
       context.translate(columnWidth * 0.5, columnHeight * 0.5);
 
+      let lastx, lasty;
+
+      if (dots == true) {
+        points.forEach((point) => {
+          point.draw(context);
+        });
+      } else {
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < columns - 1; c++) {
+            const curr = points[r * columns + c + 0];
+            const next = points[r * columns + c + 1];
+
+            const mx = curr.x + (next.x - curr.x) * 0.5;
+            const my = curr.y + (next.y - curr.y) * 0.5;
+
+            if (!c) {
+              // lastx = mx - columnWidth;
+              // lasty = my - (r / rows) * lineLenght;
+
+              lastx = mx - (c / columns) * lineLenght;
+              lasty = my - (r / rows) * lineLenght;
+              continue;
+            }
+
+            context.lineWidth = curr.lineWidth;
+            context.strokeStyle = curr.color;
+            context.beginPath();
+            context.moveTo(lastx, lasty);
+
+            context.quadraticCurveTo(curr.x, curr.y, mx, my);
+            context.stroke();
+
+            lastx = mx - (c / columns) * lineLenght;
+            lasty = my - (r / rows) * lineLenght;
+          }
+        }
+      }
       // update pos
       points.forEach((point) => {
         n = random.noise2D(
@@ -122,42 +223,7 @@ function SketchPage01(props) {
         point.y = point.iy + n;
       });
 
-      let lastx, lasty;
-
-      //draw lines
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < columns - 1; c++) {
-          const curr = points[r * columns + c + 0];
-          const next = points[r * columns + c + 1];
-
-          const mx = curr.x + (next.x - curr.x) * 0.5;
-          const my = curr.y + (next.y - curr.y) * 0.5;
-
-          if (!c) {
-            lastx = mx - columnWidth;
-            lasty = my - (r / rows) * lineLenght;
-          }
-
-          context.lineWidth = curr.lineWidth;
-          context.strokeStyle = curr.color;
-          context.beginPath();
-          context.moveTo(lastx, lasty);
-
-          context.quadraticCurveTo(curr.x, curr.y, mx, my);
-          context.stroke();
-
-          lastx = mx - (c / columns) * lineLenght;
-          lasty = my - (r / rows) * lineLenght;
-        }
-      }
-      // draw points
-      // points.forEach((point) => {
-      //   point.draw(context);
-      // });
-
       context.restore();
-
-      // console.log("points numb: " + points.length);
 
       frame += 1;
       requestAnimationFrame(renderFrame);
@@ -165,7 +231,7 @@ function SketchPage01(props) {
   };
 
   const initCanva = () => {
-    console.log("initCanva");
+    // console.log("initCanva");
     try {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
@@ -175,23 +241,18 @@ function SketchPage01(props) {
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
 
-      const colors = colormap({
-        // colormap: "freesurface-red",
-        // colormap: "magma",
-        colormap: "density",
-        nshades: amplitude,
-      });
-
       gridWidth = width * 0.9;
       gridHeight = height * 0.9;
       columnWidth = gridWidth / columns;
       columnHeight = gridHeight / rows;
-      xMargin = (width - gridWidth) * 0.5;
-      yMargin = (height - gridHeight) * 0.5;
+      // xMargin = (width - gridWidth) * 0.5;
+      // yMargin = (height - gridHeight) * 0.5;
+      let numCells = columns * rows;
 
       for (let i = 0; i < numCells; i++) {
         x = (i % columns) * columnWidth;
         y = Math.floor(i / columns) * columnHeight;
+
         n = random.noise2D(x, y, frequency, amplitude);
         lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
         color =
@@ -200,6 +261,8 @@ function SketchPage01(props) {
           ];
         points.push(new Point({ x, y, lineWidth, color }));
       }
+      console.log(points);
+
       renderFrame();
     } catch (error) {}
   };
@@ -252,8 +315,8 @@ function SketchPage01(props) {
                 color="secondary"
                 defaultValue={columns}
                 valueLabelDisplay="auto"
-                min={15}
-                max={150}
+                min={10}
+                max={50}
                 onChange={handleChangeColumns}
               />
               <h3>Rows:</h3>
@@ -275,8 +338,24 @@ function SketchPage01(props) {
                 marks
                 onChange={handleChangeAmplitude}
               />{" "}
+              <h3>Dots or lines:</h3>
+              <Stack
+                spacing={2}
+                direction="row"
+                sx={{ justifyContent: "center", mb: 1 }}
+                alignItems="center"
+              >
+                <p>dots</p>
+                <Switch
+                  color="secondary"
+                  onChange={handleSwitchDotsOrLine}
+                  defaultValue={dots}
+                />
+                <p> lines</p>
+              </Stack>{" "}
               <h3>Line Lenght:</h3>
               <Slider
+                disabled={dots}
                 color="secondary"
                 defaultValue={Math.ceil((lineLenght * 30) / 500)}
                 valueLabelDisplay="auto"
@@ -285,7 +364,6 @@ function SketchPage01(props) {
                 onChange={handleChangeLineLenght}
               />
             </div>
-
             <button className="button-main" onClick={downloadImage}>
               save as png
             </button>
@@ -302,11 +380,10 @@ class Point {
   constructor({ x, y, lineWidth, color }) {
     this.x = x;
     this.y = y;
-    this.lineWidth = lineWidth;
-    this.color = color;
-
     this.ix = x;
     this.iy = y;
+    this.lineWidth = lineWidth;
+    this.color = color;
   }
   draw(context) {
     context.save();
@@ -316,5 +393,13 @@ class Point {
     context.arc(0, 0, 10, 0, Math.PI * 2);
     context.fill();
     context.restore();
+  }
+  updatePos(x, y, lineWidth, color) {
+    this.x = x;
+    this.y = y;
+    this.ix = x;
+    this.iy = y;
+    this.lineWidth = lineWidth;
+    this.color = color;
   }
 }
