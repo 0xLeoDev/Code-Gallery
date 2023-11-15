@@ -23,20 +23,50 @@ function SketchPage01(props) {
     speed = newValue;
   };
   let columns = 75; // 15 - 150 TO DENCITY 1-10
-  const handleChangeColumns = (event, newValue) => {
-    columns = newValue * 15;
-  };
+  const handleChangeColumns = (event, newValue) => {};
 
   let rows = 15;
   const handleChangeRows = (event, newValue) => {
+    let difference = rows - newValue;
+    let numbOfNewPoints = columns * difference;
     rows = newValue;
+
+    if (difference > 0) {
+      points.splice(0, numbOfNewPoints);
+    } else {
+      for (let i = 0; i < numbOfNewPoints; i++) {
+        console.log("else");
+        const colors = colormap({
+          // colormap: "freesurface-red",
+          // colormap: "magma",
+          colormap: "density",
+          nshades: amplitude,
+        });
+        x = (i % columns) * columnWidth;
+        y = Math.floor(i / columns) * columnHeight;
+        n = random.noise2D(x, y, frequency, amplitude);
+        lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
+        color =
+          colors[
+            Math.floor(math.mapRange(n, -amplitude, amplitude, 0, amplitude))
+          ];
+        points.push(new Point({ x, y, lineWidth, color }));
+      }
+    }
+    let numPoints = points.length;
+    console.log("points " + numPoints);
   };
 
   let amplitude = 50;
-  const handleChangeAmplitude = (event, newValue) => {};
+  const handleChangeAmplitude = (event, newValue) => {
+    amplitude = newValue * 10;
+  };
 
-  let lineLenght = 150;
-  const handleChangeLineLenght = (event, newValue) => {};
+  let lineLenght = 66;
+  const handleChangeLineLenght = (event, newValue) => {
+    lineLenght = (newValue * 500) / 30;
+    console.log(lineLenght);
+  };
 
   let frame = 1;
   let xMargin,
@@ -52,21 +82,33 @@ function SketchPage01(props) {
     color;
   let points = [];
   let frequency = 0.002;
-  const numCells = columns * rows;
+  let numCells = columns * rows;
 
   const renderFrame = () => {
     try {
-      console.log("Rendering a frame.");
+      // console.log("Rendering a frame.");
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       const width = canvas.width;
       const height = canvas.height;
 
+      columnWidth = gridWidth / columns;
+      columnHeight = gridHeight / rows;
+
+      // console.log(
+      //   "columnWidth: " + columnWidth + " columnHeight: " + columnHeight
+      // );
+      // console.log("columns " + columns + " rows " + rows);
+
+      xMargin = (width - gridWidth) * 0.5;
+      yMargin = (height - gridHeight) * 0.5;
+      //
+
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
 
       context.save();
-      context.translate(xMargin, yMargin);
+      context.translate(xMargin, yMargin); //translate mergin
       context.translate(columnWidth * 0.5, columnHeight * 0.5);
 
       // update pos
@@ -109,8 +151,14 @@ function SketchPage01(props) {
           lasty = my - (r / rows) * lineLenght;
         }
       }
+      // draw points
+      // points.forEach((point) => {
+      //   point.draw(context);
+      // });
 
       context.restore();
+
+      // console.log("points numb: " + points.length);
 
       frame += 1;
       requestAnimationFrame(renderFrame);
@@ -147,12 +195,10 @@ function SketchPage01(props) {
         y = Math.floor(i / columns) * columnHeight;
         n = random.noise2D(x, y, frequency, amplitude);
         lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
-
         color =
           colors[
             Math.floor(math.mapRange(n, -amplitude, amplitude, 0, amplitude))
           ];
-
         points.push(new Point({ x, y, lineWidth, color }));
       }
       renderFrame();
@@ -223,16 +269,17 @@ function SketchPage01(props) {
               <h3>Amplitude:</h3>
               <Slider
                 color="secondary"
-                defaultValue={amplitude}
+                defaultValue={amplitude / 10}
                 valueLabelDisplay="auto"
-                min={1}
-                max={30}
+                min={0}
+                max={10}
+                marks
                 onChange={handleChangeAmplitude}
               />{" "}
               <h3>Line Lenght:</h3>
               <Slider
                 color="secondary"
-                defaultValue={lineLenght}
+                defaultValue={Math.ceil((lineLenght * 30) / 500)}
                 valueLabelDisplay="auto"
                 min={1}
                 max={30}
