@@ -65,10 +65,8 @@ function SketchPage01(props) {
   let lineLenght = 66;
   const handleChangeLineLenght = (event, newValue) => {
     lineLenght = (newValue * 500) / 30;
-    console.log(lineLenght);
   };
 
-  let frame = 1;
   let xMargin,
     yMargin,
     columnWidth,
@@ -80,6 +78,7 @@ function SketchPage01(props) {
     n,
     lineWidth,
     color;
+  let frame = 1;
   let points = [];
   let frequency = 0.002;
   let numCells = columns * rows;
@@ -209,7 +208,7 @@ function SketchPage01(props) {
     initCanva();
   }, []);
 
-  const saveDataURIinParrent = () => {
+  const downloadImage = () => {
     const canvas = canvasRef.current;
     const dataURI = canvas.toDataURL("image / png");
     props.saveAsPng(dataURI);
@@ -287,7 +286,7 @@ function SketchPage01(props) {
               />
             </div>
 
-            <button className="button-main" onClick={saveDataURIinParrent}>
+            <button className="button-main" onClick={downloadImage}>
               save as png
             </button>
           </div>

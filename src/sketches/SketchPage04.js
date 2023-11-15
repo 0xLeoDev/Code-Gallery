@@ -103,7 +103,7 @@ function SketchPage04(props) {
     initCanva();
   }, []);
 
-  const saveDataURIinParrent = () => {
+  const downloadImage = () => {
     const canvas = canvasRef.current;
     const dataURI = canvas.toDataURL("image / png");
     props.saveAsPng(dataURI);
@@ -172,7 +172,7 @@ function SketchPage04(props) {
                 onChange={handleChangeRotation}
               />
             </div>
-            <button className="button-main" onClick={saveDataURIinParrent}>
+            <button className="button-main" onClick={downloadImage}>
               save as png
             </button>
           </div>
