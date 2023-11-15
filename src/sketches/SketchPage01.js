@@ -18,8 +18,9 @@ function SketchPage01(props) {
   const canvasRef = useRef(null);
   let frame = 1;
   let bacgroundColor = "#1a1a1a";
-  let canvasMarginX,
-    canvasMarginY,
+  let canvas,
+    width,
+    height,
     columnWidth,
     columnHeight,
     gridWidth,
@@ -28,11 +29,12 @@ function SketchPage01(props) {
     y,
     n,
     lineWidth,
+    numCells,
     color;
   let points = [];
   let frequency = 0.002;
   let speed = 2;
-  let columns = 30; // 15-150
+  let columns = 30;
   let rows = 5;
   let amplitude = 30;
   let lineLenght = 66;
@@ -40,13 +42,33 @@ function SketchPage01(props) {
     colormap: "density",
     nshades: amplitude,
   });
+  let drawDots = false;
 
-  const [dots, setDots] = useState(false);
+  const updateCanvasData = () => {
+    canvas = canvasRef.current;
+    width = canvas.width;
+    height = canvas.height;
+    gridWidth = width * 0.95;
+    gridHeight = height * 0.95;
+    columnWidth = gridWidth / columns;
+    columnHeight = gridHeight / rows;
+    numCells = rows * columns;
+  };
+
+  const populateArray = () => {
+    for (let i = 0; i < numCells; i++) {
+      let x = (i % columns) * columnWidth;
+      let y = Math.floor(i / columns) * columnHeight;
+      n = random.noise2D(x, y, frequency, amplitude);
+      lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
+      color =
+        colors[Math.floor(math.mapRange(n, -amplitude, amplitude, 0, 29))];
+      points.push(new Point({ x, y, lineWidth, color }));
+    }
+  };
 
   const handleSwitchDotsOrLine = () => {
-    // setDots(!dots);
-    // initCanva();
-    // console.log(dots);
+    drawDots = !drawDots;
   };
 
   const handleChangeSpeed = (event, newValue) => {
@@ -55,56 +77,16 @@ function SketchPage01(props) {
 
   const handleChangeColumns = (event, newValue) => {
     columns = newValue;
-    const canvas = canvasRef.current;
-    const width = canvas.width;
-    const height = canvas.height;
-    let gridWidth = width * 0.9;
-    let gridHeight = height * 0.9;
-    let columnWidth = gridWidth / columns;
-    let columnHeight = gridHeight / rows;
-    let numCells = rows * columns;
-
+    updateCanvasData();
     points = [];
-    for (let i = 0; i < numCells; i++) {
-      let x = (i % columns) * columnWidth;
-      let y = Math.floor(i / columns) * columnHeight;
-      n = random.noise2D(x, y, frequency, amplitude);
-      lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
-      color =
-        colors[
-          Math.floor(
-            math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
-          )
-        ];
-      points.push(new Point({ x, y, lineWidth, color }));
-    }
+    populateArray();
   };
 
   const handleChangeRows = (event, newValue) => {
     rows = newValue;
-    const canvas = canvasRef.current;
-    const width = canvas.width;
-    const height = canvas.height;
-    let gridWidth = width * 0.9;
-    let gridHeight = height * 0.9;
-    let columnWidth = gridWidth / columns;
-    let columnHeight = gridHeight / rows;
-    let numCells = rows * columns;
-
+    updateCanvasData();
     points = [];
-    for (let i = 0; i < numCells; i++) {
-      let x = (i % columns) * columnWidth;
-      let y = Math.floor(i / columns) * columnHeight;
-      n = random.noise2D(x, y, frequency, amplitude);
-      lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
-      color =
-        colors[
-          Math.floor(
-            math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
-          )
-        ];
-      points.push(new Point({ x, y, lineWidth, color }));
-    }
+    populateArray();
   };
 
   const handleChangeAmplitude = (event, newValue) => {
@@ -115,30 +97,32 @@ function SketchPage01(props) {
     lineLenght = (newValue * 500) / 30;
   };
 
+  const initCanva = () => {
+    try {
+      updateCanvasData();
+      const context = canvas.getContext("2d");
+      context.fillStyle = bacgroundColor;
+      context.fillRect(0, 0, width, height);
+      populateArray();
+      renderFrame();
+    } catch (error) {}
+  };
+
   const renderFrame = () => {
     try {
-      const canvas = canvasRef.current;
+      updateCanvasData();
       const context = canvas.getContext("2d");
-      const width = canvas.width;
-      const height = canvas.height;
-      gridWidth = width * 0.9;
-      gridHeight = height * 0.9;
-      columnWidth = gridWidth / columns;
-      columnHeight = gridHeight / rows;
-
-      canvasMarginX = (width - gridWidth) * 0.5;
-      canvasMarginY = (height - gridHeight) * 0.5;
+      let canvasMarginX = (width - gridWidth) * 0.5;
+      let canvasMarginY = (height - gridHeight) * 0.5;
+      let lastx, lasty;
 
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
-
       context.save();
       context.translate(canvasMarginX, canvasMarginY);
       context.translate(columnWidth * 0.5, columnHeight * 0.5);
 
-      let lastx, lasty;
-
-      // update pos
+      // update position
       points.forEach((point) => {
         n = random.noise2D(
           point.ix + frame * speed,
@@ -150,9 +134,7 @@ function SketchPage01(props) {
         point.y = point.iy + n;
       });
 
-      // drow dots lines
-
-      if (dots == true) {
+      if (drawDots == true) {
         points.forEach((point) => {
           point.draw(context);
         });
@@ -175,7 +157,6 @@ function SketchPage01(props) {
             context.strokeStyle = curr.color;
             context.beginPath();
             context.moveTo(lastx, lasty);
-
             context.quadraticCurveTo(curr.x, curr.y, mx, my);
             context.stroke();
 
@@ -184,7 +165,6 @@ function SketchPage01(props) {
           }
         }
       }
-
       context.restore();
 
       frame += 1;
@@ -192,48 +172,15 @@ function SketchPage01(props) {
     } catch (error) {}
   };
 
-  const initCanva = () => {
-    try {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
-      const width = canvas.width;
-      const height = canvas.height;
-
-      context.fillStyle = bacgroundColor;
-      context.fillRect(0, 0, width, height);
-
-      gridWidth = width * 0.9;
-      gridHeight = height * 0.9;
-      columnWidth = gridWidth / columns;
-      columnHeight = gridHeight / rows;
-      let numCells = columns * rows;
-
-      for (let i = 0; i < numCells; i++) {
-        x = (i % columns) * columnWidth;
-        y = Math.floor(i / columns) * columnHeight;
-
-        n = random.noise2D(x, y, frequency, amplitude);
-        lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
-        color =
-          colors[
-            Math.floor(math.mapRange(n, -amplitude, amplitude, 0, amplitude))
-          ];
-        points.push(new Point({ x, y, lineWidth, color }));
-      }
-
-      renderFrame();
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    initCanva();
-  }, []);
-
   const downloadImage = () => {
     const canvas = canvasRef.current;
     const dataURI = canvas.toDataURL("image / png");
     props.saveAsPng(dataURI);
   };
+
+  useEffect(() => {
+    initCanva();
+  }, []);
 
   return (
     <>
@@ -296,24 +243,24 @@ function SketchPage01(props) {
                 marks
                 onChange={handleChangeAmplitude}
               />{" "}
-              <h3>Dots or lines:</h3>
+              <h3>Lines or dots:</h3>
               <Stack
                 spacing={2}
                 direction="row"
                 sx={{ justifyContent: "center", mb: 1 }}
                 alignItems="center"
               >
-                <p>dots</p>
+                <p> lines</p>
                 <Switch
                   color="secondary"
                   onChange={handleSwitchDotsOrLine}
-                  defaultValue={dots}
+                  defaultValue={drawDots}
                 />
-                <p> lines</p>
+                <p>dots</p>
               </Stack>{" "}
               <h3>Line Lenght:</h3>
               <Slider
-                disabled={dots}
+                disabled={drawDots} //
                 color="secondary"
                 defaultValue={Math.ceil((lineLenght * 30) / 500)}
                 valueLabelDisplay="auto"
@@ -351,13 +298,5 @@ class Point {
     context.arc(0, 0, 10, 0, Math.PI * 2);
     context.fill();
     context.restore();
-  }
-  updatePos(x, y, lineWidth, color) {
-    this.x = x;
-    this.y = y;
-    this.ix = x;
-    this.iy = y;
-    this.lineWidth = lineWidth;
-    this.color = color;
   }
 }
