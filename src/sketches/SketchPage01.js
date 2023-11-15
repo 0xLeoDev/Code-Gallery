@@ -44,13 +44,15 @@ function SketchPage01(props) {
   const [dots, setDots] = useState(false);
 
   const handleSwitchDotsOrLine = () => {
-    setDots(!dots);
-    initCanva();
-    console.log(dots);
+    // setDots(!dots);
+    // initCanva();
+    // console.log(dots);
   };
+
   const handleChangeSpeed = (event, newValue) => {
     speed = newValue;
   };
+
   const handleChangeColumns = (event, newValue) => {
     columns = newValue;
     const canvas = canvasRef.current;
@@ -74,6 +76,7 @@ function SketchPage01(props) {
             math.mapRange(n + rows, -amplitude, amplitude, 0, amplitude)
           )
         ];
+      points.push(new Point({ x, y, lineWidth, color }));
     }
   };
 
