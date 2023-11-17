@@ -5,6 +5,9 @@ import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
+const eases = require("eases");
+
+const cursor = { x: 9999, y: 9999 };
 
 function SketchPage02(props) {
   let arowPathLeft = "/sketch-01";
@@ -13,15 +16,55 @@ function SketchPage02(props) {
   const [navbarStatus, setNavbarStatus] = useState(false);
 
   const canvasRef = useRef(null);
+
   let bacgroundColor = "#1a1a1a";
+
+  let elCanvas;
+
+  const particles = [];
+  let pos = []; // ---
+  const numCircles = 15;
+  let dotRadius = 12;
+  let cirRadius = 0;
+  const fitRadius = dotRadius;
+  const gapCircle = 8;
+  const gapDot = 4;
+  let x, y, particle, radius;
+
+  const onMousedown = (e) => {
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    onMouseMove(e);
+  };
+
+  const onMouseMove = (e) => {
+    const x = (e.offsetX / elCanvas.offsetWidth) * elCanvas.width;
+    const y = (e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
+    cursor.x = x;
+    cursor.y = y;
+  };
+
+  const onMouseUp = () => {
+    window.removeEventListener("mousemove", onMouseMove);
+    window.removeEventListener("mouseup", onMouseUp);
+    cursor.x = 9999;
+    cursor.y = 9999;
+  };
 
   const renderFrame = () => {
     try {
-      console.log("Rendering a frame.");
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       const width = canvas.width;
       const height = canvas.height;
+
+      context.fillStyle = bacgroundColor;
+      context.fillRect(0, 0, width, height);
+
+      particles.forEach((particle) => {
+        particle.update();
+        particle.draw(context);
+      });
 
       requestAnimationFrame(renderFrame);
     } catch (error) {}
@@ -34,54 +77,38 @@ function SketchPage02(props) {
       const width = canvas.width;
       const height = canvas.height;
 
+      elCanvas = canvasRef.current;
+      elCanvas.addEventListener("mousedown", onMousedown);
+
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
 
-      let cx = width * 0.5;
-      let cy = height * 0.5;
+      for (let i = 0; i < numCircles; i++) {
+        const circumference = Math.PI * 2 * cirRadius;
+        const numFit = i
+          ? Math.floor(circumference / (fitRadius * 2 + gapDot))
+          : 1;
+        const fitSlice = (Math.PI * 2) / numFit;
 
-      let w = width * 0.01;
-      let h = width * 0.1;
+        for (let j = 0; j < numFit; j++) {
+          const theta = fitSlice * j;
 
-      let quantity = 20;
-      let radius = width * 0.3;
+          x = Math.cos(theta) * cirRadius;
+          y = Math.sin(theta) * cirRadius;
 
-      for (let i = 0; i < quantity; i++) {
-        context.save();
+          x += width * 0.5;
+          y += height * 0.5;
 
-        let slice = math.degToRad(360 / quantity);
-        let angle = slice * i;
+          radius = dotRadius;
 
-        let x = cx + radius * Math.sin(angle);
-        let y = cy + radius * Math.cos(angle);
+          particle = new Particle({ x, y, radius });
+          particles.push(particle);
+        }
 
-        context.fillStyle = "red";
-        context.translate(x, y);
-        context.rotate(-angle);
-        context.scale(random.range(1, 3), random.range(0.5, 1.5));
-        context.beginPath();
-        context.rect(-w * 0.5, -h * 0.5, w, h);
-        context.fill();
-        context.restore();
-
-        context.save();
-        context.translate(cx, cy);
-        context.rotate(-angle);
-        context.lineWidth = random.range(5, 20); // dugo biaych
-        context.strokeStyle = "#f5f5f5";
-        context.beginPath();
-        context.arc(
-          0,
-          0,
-          radius * random.range(0.6, 1.4),
-          slice * -0.3,
-          slice * 5
-        );
-        context.stroke();
-        context.restore();
+        cirRadius += fitRadius * 2 + gapCircle;
+        dotRadius = (1 - eases.quadOut(i / numCircles)) * fitRadius;
       }
-
-      //  renderFrame();
+      renderFrame();
     } catch (error) {}
   };
 
@@ -119,19 +146,7 @@ function SketchPage02(props) {
         {navbarStatus == false && (
           <div className="panel">
             <h2 className="skethTitle">sketch-02</h2>
-            <div className="optionsList">
-              <h3>Option 1</h3>
-              <p>slider 1</p>
-              <h3>Option 2</h3>
-              <p>option 2</p>
-              <h3>Option 3</h3>
-              <p>option 3</p>
-              <h3>Option 4</h3>
-              <p>option 4</p>
-            </div>
-            <button className="button-main" onClick={initCanva}>
-              refresh canva
-            </button>
+            <div className="optionsList"></div>
             <button className="button-main" onClick={downloadImage}>
               save as png
             </button>
@@ -143,3 +158,68 @@ function SketchPage02(props) {
 }
 
 export default SketchPage02;
+
+class Particle {
+  constructor({ x, y, radius = 10 }) {
+    //position
+    this.x = x;
+    this.y = y;
+    //acceleration
+    this.ax = 0;
+    this.ay = 0;
+    // velocity
+    this.vx = 0;
+    this.vy = 0;
+    //initial pos
+    this.ix = x;
+    this.iy = y;
+
+    this.radius = radius;
+    this.scale = 1;
+    this.minDist = random.range(100, 200);
+    this.pushFactor = random.range(0.02, 0.04);
+    this.pullFactor = random.range(0.002, 0.006);
+    this.dampFactor = random.range(0.9, 0.95);
+  }
+
+  draw(context) {
+    context.save();
+    context.translate(this.x, this.y);
+    context.fillStyle = "white";
+    context.beginPath();
+    context.arc(0, 0, this.radius * this.scale, 0, Math.PI * 2);
+    context.fill();
+    context.restore();
+  }
+
+  update() {
+    let dx, dy, dd, distDelta;
+    // pull force
+    dx = this.ix - this.x;
+    dy = this.iy - this.y;
+    dd = Math.sqrt(dx * dx + dy * dy);
+
+    this.scale = math.mapRange(dd, 0, 200, 1, 5);
+    this.ax = dx * this.pullFactor;
+    this.ay = dy * this.pullFactor;
+
+    // push force
+    dx = this.x - cursor.x;
+    dy = this.y - cursor.y;
+    dd = Math.sqrt(dx * dx + dy * dy);
+
+    distDelta = this.minDist - dd;
+
+    if (dd < this.minDist - dd) {
+      this.ax += (dx / dd) * distDelta * this.pushFactor;
+      this.ay += (dy / dd) * distDelta * this.pushFactor;
+    }
+
+    this.vx += this.ax;
+    this.vy += this.ay;
+    this.vx *= this.dampFactor;
+    this.vy *= this.dampFactor;
+    this.x += this.vx;
+    this.y += this.vy;
+  }
+}
