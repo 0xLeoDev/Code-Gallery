@@ -17,19 +17,22 @@ function SketchPage02(props) {
 
   const canvasRef = useRef(null);
 
+  let canvas, context, width, height, x, y, particle, radius;
   let bacgroundColor = "#1a1a1a";
-
-  let elCanvas;
-
   const particles = [];
-  let pos = []; // ---
-  const numCircles = 15;
+  const numCircles = 16;
   let dotRadius = 12;
   let cirRadius = 0;
   const fitRadius = dotRadius;
   const gapCircle = 8;
   const gapDot = 4;
-  let x, y, particle, radius;
+
+  const updateCanvasData = () => {
+    canvas = canvasRef.current;
+    context = canvas.getContext("2d");
+    width = canvas.width;
+    height = canvas.height;
+  };
 
   const onMousedown = (e) => {
     window.addEventListener("mousemove", onMouseMove);
@@ -38,8 +41,8 @@ function SketchPage02(props) {
   };
 
   const onMouseMove = (e) => {
-    const x = (e.offsetX / elCanvas.offsetWidth) * elCanvas.width;
-    const y = (e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
+    const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
+    const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
     cursor.x = x;
     cursor.y = y;
   };
@@ -53,11 +56,7 @@ function SketchPage02(props) {
 
   const renderFrame = () => {
     try {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
-      const width = canvas.width;
-      const height = canvas.height;
-
+      updateCanvasData();
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
 
@@ -72,16 +71,11 @@ function SketchPage02(props) {
 
   const initCanva = () => {
     try {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
-      const width = canvas.width;
-      const height = canvas.height;
-
-      elCanvas = canvasRef.current;
-      elCanvas.addEventListener("mousedown", onMousedown);
-
+      updateCanvasData();
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
+      canvas.addEventListener("mousedown", onMousedown);
+      console.log("test " + canvas);
 
       for (let i = 0; i < numCircles; i++) {
         const circumference = Math.PI * 2 * cirRadius;
@@ -161,18 +155,14 @@ export default SketchPage02;
 
 class Particle {
   constructor({ x, y, radius = 10 }) {
-    //position
     this.x = x;
     this.y = y;
-    //acceleration
-    this.ax = 0;
-    this.ay = 0;
-    // velocity
-    this.vx = 0;
-    this.vy = 0;
-    //initial pos
-    this.ix = x;
-    this.iy = y;
+    this.xAcceleration = 0;
+    this.yAcceleration = 0;
+    this.xVelocity = 0;
+    this.yVelocity = 0;
+    this.xInitial = x;
+    this.yInitial = y;
 
     this.radius = radius;
     this.scale = 1;
@@ -195,13 +185,13 @@ class Particle {
   update() {
     let dx, dy, dd, distDelta;
     // pull force
-    dx = this.ix - this.x;
-    dy = this.iy - this.y;
+    dx = this.xInitial - this.x;
+    dy = this.yInitial - this.y;
     dd = Math.sqrt(dx * dx + dy * dy);
 
     this.scale = math.mapRange(dd, 0, 200, 1, 5);
-    this.ax = dx * this.pullFactor;
-    this.ay = dy * this.pullFactor;
+    this.xAcceleration = dx * this.pullFactor;
+    this.yAcceleration = dy * this.pullFactor;
 
     // push force
     dx = this.x - cursor.x;
@@ -211,15 +201,15 @@ class Particle {
     distDelta = this.minDist - dd;
 
     if (dd < this.minDist - dd) {
-      this.ax += (dx / dd) * distDelta * this.pushFactor;
-      this.ay += (dy / dd) * distDelta * this.pushFactor;
+      this.xAcceleration += (dx / dd) * distDelta * this.pushFactor;
+      this.yAcceleration += (dy / dd) * distDelta * this.pushFactor;
     }
 
-    this.vx += this.ax;
-    this.vy += this.ay;
-    this.vx *= this.dampFactor;
-    this.vy *= this.dampFactor;
-    this.x += this.vx;
-    this.y += this.vy;
+    this.xVelocity += this.xAcceleration;
+    this.yVelocity += this.yAcceleration;
+    this.xVelocity *= this.dampFactor;
+    this.yVelocity *= this.dampFactor;
+    this.x += this.xVelocity;
+    this.y += this.yVelocity;
   }
 }
