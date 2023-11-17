@@ -140,7 +140,7 @@ function SketchPage05(props) {
     return random.pick(glyphs);
   };
 
-  const saveDataURIinParrent = () => {
+  const downloadImage = () => {
     const canvas = canvasRef.current;
     const dataURI = canvas.toDataURL("image / png");
     props.saveAsPng(dataURI);
@@ -150,7 +150,7 @@ function SketchPage05(props) {
     <>
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
-      <div className="App">
+      <div className="mainPageContainer">
         <div className="canvas">
           <canvas
             ref={canvasRef}
@@ -172,7 +172,7 @@ function SketchPage05(props) {
             <div className="optionsList">
               <h3>Type your initials</h3>
             </div>
-            <button className="button-main" onClick={saveDataURIinParrent}>
+            <button className="button-main" onClick={downloadImage}>
               save as png
             </button>
           </div>

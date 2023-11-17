@@ -1,14 +1,14 @@
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1150px) {
   body {
-    .App {
+    .mainPageContainer {
+      height: auto;
       width: min(100% - 140px, 500px);
       margin-bottom: 80px;
-      height: auto;
     }
     .canvas {
       width: 90%;
-      aspect-ratio: 1/1;
       height: auto;
+      aspect-ratio: 1/1;
       margin-bottom: 30px;
     }
     .panel {
@@ -31,51 +31,68 @@
     }
 
     .button-main {
-      margin-bottom: 10px;
       font-weight: 600;
+      margin-bottom: 10px;
     }
   }
 }
 
-.App {
-  width: min(100% - 140px, 1100px);
-  display: flex;
-  margin-inline: auto;
+@media only screen and (max-width: 660px) {
+  body {
+    .mainPageContainer {
+      width: 90%;
+    }
+    .canvas {
+      width: min(90% - 20px, 500px);
+    }
+    .panel {
+      width: min(100% - 100px, 500px);
+    }
+  }
+}
 
-  height: 83vh;
-  margin-bottom: 60px;
+.mainPageContainer {
+  display: flex;
   flex-wrap: wrap;
+
+  width: min(100% - 140px, 1100px);
+  height: 83vh;
+
+  margin-inline: auto;
+  margin-bottom: 60px;
 }
 .canvas {
   aspect-ratio: 1/1;
   height: 80%;
-  background-color: var(--second-bg-color);
-  border: 10px solid var(--text-border-color);
 
+  background-color: var(--second-bg-color);
+
+  border: 10px solid var(--text-border-color);
   box-shadow: #f02eaa66 -5px 5px, #f02eaa4d -10px 10px, #f02eaa33 -15px 15px,
     #f02eaa1a -20px 20px, #f02eaa0d -25px 25px;
 
-  background-size: contain;
   margin: auto;
 }
 .panel {
-  min-width: 27%;
-  height: 90%;
-  background-color: var(--second-bg-color);
-  border: 10px solid var(--text-border-color);
-  margin: auto;
-
-  padding: 2%;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  min-width: 27%;
+  height: 90%;
+
+  background-color: var(--second-bg-color);
+  border: 10px solid var(--text-border-color);
+
   background: var(--second-bg-color);
 
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
     rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
     rgba(240, 46, 170, 0.05) 25px 25px;
+
+  padding: 2%;
+  margin: auto;
 }
 .skethTitle {
   align-self: flex-end;
@@ -87,19 +104,22 @@
 }
 
 button {
-  border: 7px solid var(--text-border-color);
+  align-self: strech;
   background-color: var(--main-bg-color);
-  border-radius: 0;
+
+  width: 90%;
+
   font-family: "laceddays";
   font-size: 20px;
-  padding: 2%;
   color: var(--text-border-color);
-  width: 90%;
-  align-self: strech;
+
+  border: 7px solid var(--text-border-color);
+  border-radius: 0;
+  padding: 2%;
 }
 
 button:hover {
-  cursor: pointer;
   background-color: rgba(240, 46, 170, 0.2);
+  cursor: pointer;
   transform: scale(0.98);
 }

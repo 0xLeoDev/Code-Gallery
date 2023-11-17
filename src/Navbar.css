@@ -18,52 +18,56 @@
 @media only screen and (max-width: 660px) {
   body {
     .navbarHeader {
-      font-size: 3.8vw;
+      font-size: 4.5vw;
       width: 90%;
+      font-weight: bold;
     }
     .navLink {
       padding: 2%;
-      font-size: 4.4vw;
+      font-size: 5vw;
+      font-weight: bold;
     }
     .menu-footer {
-      font-size: 2.4vw;
+      font-size: 3vw;
     }
   }
 }
 
 .navbar {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  width: 100%;
+  height: 100%;
 }
 .navbarHeader {
-  font-weight: 600;
-
-  font-family: "laceddays";
-  margin: 10px;
-  font-size: 30px;
   width: 90%;
+
+  font-weight: 600;
+  font-family: "laceddays";
+  font-size: 30px;
   text-align: left;
-  font-weight: 200;
+
+  margin: 10px;
 }
 .navbarList {
   display: flex;
   flex-direction: column;
-  width: 100%;
   align-items: center;
+
+  width: 100%;
 }
 .navLink {
   font-weight: 600;
-
-  padding: 5%;
   font-family: "laceddays";
   font-size: 32px;
   text-decoration: none;
   color: var(--text-border-color);
   font-weight: 200;
+
+  padding: 5%;
 }
 .navLink:hover {
   scale: 1.1;

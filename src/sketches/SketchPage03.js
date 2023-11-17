@@ -122,7 +122,7 @@ function SketchPage03(props) {
     initCanva();
   }, []);
 
-  const saveDataURIinParrent = () => {
+  const downloadImage = () => {
     const canvas = canvasRef.current;
     const dataURI = canvas.toDataURL("image / png");
     props.saveAsPng(dataURI);
@@ -132,7 +132,7 @@ function SketchPage03(props) {
     <>
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
-      <div className="App">
+      <div className="mainPageContainer">
         <div className="canvas">
           <canvas
             style={{ width: "100%", height: "100%" }}
@@ -175,7 +175,7 @@ function SketchPage03(props) {
                 />
                 <p> pass</p>
               </Stack>
-              <h3>Sppeed:</h3>
+              <h3>Speed:</h3>
               <Slider
                 color="secondary"
                 defaultValue={speed}
@@ -196,7 +196,7 @@ function SketchPage03(props) {
                 onChange={handleChangeLineIntensity}
               />
             </div>
-            <button className="button-main" onClick={saveDataURIinParrent}>
+            <button className="button-main" onClick={downloadImage}>
               save as png
             </button>
           </div>

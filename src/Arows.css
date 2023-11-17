@@ -1,36 +1,40 @@
 .arrowLeft {
-  position: absolute;
+  position: fixed;
   left: 10px;
   top: 50%;
 }
 .arrowRight {
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 10px;
   transform: rotate(180deg);
 }
 
 .arrow {
-  background: rgb(32, 32, 32, 0.9);
-  border: 5px solid #202020;
-  padding: 2px;
-  border-radius: 10%;
-
   position: relative;
+  background: rgb(32, 32, 32, 0.9);
+
   width: 30px;
   height: 30px;
+
   cursor: pointer;
   transition: 1.5s;
   overflow: hidden;
+
+  border: 5px solid #202020;
+  padding: 2px;
+  border-radius: 10%;
 }
 
 .arrow:before {
   position: absolute;
   display: block;
-  content: "";
-  color: #f5f5f5;
+
   width: 16px;
   height: 16px;
+
+  content: "";
+  color: #f5f5f5;
   border-top: solid 4px;
   border-left: solid 4px;
   top: 50%;
