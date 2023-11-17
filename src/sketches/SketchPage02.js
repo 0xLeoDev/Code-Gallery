@@ -74,8 +74,8 @@ function SketchPage02(props) {
       updateCanvasData();
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
+
       canvas.addEventListener("mousedown", onMousedown);
-      console.log("test " + canvas);
 
       for (let i = 0; i < numCircles; i++) {
         const circumference = Math.PI * 2 * cirRadius;
@@ -167,7 +167,7 @@ class Particle {
     this.radius = radius;
     this.scale = 1;
     this.minDist = random.range(100, 200);
-    this.pushFactor = random.range(0.02, 0.04);
+    this.pushFactor = random.range(0.015, 0.03);
     this.pullFactor = random.range(0.002, 0.006);
     this.dampFactor = random.range(0.9, 0.95);
   }
