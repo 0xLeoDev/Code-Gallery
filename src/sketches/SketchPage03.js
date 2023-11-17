@@ -160,20 +160,20 @@ function SketchPage03(props) {
                 max={50}
                 onChange={handleChangeQuantity}
               />
-              <h3>Bounce or pass:</h3>
+              <h3>Pass or Bounce:</h3>
               <Stack
                 spacing={2}
                 direction="row"
                 sx={{ justifyContent: "center", mb: 1 }}
                 alignItems="center"
               >
-                <p>bounce</p>
+                <p> pass</p>
                 <Switch
                   color="secondary"
                   onChange={handleSwitchBounceChange}
                   defaultValue={bounce}
                 />
-                <p> pass</p>
+                <p>bounce</p>
               </Stack>
               <h3>Speed:</h3>
               <Slider
