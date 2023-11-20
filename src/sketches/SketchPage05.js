@@ -13,14 +13,11 @@ function SketchPage05(props) {
   const [navbarStatus, setNavbarStatus] = useState(false);
 
   const canvasRef = useRef(null);
-  let manager;
-
+  const typeCanvas = document.createElement("canvas");
+  const typeContext = typeCanvas.getContext("2d");
   let text = "A";
   let fontSize;
   let fontFamily = "serif";
-
-  const typeCanvas = document.createElement("canvas");
-  const typeContext = typeCanvas.getContext("2d");
 
   const renderFrame = () => {
     try {
@@ -86,8 +83,6 @@ function SketchPage05(props) {
       context.textBaseline = "middle";
       context.textAlign = "center";
 
-      // context.drawImage(typeCanvas, 0, 0);
-
       for (let i = 0; i < numCells; i++) {
         fontSize = cols;
 
@@ -103,7 +98,6 @@ function SketchPage05(props) {
         const a = typeData[i * 4 + 3];
 
         context.fillStyle = "#f5f5f5";
-        // context.fillStyle = `rgb(${r},${g},${b})`;
 
         let glyph = getGlyph(r);
 

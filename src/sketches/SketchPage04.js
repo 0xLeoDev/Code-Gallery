@@ -4,7 +4,6 @@ import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
 import { Slider } from "@mui/material";
-
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
@@ -16,23 +15,23 @@ function SketchPage04(props) {
 
   const canvasRef = useRef(null);
   let frame = 1;
-
   let speed = 6;
+  let cols = 5;
+  let rows = 15;
+  let rotation = 0.1;
+
   const handleChangeSpeed = (event, newValue) => {
     speed = newValue * 2;
   };
 
-  let cols = 5;
   const handleChangeColumns = (event, newValue) => {
     cols = newValue;
   };
 
-  let rows = 15;
   const handleChangeRows = (event, newValue) => {
     rows = newValue;
   };
 
-  let rotation = 0.1;
   const handleChangeRotation = (event, newValue) => {
     rotation = newValue * 5 * 10 ** -2;
   };
@@ -88,6 +87,7 @@ function SketchPage04(props) {
 
         context.restore();
       }
+
       frame += 1;
       requestAnimationFrame(renderFrame);
     } catch (error) {}
