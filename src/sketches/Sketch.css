@@ -82,6 +82,7 @@
   min-width: 27%;
   height: 90%;
 
+  overflow: auto;
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
 

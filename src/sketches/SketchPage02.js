@@ -35,19 +35,33 @@ function SketchPage02(props) {
   };
 
   const onMousedown = (e) => {
+    console.log("down");
+
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
+
+    window.addEventListener("touchmove", onMouseMove);
+    window.addEventListener("touchend", onMouseUp);
+    window.addEventListener("touchcancel", onMouseUp);
+
     onMouseMove(e);
   };
 
   const onMouseMove = (e) => {
+    console.log("move");
+    console.log(e);
+
     const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
     const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
     cursor.x = x;
     cursor.y = y;
+
+    console.log(x, y);
   };
 
   const onMouseUp = () => {
+    console.log("up");
+
     window.removeEventListener("mousemove", onMouseMove);
     window.removeEventListener("mouseup", onMouseUp);
     cursor.x = 9999;
@@ -76,6 +90,7 @@ function SketchPage02(props) {
       context.fillRect(0, 0, width, height);
 
       canvas.addEventListener("mousedown", onMousedown);
+      canvas.addEventListener("touchstart", onMousedown);
 
       for (let i = 0; i < numCircles; i++) {
         const circumference = Math.PI * 2 * cirRadius;
