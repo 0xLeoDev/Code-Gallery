@@ -124,3 +124,7 @@ button:hover {
   cursor: pointer;
   transform: scale(0.98);
 }
+
+.clicky:hover {
+  cursor: pointer;
+}

@@ -3,6 +3,8 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
+import { Slider, Stack, Switch } from "@mui/material";
+
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 const eases = require("eases");
@@ -35,41 +37,49 @@ function SketchPage02(props) {
   };
 
   const onMousedown = (e) => {
-    console.log("down");
-
     window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
-
-    window.addEventListener("touchmove", onMouseMove);
-    window.addEventListener("touchend", onMouseUp);
-    window.addEventListener("touchcancel", onMouseUp);
-
+    window.addEventListener("mouseup", cleanAfterMove);
     onMouseMove(e);
   };
 
-  const onMouseMove = (e) => {
-    console.log("move");
-    console.log(e);
+  const onTouchstart = (e) => {
+    window.addEventListener("touchmove", onTouchMove);
+    window.addEventListener("touchend", cleanAfterMove);
+    window.addEventListener("touchcancel", cleanAfterMove);
+  };
 
+  const onMouseMove = (e) => {
     const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
     const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
     cursor.x = x;
     cursor.y = y;
-
-    console.log(x, y);
   };
 
-  const onMouseUp = () => {
-    console.log("up");
+  const onTouchMove = (e) => {
+    var rect = e.target.getBoundingClientRect();
+    const x =
+      ((e.targetTouches[0].pageX - rect.left) / canvas.offsetWidth) *
+      canvas.width;
+    const y =
+      ((e.targetTouches[0].pageY - rect.top) / canvas.offsetHeight) *
+      canvas.height;
+    cursor.x = x;
+    cursor.y = y;
+  };
 
+  const cleanAfterMove = () => {
     window.removeEventListener("mousemove", onMouseMove);
-    window.removeEventListener("mouseup", onMouseUp);
+    window.removeEventListener("mouseup", cleanAfterMove);
+    window.removeEventListener("touchmove", onMouseMove);
+    window.removeEventListener("touchend", cleanAfterMove);
+    window.removeEventListener("touchcancel", cleanAfterMove);
     cursor.x = 9999;
     cursor.y = 9999;
   };
 
   const renderFrame = () => {
     try {
+      console.log("render");
       updateCanvasData();
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
@@ -90,7 +100,7 @@ function SketchPage02(props) {
       context.fillRect(0, 0, width, height);
 
       canvas.addEventListener("mousedown", onMousedown);
-      canvas.addEventListener("touchstart", onMousedown);
+      canvas.addEventListener("touchstart", onTouchstart);
 
       for (let i = 0; i < numCircles; i++) {
         const circumference = Math.PI * 2 * cirRadius;
@@ -136,7 +146,7 @@ function SketchPage02(props) {
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
       <div className="mainPageContainer">
-        <div className="canvas">
+        <div className="canvas clicky">
           <canvas
             ref={canvasRef}
             style={{ width: "100%", height: "100%" }}
@@ -155,7 +165,38 @@ function SketchPage02(props) {
         {navbarStatus == false && (
           <div className="panel">
             <h2 className="skethTitle">sketch-02</h2>
-            <div className="optionsList"></div>
+            <div className="optionsList">
+              <h3>Circles density</h3>
+              <Slider
+                color="secondary"
+                defaultValue={1}
+                valueLabelDisplay="auto"
+                marks
+                min={1}
+                max={3}
+                onChange={console.log("t")}
+              />
+              <h3>Cursor weight:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={1}
+                valueLabelDisplay="auto"
+                marks
+                min={1}
+                max={3}
+                onChange={console.log("t")}
+              />
+              <h3>Scale:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={1}
+                valueLabelDisplay="auto"
+                marks
+                min={1}
+                max={3}
+                onChange={console.log("t")}
+              />
+            </div>
             <button className="button-main" onClick={downloadImage}>
               save as png
             </button>
