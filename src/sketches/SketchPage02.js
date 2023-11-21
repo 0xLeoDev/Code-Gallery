@@ -3,13 +3,22 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
-import { Slider, Stack, Switch } from "@mui/material";
+import { Slider, SliderMarkLabel, Stack, Switch } from "@mui/material";
 
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 const eases = require("eases");
 
 const cursor = { x: 9999, y: 9999 };
+let cursorWeight = 1;
+let scaling = false;
+
+const handleChangeCursorWeight = (event, newValue) => {
+  cursorWeight = newValue;
+};
+const handleChangeScaling = () => {
+  scaling = !scaling;
+};
 
 function SketchPage02(props) {
   let arowPathLeft = "/sketch-01";
@@ -164,8 +173,27 @@ function SketchPage02(props) {
 
         {navbarStatus == false && (
           <div className="panel">
-            <h2 className="skethTitle">sketch-02</h2>
+            <div className="title">
+              <h2 className="skethTitle">sketch-02</h2>
+              <h3 className="skethSecondTitle">
+                Click and move your cursor over the canvas.
+              </h3>
+            </div>
             <div className="optionsList">
+              <h3>Cursor weight:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={cursorWeight}
+                min={1}
+                max={3}
+                onChange={handleChangeCursorWeight}
+                valueLabelDisplay="auto"
+                marks={[
+                  { value: 1, label: "Light" },
+                  { value: 2, label: "Medium" },
+                  { value: 3, label: "Heavy" },
+                ]}
+              />
               <h3>Circles density</h3>
               <Slider
                 color="secondary"
@@ -173,29 +201,24 @@ function SketchPage02(props) {
                 valueLabelDisplay="auto"
                 marks
                 min={1}
-                max={3}
+                max={10}
                 onChange={console.log("t")}
               />
-              <h3>Cursor weight:</h3>
-              <Slider
-                color="secondary"
-                defaultValue={1}
-                valueLabelDisplay="auto"
-                marks
-                min={1}
-                max={3}
-                onChange={console.log("t")}
-              />
-              <h3>Scale:</h3>
-              <Slider
-                color="secondary"
-                defaultValue={1}
-                valueLabelDisplay="auto"
-                marks
-                min={1}
-                max={3}
-                onChange={console.log("t")}
-              />
+              <h3>Scaling:</h3>
+              <Stack
+                spacing={2}
+                direction="row"
+                sx={{ justifyContent: "center", mb: 1 }}
+                alignItems="center"
+              >
+                <p>off</p>
+                <Switch
+                  color="secondary"
+                  onChange={handleChangeScaling}
+                  defaultValue={scaling}
+                />
+                <p>on</p>
+              </Stack>
             </div>
             <button className="button-main" onClick={downloadImage}>
               save as png
@@ -245,7 +268,9 @@ class Particle {
     dy = this.yInitial - this.y;
     dd = Math.sqrt(dx * dx + dy * dy);
 
-    this.scale = math.mapRange(dd, 0, 200, 1, 5);
+    if (scaling) {
+      this.scale = math.mapRange(dd, 0, 200, 1, 5);
+    }
     this.xAcceleration = dx * this.pullFactor;
     this.yAcceleration = dy * this.pullFactor;
 
@@ -256,9 +281,11 @@ class Particle {
 
     distDelta = this.minDist - dd;
 
-    if (dd < this.minDist - dd) {
-      this.xAcceleration += (dx / dd) * distDelta * this.pushFactor;
-      this.yAcceleration += (dy / dd) * distDelta * this.pushFactor;
+    if (dd < this.minDist * (cursorWeight / 2) - dd) {
+      this.xAcceleration +=
+        (dx / dd) * distDelta * this.pushFactor * (cursorWeight / 2);
+      this.yAcceleration +=
+        (dy / dd) * distDelta * this.pushFactor * (cursorWeight / 2);
     }
 
     this.xVelocity += this.xAcceleration;

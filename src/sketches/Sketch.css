@@ -83,6 +83,7 @@
   height: 90%;
 
   overflow: auto;
+  overflow-x: hidden;
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
 
@@ -99,9 +100,13 @@
   align-self: flex-end;
   font-weight: 300;
 }
+.skethSecondTitle {
+  margin-left: 5%;
+  margin-right: 5%;
+}
 
 .optionsList {
-  width: 100%;
+  width: 90%;
 }
 
 button {
@@ -127,4 +132,10 @@ button:hover {
 
 .clicky:hover {
   cursor: pointer;
+}
+.MuiSlider-markLabel {
+  color: red;
+}
+.title {
+  width: 100%;
 }
