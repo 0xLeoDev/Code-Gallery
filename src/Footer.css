@@ -16,3 +16,13 @@
   scale: 1.05;
   cursor: pointer;
 }
+.SnackbarProviderButton {
+  background-color: transparent;
+  border: none;
+  color: whitesmoke;
+}
+.SnackbarProviderButton:hover {
+  cursor: pointer;
+  color: rgb(225, 82, 173);
+  background-color: transparent;
+}

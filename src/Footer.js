@@ -1,50 +1,63 @@
 import "./Footer.css";
-import etherscan from "./IMG/etherscan.png";
 import github from "./IMG/github.png";
-import medium from "./IMG/medium.png";
+import youtube from "./IMG/youtube.png";
 import twitter from "./IMG/twitter.png";
+import mail from "./IMG/mail.png";
+import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
 
-//
 function Footer() {
+  const copyMailToClipboard = () => {
+    navigator.clipboard.writeText("0xleodev@gmail.com");
+    enqueueSnackbar("The mail has been copied to the clipboard.");
+  };
+
   return (
-    <div className="footer">
-      <img
-        className="socialIcon"
-        width="30"
-        height="30"
-        src={medium}
-        alt="mediumLogo"
-        onClick={() => window.open("https://medium.com/")}
-      />
-      <img
-        className="socialIcon"
-        width="30"
-        height="30"
-        src={twitter}
-        alt="twitterLogo"
-        onClick={() => window.open("https://twitter.com/home")}
-      />
-      <img
-        className="socialIcon"
-        width="30"
-        height="30"
-        src={github}
-        alt="githubLogo"
-        onClick={() => window.open("https://github.com/0xLeoDev")}
-      />
-      <img
-        className="socialIcon"
-        width="30"
-        height="30"
-        src={etherscan}
-        alt="etherscanLogo"
-        onClick={() =>
-          window.open(
-            "https://goerli.etherscan.io/address/0xc369a6e45742e8691a8635cfd62ad11a4366f76c"
-          )
-        }
-      />
-    </div>
+    <>
+      <SnackbarProvider
+        action={(snackbarId) => (
+          <button
+            className="SnackbarProviderButton"
+            onClick={() => closeSnackbar(snackbarId)}
+          >
+            ✖
+          </button>
+        )}
+      />{" "}
+      <div className="footer">
+        <img
+          className="socialIcon"
+          width="30"
+          height="30"
+          src={github}
+          alt="githubLogo"
+          onClick={() => window.open("https://github.com/0xLeoDev")}
+        />
+        <img
+          className="socialIcon"
+          width="30"
+          height="30"
+          src={youtube}
+          alt="youtubeLogo"
+          onClick={() => window.open("https://www.youtube.com/@0xleodev")}
+        />
+        <img
+          className="socialIcon"
+          width="30"
+          height="30"
+          src={twitter}
+          alt="twitterLogo"
+          onClick={() => window.open("https://twitter.com/leoleonarrd")}
+        />
+        <img
+          className="socialIcon"
+          width="30"
+          height="30"
+          src={mail}
+          alt="mailLogo"
+          onClick={copyMailToClipboard}
+        />
+      </div>
+    </>
   );
 }
 

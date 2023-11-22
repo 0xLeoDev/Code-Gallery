@@ -2,6 +2,7 @@ import "./App.css";
 import NotFound from "./NotFound.js";
 import Footer from "./Footer.js";
 import { Route, Routes } from "react-router-dom";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
 import HomePage from "./HomePage.js";
 import SketchPage01 from "./sketches/SketchPage01.js";
