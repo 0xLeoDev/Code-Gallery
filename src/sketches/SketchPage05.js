@@ -3,21 +3,34 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
+import { TextField } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Slider, Stack, Switch } from "@mui/material";
+
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 function SketchPage05(props) {
+  const darkTheme = createTheme({
+    palette: {
+      mode: "dark",
+    },
+  });
+
   let arowPathLeft = "/sketch-04";
   let arowPathRight = "/sketch-01";
 
   const [navbarStatus, setNavbarStatus] = useState(false);
 
   const canvasRef = useRef(null);
-  const typeCanvas = document.createElement("canvas");
-  const typeContext = typeCanvas.getContext("2d");
-  let text = "A";
+  let manager;
+
+  const [text, setText] = useState("A");
   let fontSize;
   let fontFamily = "serif";
+
+  const typeCanvas = document.createElement("canvas");
+  const typeContext = typeCanvas.getContext("2d");
 
   const renderFrame = () => {
     try {
@@ -50,7 +63,7 @@ function SketchPage05(props) {
 
       fontSize = cols;
 
-      typeContext.fillStyle = "white";
+      typeContext.fillStyle = "#f5f5f5";
       typeContext.font = `${fontSize}px ${fontFamily}`;
       typeContext.textBaseline = "top";
 
@@ -142,36 +155,64 @@ function SketchPage05(props) {
 
   return (
     <>
-      <Header setNavbarStatus={setNavbarStatus} />
-      <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
-      <div className="mainPageContainer">
-        <div className="canvas">
-          <canvas
-            ref={canvasRef}
-            style={{ width: "100%", height: "100%" }}
-            width={"1080px"}
-            height={"1080px"}
-            {...props}
-          />
-        </div>
-        {navbarStatus == true && (
-          <div className="panel">
-            <Navbar />
+      <ThemeProvider theme={darkTheme}>
+        <Header setNavbarStatus={setNavbarStatus} />
+        <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
+        <div className="mainPageContainer">
+          <div className="canvas">
+            <canvas
+              ref={canvasRef}
+              style={{ width: "100%", height: "100%" }}
+              width={"1080px"}
+              height={"1080px"}
+              {...props}
+            />
           </div>
-        )}
-
-        {navbarStatus == false && (
-          <div className="panel">
-            <h2 className="skethTitle">sketch-05</h2>
-            <div className="optionsList">
-              <h3>Type your initials</h3>
+          {navbarStatus == true && (
+            <div className="panel">
+              <Navbar />
             </div>
-            <button className="button-main" onClick={downloadImage}>
-              save as png
-            </button>
-          </div>
-        )}
-      </div>
+          )}
+
+          {navbarStatus == false && (
+            <div className="panel">
+              <h2 className="skethTitle">sketch-05</h2>
+              <div className="optionsList">
+                <h3>Type your initials:</h3>
+                <TextField
+                  fullWidth
+                  variant="standard"
+                  color="secondary"
+                  inputProps={{ maxLength: 2 }}
+                />
+                <h3>Customize the glip:</h3>
+                <Stack
+                  spacing={2}
+                  direction="row"
+                  sx={{ justifyContent: "center", mb: 1 }}
+                  alignItems="center"
+                >
+                  <TextField variant="standard" color="secondary" />
+                  <TextField variant="standard" color="secondary" />
+                  <TextField variant="standard" color="secondary" />
+                </Stack>
+              </div>
+              <div className="panelFooter">
+                <button className="button-main" onClick={() => setText("o")}>
+                  .
+                </button>
+
+                <button className="button-main" onClick={initCanva}>
+                  .
+                </button>
+                <button className="button-main" onClick={downloadImage}>
+                  save as png
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </ThemeProvider>
     </>
   );
 }
