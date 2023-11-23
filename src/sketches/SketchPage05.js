@@ -11,12 +11,6 @@ const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 function SketchPage05(props) {
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-    },
-  });
-
   let arowPathLeft = "/sketch-04";
   let arowPathRight = "/sketch-01";
 
@@ -155,64 +149,58 @@ function SketchPage05(props) {
 
   return (
     <>
-      <ThemeProvider theme={darkTheme}>
-        <Header setNavbarStatus={setNavbarStatus} />
-        <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
-        <div className="mainPageContainer">
-          <div className="canvas">
-            <canvas
-              ref={canvasRef}
-              style={{ width: "100%", height: "100%" }}
-              width={"1080px"}
-              height={"1080px"}
-              {...props}
-            />
-          </div>
-          {navbarStatus == true && (
-            <div className="panel">
-              <Navbar />
-            </div>
-          )}
-
-          {navbarStatus == false && (
-            <div className="panel">
-              <h2 className="skethTitle">sketch-05</h2>
-              <div className="optionsList">
-                <h3>Type your initials:</h3>
-                <TextField
-                  fullWidth
-                  variant="standard"
-                  color="secondary"
-                  inputProps={{ maxLength: 2 }}
-                />
-                <h3>Customize the glip:</h3>
-                <Stack
-                  spacing={2}
-                  direction="row"
-                  sx={{ justifyContent: "center", mb: 1 }}
-                  alignItems="center"
-                >
-                  <TextField variant="standard" color="secondary" />
-                  <TextField variant="standard" color="secondary" />
-                  <TextField variant="standard" color="secondary" />
-                </Stack>
-              </div>
-              <div className="panelFooter">
-                <button className="button-main" onClick={() => setText("o")}>
-                  .
-                </button>
-
-                <button className="button-main" onClick={initCanva}>
-                  .
-                </button>
-                <button className="button-main" onClick={downloadImage}>
-                  save as png
-                </button>
-              </div>
-            </div>
-          )}
+      <Header setNavbarStatus={setNavbarStatus} />
+      <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
+      <div className="mainPageContainer">
+        <div className="canvas">
+          <canvas
+            ref={canvasRef}
+            style={{ width: "100%", height: "100%" }}
+            width={"1080px"}
+            height={"1080px"}
+            {...props}
+          />
         </div>
-      </ThemeProvider>
+        {navbarStatus == true && (
+          <div className="panel">
+            <Navbar />
+          </div>
+        )}
+
+        {navbarStatus == false && (
+          <div className="panel">
+            <h2 className="skethTitle">sketch-05</h2>
+            <div className="optionsList">
+              <h3>Type your initials:</h3>
+              <TextField
+                fullWidth
+                variant="standard"
+                color="secondary"
+                inputProps={{ maxLength: 2 }}
+              />
+              <h3>Customize the glip:</h3>
+              <Stack
+                spacing={2}
+                direction="row"
+                sx={{ justifyContent: "center", mb: 1 }}
+                alignItems="center"
+              >
+                <TextField variant="standard" color="secondary" />
+                <TextField variant="standard" color="secondary" />
+                <TextField variant="standard" color="secondary" />
+              </Stack>
+            </div>
+            <div className="panelFooter">
+              <button className="button-main" onClick={initCanva}>
+                refresh canva{" "}
+              </button>
+              <button className="button-main" onClick={downloadImage}>
+                save as png
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }

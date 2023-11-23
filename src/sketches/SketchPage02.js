@@ -187,12 +187,12 @@ function SketchPage02(props) {
                 min={1}
                 max={3}
                 onChange={handleChangeCursorWeight}
-                valueLabelDisplay="auto"
                 marks={[
                   { value: 1, label: "Light" },
                   { value: 2, label: "Medium" },
                   { value: 3, label: "Heavy" },
                 ]}
+                sx={{}}
               />
               {/* <h3>Circles density</h3>
               <Slider
