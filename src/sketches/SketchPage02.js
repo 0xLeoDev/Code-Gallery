@@ -3,7 +3,7 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
-import { Slider, SliderMarkLabel, Stack, Switch } from "@mui/material";
+import { Slider, Stack, Switch } from "@mui/material";
 
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
@@ -192,7 +192,6 @@ function SketchPage02(props) {
                   { value: 2, label: "Medium" },
                   { value: 3, label: "Heavy" },
                 ]}
-                sx={{}}
               />
               {/* <h3>Circles density</h3>
               <Slider
