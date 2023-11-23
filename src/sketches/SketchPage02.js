@@ -194,7 +194,7 @@ function SketchPage02(props) {
                   { value: 3, label: "Heavy" },
                 ]}
               />
-              <h3>Circles density</h3>
+              {/* <h3>Circles density</h3>
               <Slider
                 color="secondary"
                 defaultValue={1}
@@ -203,7 +203,7 @@ function SketchPage02(props) {
                 min={1}
                 max={10}
                 onChange={console.log("t")}
-              />
+              /> */}
               <h3>Scaling:</h3>
               <Stack
                 spacing={2}
