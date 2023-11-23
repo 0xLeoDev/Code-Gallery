@@ -55,7 +55,7 @@
   flex-wrap: wrap;
   align-items: center;
 
-  height: 83vh;
+  height: 90vh;
   width: min(100% - 140px, 1100px);
 
   margin-top: 40px;
@@ -79,6 +79,8 @@
 }
 /* ------------ */
 .menuContainer {
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

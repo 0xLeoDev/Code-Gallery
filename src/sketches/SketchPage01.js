@@ -190,7 +190,7 @@ function SketchPage01(props) {
         <div className="canvas">
           <canvas
             ref={canvasRef}
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%"}}
             width={"1080px"}
             height={"1080px"}
             {...props}

@@ -15,8 +15,11 @@ function SketchPage03(props) {
 
   const canvasRef = useRef(null);
   const agents = [];
-
   let initialQuantity = 3;
+  let bounce = false;
+  let lineIntensity = 200;
+  let speed = 1;
+
   const handleChangeQuantity = (event, newValue) => {
     let numbOfNewAgents = newValue - agents.length;
     if (numbOfNewAgents >= 1) {
@@ -34,12 +37,10 @@ function SketchPage03(props) {
     }
   };
 
-  let bounce = false;
   const handleSwitchBounceChange = () => {
     bounce = !bounce;
   };
 
-  let lineIntensity = 200;
   const handleChangeLineIntensity = (event, newValue) => {
     if (typeof newValue === "number") {
       let newValueCorrected = (newValue * 10 * 1080) / 100;
@@ -47,7 +48,6 @@ function SketchPage03(props) {
     }
   };
 
-  let speed = 1;
   const handleChangeSpeed = (event, newValue) => {
     if (typeof newValue === "number") {
       speed = newValue;
@@ -160,20 +160,20 @@ function SketchPage03(props) {
                 max={50}
                 onChange={handleChangeQuantity}
               />
-              <h3>Bounce or pass:</h3>
+              <h3>Pass or Bounce:</h3>
               <Stack
                 spacing={2}
                 direction="row"
                 sx={{ justifyContent: "center", mb: 1 }}
                 alignItems="center"
               >
-                <p>bounce</p>
+                <p> pass</p>
                 <Switch
                   color="secondary"
                   onChange={handleSwitchBounceChange}
                   defaultValue={bounce}
                 />
-                <p> pass</p>
+                <p>bounce</p>
               </Stack>
               <h3>Speed:</h3>
               <Slider
