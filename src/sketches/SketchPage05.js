@@ -3,8 +3,11 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
-const random = require("canvas-sketch-util/random");
+import { TextField } from "@mui/material";
+import { Slider, Stack, Switch } from "@mui/material";
+
 const math = require("canvas-sketch-util/math");
+const random = require("canvas-sketch-util/random");
 
 function SketchPage05(props) {
   let arowPathLeft = "/sketch-04";
@@ -13,22 +16,22 @@ function SketchPage05(props) {
   const [navbarStatus, setNavbarStatus] = useState(false);
 
   const canvasRef = useRef(null);
+
   const typeCanvas = document.createElement("canvas");
   const typeContext = typeCanvas.getContext("2d");
-  let text = "A";
+
+  const [text, setText] = useState("A");
+  const [edges, setEdges] = useState("->+");
+  const [filings, setFilings] = useState("-/_*");
+  const [density, setDensity] = useState(20);
+
   let fontSize;
   let fontFamily = "serif";
 
-  const renderFrame = () => {
-    try {
-      console.log("Rendering a frame.");
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
-      const width = canvas.width;
-      const height = canvas.height;
-
-      requestAnimationFrame(renderFrame);
-    } catch (error) {}
+  const handleChangeScale = (event, newValue) => {
+    let valueAdjustedScale = math.mapRange(newValue, 1, 10, 40, 10);
+    setDensity(valueAdjustedScale);
+    console.log(valueAdjustedScale);
   };
 
   const initCanva = () => {
@@ -38,7 +41,7 @@ function SketchPage05(props) {
       const height = canvas.height;
       const context = canvas.getContext("2d");
 
-      const cell = 20; // ONE jak drobne (10-40)
+      const cell = density;
       const cols = Math.floor(width / cell);
       const rows = Math.floor(height / cell);
       const numCells = cols * rows;
@@ -50,8 +53,8 @@ function SketchPage05(props) {
 
       fontSize = cols;
 
-      typeContext.fillStyle = "white";
-      typeContext.font = `${fontSize}px ${fontFamily}`;
+      typeContext.fillStyle = "#f5f5f5";
+      typeContext.font = `${fontSize}px "serif"`;
       typeContext.textBaseline = "top";
 
       const metrics = typeContext.measureText(text);
@@ -75,7 +78,6 @@ function SketchPage05(props) {
       typeContext.restore();
 
       const typeData = typeContext.getImageData(0, 0, cols, rows).data;
-      console.log(typeData);
 
       context.fillStyle = "#1a1a1a";
       context.fillRect(0, 0, width, height);
@@ -99,6 +101,7 @@ function SketchPage05(props) {
 
         context.fillStyle = "#f5f5f5";
 
+        console.log(r);
         let glyph = getGlyph(r);
 
         context.font = `${cell * 2}px ${fontFamily}`;
@@ -115,8 +118,6 @@ function SketchPage05(props) {
         context.fillText(glyph, 0, 0);
         context.restore();
       }
-
-      // renderFrame();
     } catch (error) {}
   };
 
@@ -126,12 +127,16 @@ function SketchPage05(props) {
 
   const getGlyph = (v) => {
     if (v < 50) return "";
-    if (v < 100) return "-";
-    if (v < 150) return ">";
-    if (v < 200) return "+";
-    const glyphs = "_=/".split("");
-
-    return random.pick(glyphs);
+    if (v < 200) {
+      const edge = edges.split("");
+      if (edge.length == 0) {
+        return "";
+      } else return random.pick(edge);
+    }
+    const filing = filings.split("");
+    if (filing.length == 0) {
+      return "";
+    } else return random.pick(filing);
   };
 
   const downloadImage = () => {
@@ -164,11 +169,65 @@ function SketchPage05(props) {
           <div className="panel">
             <h2 className="skethTitle">sketch-05</h2>
             <div className="optionsList">
-              <h3>Type your initials</h3>
+              <h3>Type your initials:</h3>
+              <TextField
+                fullWidth
+                variant="standard"
+                color="secondary"
+                inputProps={{ maxLength: 2 }}
+                defaultValue="A"
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              />
+              <h3>Customize the glyphs:</h3>
+              <Stack
+                spacing={2}
+                direction="row"
+                sx={{ justifyContent: "center", mb: 1 }}
+                alignItems="center"
+              >
+                <TextField
+                  variant="standard"
+                  color="secondary"
+                  defaultValue="->+"
+                  inputProps={{ maxLength: 5 }}
+                  onChange={(e) => {
+                    setEdges(e.target.value);
+                  }}
+                  helperText="edges"
+                />
+                <TextField
+                  variant="standard"
+                  color="secondary"
+                  inputProps={{ maxLength: 5 }}
+                  defaultValue="-/_*"
+                  onChange={(e) => {
+                    setFilings(e.target.value);
+                  }}
+                  helperText="filings"
+                />
+              </Stack>
+
+              <h3>Density:</h3>
+              <Slider
+                color="secondary"
+                defaultValue={6}
+                min={1}
+                max={10}
+                marks
+                valueLabelDisplay="auto"
+                onChange={handleChangeScale}
+              />
             </div>
-            <button className="button-main" onClick={downloadImage}>
-              save as png
-            </button>
+            <div className="panelFooter">
+              <button className="button-main" onClick={initCanva}>
+                refresh canva{" "}
+              </button>
+              <button className="button-main" onClick={downloadImage}>
+                save as png
+              </button>
+            </div>
           </div>
         )}
       </div>

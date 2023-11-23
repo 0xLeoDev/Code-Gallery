@@ -3,7 +3,7 @@ import Arows from "../Arows.js";
 import Navbar from "../Navbar.js";
 import Header from "../Header";
 import React, { useRef, useEffect, useState } from "react";
-import { Slider, SliderMarkLabel, Stack, Switch } from "@mui/material";
+import { Slider, Stack, Switch } from "@mui/material";
 
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
@@ -187,7 +187,6 @@ function SketchPage02(props) {
                 min={1}
                 max={3}
                 onChange={handleChangeCursorWeight}
-                valueLabelDisplay="auto"
                 marks={[
                   { value: 1, label: "Light" },
                   { value: 2, label: "Medium" },
