@@ -50,6 +50,7 @@
     }
   }
 }
+
 .app {
   display: flex;
   flex-wrap: wrap;
@@ -101,7 +102,7 @@
   width: 90%;
 
   font-family: "laceddays";
-  font-size: 2.4vw;
+  font-size: 32px;
   text-align: center;
 
   margin: 20px;
