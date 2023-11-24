@@ -14,6 +14,17 @@ Each of the 5 sketches sketches represents the use of various key programming co
 
 Personally I find the 3rd one to be the most addictive. [link](https://0xleodev.github.io/Code-Gallery/#/sketch-03)
 
+## Brief summary of used technologies:
+
+JavaScript / React / MUI 5 / React Router / Canvas Sketch / GitHub Pages / Notistack
+
+## Pages preview:
+
+<p align="center">
+<img alt="page sample 1"  src="./ReadmeFiles/page(1).png" width="49%">
+<img alt="page sample 2"  src="./ReadmeFiles/page(2).png" width="49%">
+</p>
+
 ## Sample arts:
 
 <p align="center">
