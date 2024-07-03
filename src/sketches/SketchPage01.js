@@ -190,7 +190,7 @@ function SketchPage01(props) {
         <div className="canvas">
           <canvas
             ref={canvasRef}
-            style={{ width: "100%", height: "100%"}}
+            style={{ width: "100%", height: "100%" }}
             width={"1080px"}
             height={"1080px"}
             {...props}
@@ -242,7 +242,7 @@ function SketchPage01(props) {
                 max={10}
                 marks
                 onChange={handleChangeAmplitude}
-              />{" "}
+              />
               <h3>Lines or dots:</h3>
               <Stack
                 spacing={2}
@@ -257,7 +257,7 @@ function SketchPage01(props) {
                   defaultValue={drawDots}
                 />
                 <p>dots</p>
-              </Stack>{" "}
+              </Stack>
               <h3>Line Lenght:</h3>
               <Slider
                 disabled={drawDots} //

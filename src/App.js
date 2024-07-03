@@ -29,7 +29,6 @@ function App() {
 
   return (
     <>
-      {" "}
       <ThemeProvider theme={darkTheme}>
         <Routes>
           <Route path="/" element={<HomePage />} />

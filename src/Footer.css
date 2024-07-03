@@ -2,11 +2,8 @@
   position: fixed;
   bottom: 0;
   background: var(--main-bg-color);
-
   width: 100%;
-
   text-align: center;
-
   padding: 8px;
 }
 .socialIcon {
