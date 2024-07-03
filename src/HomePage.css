@@ -4,8 +4,8 @@
   align-items: center;
   height: 90vh;
   width: min(100% - 140px, 1100px);
-  margin-top: 40px;
-  margin-bottom: 100px;
+  margin-top: 30px;
+  margin-bottom: 80px;
   margin-inline: auto;
 }
 
