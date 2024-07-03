@@ -1,7 +1,7 @@
 import "./Sketch.css";
-import Arows from "../Arows.js";
-import Header from "../Header";
-import Navbar from "../Navbar.js";
+import Arows from "./Arows.js";
+import Header from "./Header";
+import Navbar from "./Navbar.js";
 import React, { useState, useRef, useEffect } from "react";
 import { Slider, Stack, Switch } from "@mui/material";
 const random = require("canvas-sketch-util/random");

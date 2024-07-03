@@ -1,7 +1,7 @@
 import "./Sketch.css";
-import Arows from "../Arows.js";
-import Navbar from "../Navbar.js";
-import Header from "../Header";
+import Arows from "./Arows.js";
+import Navbar from "./Navbar.js";
+import Header from "./Header";
 import React, { useRef, useEffect, useState } from "react";
 import { Slider, Stack, Switch } from "@mui/material";
 

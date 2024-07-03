@@ -1,7 +1,7 @@
 import "./Sketch.css";
-import Arows from "../Arows.js";
-import Navbar from "../Navbar.js";
-import Header from "../Header";
+import Arows from "./Arows.js";
+import Navbar from "./Navbar.js";
+import Header from "./Header";
 import React, { useRef, useEffect, useState } from "react";
 import { Slider, Stack, Switch } from "@mui/material";
 
@@ -176,7 +176,7 @@ function SketchPage02(props) {
             <div className="title">
               <h2 className="skethTitle">sketch-02</h2>
               <h3 className="skethSecondTitle">
-                Click and move your cursor over the canvas.
+                Click and move your cursor over the canva.
               </h3>
             </div>
             <div className="optionsList">
