@@ -38,25 +38,17 @@
   align-self: flex-end;
   font-weight: 300;
 }
-
 .skethSecondTitle {
   margin-left: 5%;
   margin-right: 5%;
 }
-
 .optionsList {
   width: 90%;
   margin: 20px 0px 20px;
 }
-
-.clicky:hover {
-  cursor: pointer;
-}
-
 .title {
   width: 100%;
 }
-
 .panelFooter {
   width: 100%;
   display: flex;
