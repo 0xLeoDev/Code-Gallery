@@ -11,8 +11,10 @@ import preview05 from "./IMG/sketch-prew-05.png";
 
 function HomePage() {
   const setPreview = (newPreview) => {
-    let preview = document.getElementById("preview");
-    preview.src = newPreview;
+    setTimeout(() => {
+      let preview = document.getElementById("preview");
+      preview.src = newPreview;
+    }, 100);
   };
 
   return (
