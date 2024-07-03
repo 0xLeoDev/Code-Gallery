@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Code-Gallery/static/css/main.d7e7aa02.css",
-    "main.js": "/Code-Gallery/static/js/main.4b704a35.js",
+    "main.css": "/Code-Gallery/static/css/main.e7bf25cd.css",
+    "main.js": "/Code-Gallery/static/js/main.0071718c.js",
     "static/js/787.f6b38028.chunk.js": "/Code-Gallery/static/js/787.f6b38028.chunk.js",
     "static/media/laceddays.otf": "/Code-Gallery/static/media/laceddays.cb1304d8c101b66ff876.otf",
     "static/media/logo_b.png": "/Code-Gallery/static/media/logo_b.61c667b49dfe0fc75573.png",
@@ -15,12 +15,12 @@
     "static/media/youtube.png": "/Code-Gallery/static/media/youtube.5d6a560264e18b4795ec.png",
     "static/media/mail.png": "/Code-Gallery/static/media/mail.b1a55acde9c0e903dbb4.png",
     "index.html": "/Code-Gallery/index.html",
-    "main.d7e7aa02.css.map": "/Code-Gallery/static/css/main.d7e7aa02.css.map",
-    "main.4b704a35.js.map": "/Code-Gallery/static/js/main.4b704a35.js.map",
+    "main.e7bf25cd.css.map": "/Code-Gallery/static/css/main.e7bf25cd.css.map",
+    "main.0071718c.js.map": "/Code-Gallery/static/js/main.0071718c.js.map",
     "787.f6b38028.chunk.js.map": "/Code-Gallery/static/js/787.f6b38028.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d7e7aa02.css",
-    "static/js/main.4b704a35.js"
+    "static/css/main.e7bf25cd.css",
+    "static/js/main.0071718c.js"
   ]
 }
