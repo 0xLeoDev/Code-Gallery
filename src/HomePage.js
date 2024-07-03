@@ -19,7 +19,12 @@ function HomePage() {
     <>
       <div className="app">
         <div className="previewContainer">
-          <img id="preview" src={logo_b} alt="preview" />
+          <img
+            className="imgInContainer"
+            id="preview"
+            src={logo_b}
+            alt="preview"
+          />
         </div>
 
         <div className="menuContainer">
