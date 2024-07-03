@@ -6,7 +6,6 @@
   margin-inline: auto;
   margin-bottom: 80px;
 }
-
 .canvas {
   height: 80%;
   aspect-ratio: 1 / 1;
@@ -16,7 +15,6 @@
     #f02eaa1a -20px 20px, #f02eaa0d -25px 25px;
   margin: auto;
 }
-
 .panel {
   display: flex;
   flex-direction: column;
@@ -36,7 +34,6 @@
   padding: 2%;
   margin: auto;
 }
-
 .skethTitle {
   align-self: flex-end;
   font-weight: 300;
@@ -49,25 +46,7 @@
 
 .optionsList {
   width: 90%;
-}
-
-button {
-  align-self: stretch;
-  background-color: var(--main-bg-color);
-  width: 90%;
-  font-family: "laceddays";
-  font-size: 20px;
-  color: var(--text-border-color);
-  border: 7px solid var(--text-border-color);
-  border-radius: 0;
-  padding: 2%;
-}
-
-button:hover {
-  background-color: rgba(240, 46, 170, 0.2);
-  cursor: pointer;
-  transform: scale(0.99);
-  transition: 0.1s;
+  margin: 20px 0px 20px;
 }
 
 .clicky:hover {
@@ -84,12 +63,6 @@ button:hover {
   flex-direction: column;
   align-self: center;
   align-items: center;
-}
-
-.button-main {
-  font-weight: 600;
-  margin-top: 10px;
-  align-self: center;
 }
 
 @media only screen and (max-width: 1150px) {
@@ -112,18 +85,10 @@ button:hover {
     width: 90%;
     height: auto;
     margin-bottom: 10px;
-    padding: 0;
+    padding: 10px;
   }
   body .optionsList {
-    width: 90%;
-    margin-bottom: 20px;
-  }
-  body .skethTitle {
-    margin: 10px;
-  }
-  body .button-main {
-    font-weight: 600;
-    margin-bottom: 10px;
+    margin: 20px 0px 20px;
   }
 }
 

@@ -30,7 +30,7 @@ function HomePage() {
         </div>
 
         <div className="menuContainer">
-          <div className="menulHeader">Choose the sketch to play with:</div>
+          <div className="menulHeader">Choose a sketch to play with:</div>
           <div className="linkList">
             <NavLink
               onMouseOver={() => setPreview(preview01)}
