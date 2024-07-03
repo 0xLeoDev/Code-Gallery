@@ -1,52 +1,3 @@
-@media only screen and (max-width: 1150px) {
-  body .mainPageContainer {
-    height: auto;
-    width: min(100% - 140px, 500px);
-    margin-bottom: 80px;
-  }
-  body .canvas {
-    width: 90%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    margin-bottom: 30px;
-  }
-  body .panel {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    height: auto;
-    margin-bottom: 10px;
-    padding: 0;
-  }
-  body .optionsList {
-    width: 90%;
-    margin-bottom: 20px;
-  }
-  body .skethTitle {
-    margin: 10px;
-  }
-  body .button-main {
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-}
-
-@media only screen and (max-width: 660px) {
-  body .mainPageContainer {
-    width: 90%;
-  }
-  body .canvas {
-    width: min(90% - 20px, 500px);
-    width: 80%;
-    aspect-ratio: 1 / 1;
-  }
-  body .panel {
-    width: min(100% - 100px, 500px);
-  }
-}
-
 .mainPageContainer {
   display: flex;
   flex-wrap: wrap;
@@ -139,4 +90,53 @@ button:hover {
   font-weight: 600;
   margin-top: 10px;
   align-self: center;
+}
+
+@media only screen and (max-width: 1150px) {
+  body .mainPageContainer {
+    height: auto;
+    width: min(100% - 140px, 500px);
+    margin-bottom: 80px;
+  }
+  body .canvas {
+    width: 90%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 30px;
+  }
+  body .panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 0;
+  }
+  body .optionsList {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+  body .skethTitle {
+    margin: 10px;
+  }
+  body .button-main {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  body .mainPageContainer {
+    width: 90%;
+  }
+  body .canvas {
+    width: min(90% - 20px, 500px);
+    width: 80%;
+    aspect-ratio: 1 / 1;
+  }
+  body .panel {
+    width: min(100% - 100px, 500px);
+  }
 }

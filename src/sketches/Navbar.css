@@ -1,35 +1,31 @@
 @media only screen and (max-width: 1100px) {
-  body {
-    .navbarHeader {
-      font-size: 25px;
-      margin: 15px;
-    }
-    .navLink {
-      padding: 2%;
-      font-size: 30px;
-    }
-    .menu-footer {
-      font-size: 16px;
-      margin: 20px;
-    }
+  body .navbarHeader {
+    font-size: 25px;
+    margin: 15px;
+  }
+  body .navLink {
+    padding: 2%;
+    font-size: 30px;
+  }
+  body .menu-footer {
+    font-size: 16px;
+    margin: 20px;
   }
 }
 
 @media only screen and (max-width: 660px) {
-  body {
-    .navbarHeader {
-      font-size: 4.5vw;
-      width: 90%;
-      font-weight: bold;
-    }
-    .navLink {
-      padding: 2%;
-      font-size: 5vw;
-      font-weight: bold;
-    }
-    .menu-footer {
-      font-size: 3vw;
-    }
+  body .navbarHeader {
+    font-size: 4.5vw;
+    width: 90%;
+    font-weight: bold;
+  }
+  body .navLink {
+    padding: 2%;
+    font-size: 5vw;
+    font-weight: bold;
+  }
+  body .menu-footer {
+    font-size: 3vw;
   }
 }
 
