@@ -173,7 +173,7 @@ function SketchPage02(props) {
 
         {navbarStatus == false && (
           <div className="panel">
-            <div className="title">
+            <div>
               <h2 className="skethTitle">sketch-02</h2>
               <h3 className="skethSecondTitle">
                 Click and move your cursor over the canva.

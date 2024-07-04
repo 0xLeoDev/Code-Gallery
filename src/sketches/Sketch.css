@@ -34,20 +34,22 @@
   padding: 2%;
   margin: auto;
 }
+.title {
+}
 .skethTitle {
   align-self: flex-end;
   font-weight: 300;
+  width: 100%;
 }
 .skethSecondTitle {
-  margin-left: 5%;
-  margin-right: 5%;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  font-size: 14px;
 }
 .optionsList {
   width: 90%;
   margin: 20px 0px 20px;
-}
-.title {
-  width: 100%;
 }
 .panelFooter {
   width: 100%;
