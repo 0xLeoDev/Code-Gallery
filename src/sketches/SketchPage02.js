@@ -88,7 +88,7 @@ function SketchPage02(props) {
 
   const renderFrame = () => {
     try {
-      console.log("render");
+      console.log("Rendering a frame. sketch-02");
       updateCanvasData();
       context.fillStyle = bacgroundColor;
       context.fillRect(0, 0, width, height);
@@ -99,7 +99,9 @@ function SketchPage02(props) {
       });
 
       requestAnimationFrame(renderFrame);
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   const initCanva = () => {
@@ -137,7 +139,9 @@ function SketchPage02(props) {
         dotRadius = (1 - eases.quadOut(i / numCircles)) * fitRadius;
       }
       renderFrame();
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   useEffect(() => {

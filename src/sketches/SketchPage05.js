@@ -31,11 +31,11 @@ function SketchPage05(props) {
   const handleChangeScale = (event, newValue) => {
     let valueAdjustedScale = math.mapRange(newValue, 1, 10, 40, 10);
     setDensity(valueAdjustedScale);
-    console.log(valueAdjustedScale);
   };
 
-  const initCanva = () => {
+  const renderNewCanva = () => {
     try {
+      console.log("Rendering a frame. sketch-05");
       const canvas = canvasRef.current;
       const width = canvas.width;
       const height = canvas.height;
@@ -101,7 +101,7 @@ function SketchPage05(props) {
 
         context.fillStyle = "#f5f5f5";
 
-        console.log(r);
+        // console.log(r);
         let glyph = getGlyph(r);
 
         context.font = `${cell * 2}px ${fontFamily}`;
@@ -118,11 +118,13 @@ function SketchPage05(props) {
         context.fillText(glyph, 0, 0);
         context.restore();
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   useEffect(() => {
-    initCanva();
+    renderNewCanva();
   }, []);
 
   const getGlyph = (v) => {
@@ -221,8 +223,8 @@ function SketchPage05(props) {
               />
             </div>
             <div className="panelFooter">
-              <button className="button-main" onClick={initCanva}>
-                refresh canva{" "}
+              <button className="button-main" onClick={renderNewCanva}>
+                refresh canva
               </button>
               <button className="button-main" onClick={downloadImage}>
                 save as png

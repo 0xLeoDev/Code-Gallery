@@ -56,7 +56,7 @@ function SketchPage03(props) {
 
   const renderFrame = () => {
     try {
-      console.log("Rendering a frame.");
+      console.log("Rendering a frame. sketch-03");
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       const width = canvas.width;
@@ -99,7 +99,9 @@ function SketchPage03(props) {
         }
       });
       requestAnimationFrame(renderFrame);
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   const initCanva = () => {
@@ -115,7 +117,9 @@ function SketchPage03(props) {
       }
 
       renderFrame();
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   useEffect(() => {

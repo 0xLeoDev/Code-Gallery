@@ -105,11 +105,14 @@ function SketchPage01(props) {
       context.fillRect(0, 0, width, height);
       populateArray();
       renderFrame();
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   const renderFrame = () => {
     try {
+      console.log("Rendering a frame. sketch-01");
       updateCanvasData();
       const context = canvas.getContext("2d");
       let canvasMarginX = (width - gridWidth) * 0.5;
@@ -169,7 +172,9 @@ function SketchPage01(props) {
 
       frame += 1;
       requestAnimationFrame(renderFrame);
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   const downloadImage = () => {
