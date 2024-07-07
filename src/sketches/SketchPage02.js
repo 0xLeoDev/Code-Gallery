@@ -51,17 +51,23 @@ function SketchPage02(props) {
     onMouseMove(e);
   };
 
-  const onTouchstart = (e) => {
-    disableScroll();
-    window.addEventListener("touchmove", onTouchMove);
-    window.addEventListener("touchend", cleanAfterMove);
-    window.addEventListener("touchcancel", cleanAfterMove);
-  };
   const onMouseMove = (e) => {
     const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
     const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
     cursor.x = x;
     cursor.y = y;
+  };
+  function onClick(e) {
+    const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
+    const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
+    cursor.x = x;
+    cursor.y = y;
+  }
+  const onTouchstart = (e) => {
+    disableScroll();
+    window.addEventListener("touchmove", onTouchMove);
+    window.addEventListener("touchend", cleanAfterMove);
+    window.addEventListener("touchcancel", cleanAfterMove);
   };
   const onTouchMove = (e) => {
     try {
@@ -84,9 +90,9 @@ function SketchPage02(props) {
     window.removeEventListener("touchmove", onMouseMove);
     window.removeEventListener("touchend", cleanAfterMove);
     window.removeEventListener("touchcancel", cleanAfterMove);
+    enableScroll();
     cursor.x = 9999;
     cursor.y = 9999;
-    enableScroll();
   };
   function disableScroll() {
     console.log("Scroll disabled.");
@@ -123,6 +129,7 @@ function SketchPage02(props) {
 
       canvas.addEventListener("mousedown", onMousedown);
       canvas.addEventListener("touchstart", onTouchstart);
+      canvas.addEventListener("click", onClick);
 
       for (let i = 0; i < numCircles; i++) {
         const circumference = Math.PI * 2 * cirRadius;
