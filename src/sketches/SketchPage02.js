@@ -29,7 +29,7 @@ function SketchPage02(props) {
   const canvasRef = useRef(null);
 
   let canvas, context, width, height, x, y, particle, radius;
-  let bacgroundColor = "#1a1a1a";
+  let backgroundColor = "#1a1a1a";
   const particles = [];
   const numCircles = 16;
   let dotRadius = 12;
@@ -52,30 +52,32 @@ function SketchPage02(props) {
   };
 
   const onTouchstart = (e) => {
+    disableScroll();
     window.addEventListener("touchmove", onTouchMove);
     window.addEventListener("touchend", cleanAfterMove);
     window.addEventListener("touchcancel", cleanAfterMove);
   };
-
   const onMouseMove = (e) => {
     const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
     const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
     cursor.x = x;
     cursor.y = y;
   };
-
   const onTouchMove = (e) => {
-    var rect = e.target.getBoundingClientRect();
-    const x =
-      ((e.targetTouches[0].pageX - rect.left) / canvas.offsetWidth) *
-      canvas.width;
-    const y =
-      ((e.targetTouches[0].pageY - rect.top) / canvas.offsetHeight) *
-      canvas.height;
-    cursor.x = x;
-    cursor.y = y;
+    try {
+      var rect = e.target.getBoundingClientRect();
+      const x =
+        ((e.targetTouches[0].pageX - rect.left) / canvas.offsetWidth) *
+        canvas.width;
+      const y =
+        ((e.targetTouches[0].pageY - rect.top) / canvas.offsetHeight) *
+        canvas.height;
+      cursor.x = x;
+      cursor.y = y;
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
-
   const cleanAfterMove = () => {
     window.removeEventListener("mousemove", onMouseMove);
     window.removeEventListener("mouseup", cleanAfterMove);
@@ -84,13 +86,22 @@ function SketchPage02(props) {
     window.removeEventListener("touchcancel", cleanAfterMove);
     cursor.x = 9999;
     cursor.y = 9999;
+    enableScroll();
   };
+  function disableScroll() {
+    console.log("Scroll disabled.");
+    document.body.classList.add("no-scroll");
+  }
+  function enableScroll() {
+    console.log("Scroll enabled.");
+    document.body.classList.remove("no-scroll");
+  }
 
   const renderFrame = () => {
     try {
       console.log("Rendering a frame. sketch-02");
       updateCanvasData();
-      context.fillStyle = bacgroundColor;
+      context.fillStyle = backgroundColor;
       context.fillRect(0, 0, width, height);
 
       particles.forEach((particle) => {
@@ -107,7 +118,7 @@ function SketchPage02(props) {
   const initCanva = () => {
     try {
       updateCanvasData();
-      context.fillStyle = bacgroundColor;
+      context.fillStyle = backgroundColor;
       context.fillRect(0, 0, width, height);
 
       canvas.addEventListener("mousedown", onMousedown);
@@ -153,6 +164,15 @@ function SketchPage02(props) {
     const dataURI = canvas.toDataURL("image / png");
     props.saveAsPng(dataURI);
   };
+
+  const style = document.createElement("style");
+  style.innerHTML = `
+  .no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+`;
 
   return (
     <>
