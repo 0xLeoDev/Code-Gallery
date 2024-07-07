@@ -154,7 +154,7 @@ function SketchPage02(props) {
     <>
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
-      <div className="mainPageContainer">
+      <div className="mainPageContainer pointer">
         <div className="canvas clicky">
           <canvas
             ref={canvasRef}

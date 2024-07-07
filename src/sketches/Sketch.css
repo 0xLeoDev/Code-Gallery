@@ -15,6 +15,9 @@
     #f02eaa1a -20px 20px, #f02eaa0d -25px 25px;
   margin: auto;
 }
+.pointer:hover {
+  cursor: pointer;
+}
 .panel {
   display: flex;
   flex-direction: column;
@@ -34,8 +37,7 @@
   padding: 2%;
   margin: auto;
 }
-.title {
-}
+
 .skethTitle {
   align-self: flex-end;
   font-weight: 300;
