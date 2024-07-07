@@ -23,7 +23,6 @@
 }
 .no-scroll {
   overflow: hidden;
-  /* position: fixed; */
 }
 .panel {
   display: flex;
@@ -106,5 +105,8 @@
   }
   body .panel {
     width: min(100% - 100px, 500px);
+  }
+  .skethSecondTitle {
+    font-size: 11px;
   }
 }
