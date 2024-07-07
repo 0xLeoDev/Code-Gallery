@@ -50,18 +50,23 @@ function SketchPage02(props) {
     window.addEventListener("mouseup", cleanAfterMove);
     onMouseMove(e);
   };
-
   const onMouseMove = (e) => {
     const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
     const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
     cursor.x = x;
     cursor.y = y;
   };
-  function onClick(e) {
+
+  function onTouchClick(e) {
     const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
     const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
     cursor.x = x;
     cursor.y = y;
+    setTimeout(() => {
+      cursor.x = 9999;
+      cursor.y = 999;
+    }, 1000);
+    console.log(" y:" + y);
   }
   const onTouchstart = (e) => {
     disableScroll();
@@ -71,12 +76,14 @@ function SketchPage02(props) {
   };
   const onTouchMove = (e) => {
     try {
+      console.log(e);
       var rect = e.target.getBoundingClientRect();
       const x =
         ((e.targetTouches[0].pageX - rect.left) / canvas.offsetWidth) *
         canvas.width;
       const y =
-        ((e.targetTouches[0].pageY - rect.top) / canvas.offsetHeight) *
+        ((e.targetTouches[0].pageY - rect.top - window.scrollY) /
+          canvas.offsetHeight) *
         canvas.height;
       cursor.x = x;
       cursor.y = y;
@@ -94,6 +101,7 @@ function SketchPage02(props) {
     cursor.x = 9999;
     cursor.y = 9999;
   };
+
   function disableScroll() {
     console.log("Scroll disabled.");
     document.body.classList.add("no-scroll");
@@ -129,7 +137,7 @@ function SketchPage02(props) {
 
       canvas.addEventListener("mousedown", onMousedown);
       canvas.addEventListener("touchstart", onTouchstart);
-      canvas.addEventListener("click", onClick);
+      canvas.addEventListener("click", onTouchClick);
 
       for (let i = 0; i < numCircles; i++) {
         const circumference = Math.PI * 2 * cirRadius;
@@ -185,8 +193,8 @@ function SketchPage02(props) {
     <>
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
-      <div className="mainPageContainer pointer">
-        <div className="canvas clicky">
+      <div className="mainPageContainer">
+        <div className="canvas pointer">
           <canvas
             ref={canvasRef}
             style={{ width: "100%", height: "100%" }}
