@@ -42,6 +42,28 @@
     rgba(240, 46, 170, 0.05) 25px 25px;
   padding: 2%;
   margin: auto;
+
+  z-index: 1;
+}
+
+.navbarPanel {
+  position: absolute;
+  background-color: pink;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 27%;
+  max-width: 290px;
+  height: 90%;
+  overflow: auto;
+  overflow-x: hidden;
+
+  padding: 2%;
+  margin: auto;
+
+  z-index: 10;
 }
 
 .skethTitle {

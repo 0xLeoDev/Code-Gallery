@@ -21,7 +21,7 @@ const handleChangeScaling = () => {
 };
 
 function SketchPage02(props) {
-  console.log("Page 02 been loaded");
+  console.log("Rendering page 02");
 
   let arowPathLeft = "/sketch-01";
   let arowPathRight = "/sketch-03";
@@ -112,23 +112,9 @@ function SketchPage02(props) {
     document.body.classList.remove("no-scroll");
   }
 
-  const renderFrame = () => {
-    try {
-      console.log("Rendering a frame. sketch-02");
-      updateCanvasData();
-      context.fillStyle = backgroundColor;
-      context.fillRect(0, 0, width, height);
-
-      particles.forEach((particle) => {
-        particle.update();
-        particle.draw(context);
-      });
-
-      requestAnimationFrame(renderFrame);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+  useEffect(() => {
+    initCanva();
+  }, []);
 
   const initCanva = () => {
     try {
@@ -171,9 +157,23 @@ function SketchPage02(props) {
     }
   };
 
-  useEffect(() => {
-    initCanva();
-  }, []);
+  const renderFrame = () => {
+    try {
+      console.log("Rendering a frame. sketch-02");
+      updateCanvasData();
+      context.fillStyle = backgroundColor;
+      context.fillRect(0, 0, width, height);
+
+      particles.forEach((particle) => {
+        particle.update();
+        particle.draw(context);
+      });
+
+      requestAnimationFrame(renderFrame);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
@@ -202,50 +202,49 @@ function SketchPage02(props) {
           </div>
         )}
 
-        {/* {navbarStatus == false && ( */}
-        <div className="panel">
-          <div>
-            <h2 className="skethTitle">sketch-02</h2>
-            <h3 className="skethSecondTitle">
-              Click and move your cursor over the canva.
-            </h3>
-          </div>
-          <div className="optionsList">
-            <h3>Cursor weight:</h3>
-            <Slider
-              color="secondary"
-              defaultValue={cursorWeight}
-              min={1}
-              max={3}
-              onChange={handleChangeCursorWeight}
-              marks={[
-                { value: 1, label: "Light" },
-                { value: 2, label: "Medium" },
-                { value: 3, label: "Heavy" },
-              ]}
-            />
-
-            <h3>Scaling:</h3>
-            <Stack
-              spacing={2}
-              direction="row"
-              sx={{ justifyContent: "center", mb: 1 }}
-              alignItems="center"
-            >
-              <p>off</p>
-              <Switch
+        {navbarStatus == false && (
+          <div className="panel">
+            <div>
+              <h2 className="skethTitle">sketch-02</h2>
+              <h3 className="skethSecondTitle">
+                Click and move your cursor over the canva.
+              </h3>
+            </div>
+            <div className="optionsList">
+              <h3>Cursor weight:</h3>
+              <Slider
                 color="secondary"
-                onChange={handleChangeScaling}
-                defaultValue={scaling}
+                defaultValue={cursorWeight}
+                min={1}
+                max={3}
+                onChange={handleChangeCursorWeight}
+                marks={[
+                  { value: 1, label: "Light" },
+                  { value: 2, label: "Medium" },
+                  { value: 3, label: "Heavy" },
+                ]}
               />
-              <p>on</p>
-            </Stack>
+              <h3>Scaling:</h3>
+              <Stack
+                spacing={2}
+                direction="row"
+                sx={{ justifyContent: "center", mb: 1 }}
+                alignItems="center"
+              >
+                <p>off</p>
+                <Switch
+                  color="secondary"
+                  onChange={handleChangeScaling}
+                  defaultValue={scaling}
+                />
+                <p>on</p>
+              </Stack>
+            </div>
+            <button className="button-main" onClick={downloadImage}>
+              save as png
+            </button>
           </div>
-          <button className="button-main" onClick={downloadImage}>
-            save as png
-          </button>
-        </div>
-        {/* )} */}
+        )}
       </div>
     </>
   );

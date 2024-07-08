@@ -2,13 +2,13 @@ import "./Sketch.css";
 import Arows from "./Arows.js";
 import Navbar from "./Navbar.js";
 import Header from "./Header";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useMemo, useRef, useEffect, useState } from "react";
 import { Slider } from "@mui/material";
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 function SketchPage04(props) {
-  console.log("Page 04 been loaded");
+  console.log("Rendering page 04");
 
   let arowPathLeft = "/sketch-03";
   let arowPathRight = "/sketch-05";
@@ -16,26 +16,37 @@ function SketchPage04(props) {
   const [navbarStatus, setNavbarStatus] = useState(false);
 
   const canvasRef = useRef(null);
+
+  const canvasSettings = useMemo(
+    () => ({
+      speed: 6,
+      cols: 5,
+      rows: 15,
+      rotation: 0.1,
+    }),
+    []
+  );
+  // let canvasSettings.speed = 6;
+  // let canvasSettings.cols = 5;
+  // let canvasSettings.rows = 15;
+  // let canvasSettings.rotation = 0.1;
+
   let frame = 1;
-  let speed = 6;
-  let cols = 5;
-  let rows = 15;
-  let rotation = 0.1;
 
   const handleChangeSpeed = (event, newValue) => {
-    speed = newValue * 2;
+    canvasSettings.speed = newValue * 2;
   };
 
   const handleChangeColumns = (event, newValue) => {
-    cols = newValue;
+    canvasSettings.cols = newValue;
   };
 
   const handleChangeRows = (event, newValue) => {
-    rows = newValue;
+    canvasSettings.rows = newValue;
   };
 
   const handleChangeRotation = (event, newValue) => {
-    rotation = newValue * 5 * 10 ** -2;
+    canvasSettings.rotation = newValue * 5 * 10 ** -2;
   };
 
   const renderFrame = () => {
@@ -49,20 +60,20 @@ function SketchPage04(props) {
       context.fillStyle = "#1a1a1a";
       context.fillRect(0, 0, width, height);
 
-      const numCells = cols * rows;
+      const numCells = canvasSettings.cols * canvasSettings.rows;
 
       const gridw = width * 0.95;
       const gridh = height * 0.95;
 
-      const cellw = gridw / cols;
-      const cellh = gridh / rows;
+      const cellw = gridw / canvasSettings.cols;
+      const cellh = gridh / canvasSettings.rows;
 
       const margx = (width - gridw) / 2;
       const margy = (height - gridh) / 2;
 
       for (let i = 0; i < numCells; i++) {
-        const col = i % cols;
-        const row = Math.floor(i / cols);
+        const col = i % canvasSettings.cols;
+        const row = Math.floor(i / canvasSettings.cols);
 
         const x = col * cellw;
         const y = row * cellh;
@@ -70,8 +81,12 @@ function SketchPage04(props) {
         const w = cellw * 0.8;
         const h = cellh * 0.8;
 
-        const n = random.noise2D(x + frame * speed * 0.5, y, 0.001);
-        const angle = n * Math.PI * rotation;
+        const n = random.noise2D(
+          x + frame * canvasSettings.speed * 0.5,
+          y,
+          0.001
+        );
+        const angle = n * Math.PI * canvasSettings.rotation;
         const scale = math.mapRange(n, -1, 1, 1, 30);
 
         context.save();
@@ -152,7 +167,7 @@ function SketchPage04(props) {
               <h3>Columns:</h3>
               <Slider
                 color="secondary"
-                defaultValue={cols}
+                defaultValue={canvasSettings.cols}
                 valueLabelDisplay="auto"
                 min={1}
                 max={50}
@@ -161,7 +176,7 @@ function SketchPage04(props) {
               <h3>Rows:</h3>
               <Slider
                 color="secondary"
-                defaultValue={rows}
+                defaultValue={canvasSettings.rows}
                 valueLabelDisplay="auto"
                 min={1}
                 max={50}
