@@ -8,6 +8,7 @@ const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 function SketchPage03(props) {
+  console.log("Page 03 been loaded");
   let arowPathLeft = "/sketch-02";
   let arowPathRight = "/sketch-04";
 

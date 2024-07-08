@@ -21,6 +21,8 @@ const handleChangeScaling = () => {
 };
 
 function SketchPage02(props) {
+  console.log("Page 02 been loaded");
+
   let arowPathLeft = "/sketch-01";
   let arowPathRight = "/sketch-03";
 
@@ -66,7 +68,6 @@ function SketchPage02(props) {
       cursor.x = 9999;
       cursor.y = 999;
     }, 1000);
-    console.log(" y:" + y);
   }
   const onTouchstart = (e) => {
     disableScroll();
@@ -180,15 +181,6 @@ function SketchPage02(props) {
     props.saveAsPng(dataURI);
   };
 
-  const style = document.createElement("style");
-  style.innerHTML = `
-  .no-scroll {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-  }
-`;
-
   return (
     <>
       <Header setNavbarStatus={setNavbarStatus} />
@@ -210,59 +202,50 @@ function SketchPage02(props) {
           </div>
         )}
 
-        {navbarStatus == false && (
-          <div className="panel">
-            <div>
-              <h2 className="skethTitle">sketch-02</h2>
-              <h3 className="skethSecondTitle">
-                Click and move your cursor over the canva.
-              </h3>
-            </div>
-            <div className="optionsList">
-              <h3>Cursor weight:</h3>
-              <Slider
-                color="secondary"
-                defaultValue={cursorWeight}
-                min={1}
-                max={3}
-                onChange={handleChangeCursorWeight}
-                marks={[
-                  { value: 1, label: "Light" },
-                  { value: 2, label: "Medium" },
-                  { value: 3, label: "Heavy" },
-                ]}
-              />
-              {/* <h3>Circles density</h3>
-              <Slider
-                color="secondary"
-                defaultValue={1}
-                valueLabelDisplay="auto"
-                marks
-                min={1}
-                max={10}
-                onChange={console.log("t")}
-              /> */}
-              <h3>Scaling:</h3>
-              <Stack
-                spacing={2}
-                direction="row"
-                sx={{ justifyContent: "center", mb: 1 }}
-                alignItems="center"
-              >
-                <p>off</p>
-                <Switch
-                  color="secondary"
-                  onChange={handleChangeScaling}
-                  defaultValue={scaling}
-                />
-                <p>on</p>
-              </Stack>
-            </div>
-            <button className="button-main" onClick={downloadImage}>
-              save as png
-            </button>
+        {/* {navbarStatus == false && ( */}
+        <div className="panel">
+          <div>
+            <h2 className="skethTitle">sketch-02</h2>
+            <h3 className="skethSecondTitle">
+              Click and move your cursor over the canva.
+            </h3>
           </div>
-        )}
+          <div className="optionsList">
+            <h3>Cursor weight:</h3>
+            <Slider
+              color="secondary"
+              defaultValue={cursorWeight}
+              min={1}
+              max={3}
+              onChange={handleChangeCursorWeight}
+              marks={[
+                { value: 1, label: "Light" },
+                { value: 2, label: "Medium" },
+                { value: 3, label: "Heavy" },
+              ]}
+            />
+
+            <h3>Scaling:</h3>
+            <Stack
+              spacing={2}
+              direction="row"
+              sx={{ justifyContent: "center", mb: 1 }}
+              alignItems="center"
+            >
+              <p>off</p>
+              <Switch
+                color="secondary"
+                onChange={handleChangeScaling}
+                defaultValue={scaling}
+              />
+              <p>on</p>
+            </Stack>
+          </div>
+          <button className="button-main" onClick={downloadImage}>
+            save as png
+          </button>
+        </div>
+        {/* )} */}
       </div>
     </>
   );
