@@ -16,8 +16,8 @@ let scaling = false;
 const handleChangeCursorWeight = (event, newValue) => {
   cursorWeight = newValue;
 };
-const handleChangeScaling = () => {
-  scaling = !scaling;
+const handleChangeScaling = (e, boolean) => {
+  scaling = boolean;
 };
 
 function SketchPage02(props) {

@@ -91,8 +91,8 @@ function SketchPage01(props) {
     }
   };
 
-  const handleSwitchDotsOrLine = () => {
-    canvasSettings.drawDots = !canvasSettings.drawDots;
+  const handleSwitchDotsOrLine = (e, boolean) => {
+    canvasSettings.drawDots = boolean;
   };
 
   const handleChangeSpeed = (event, newValue) => {

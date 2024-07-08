@@ -25,14 +25,13 @@ function SketchPage05(props) {
   const [text, setText] = useState("A");
   const [edges, setEdges] = useState("->+");
   const [filings, setFilings] = useState("-/_*");
-  const [density, setDensity] = useState(20);
+  const [density, setDensity] = useState(6);
 
   let fontSize;
   let fontFamily = "serif";
 
-  const handleChangeScale = (event, newValue) => {
-    let valueAdjustedScale = math.mapRange(newValue, 1, 10, 40, 10);
-    setDensity(valueAdjustedScale);
+  const handleChangeScale = (e, newValue) => {
+    setDensity(newValue);
   };
 
   const renderNewCanva = () => {
@@ -43,7 +42,8 @@ function SketchPage05(props) {
       const height = canvas.height;
       const context = canvas.getContext("2d");
 
-      const cell = density;
+      const cell = math.mapRange(density, 1, 10, 40, 10);
+
       const cols = Math.floor(width / cell);
       const rows = Math.floor(height / cell);
       const numCells = cols * rows;
@@ -216,7 +216,7 @@ function SketchPage05(props) {
               <h3>Density:</h3>
               <Slider
                 color="secondary"
-                defaultValue={6}
+                value={density}
                 min={1}
                 max={10}
                 marks

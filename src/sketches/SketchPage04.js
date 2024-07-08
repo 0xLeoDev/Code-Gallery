@@ -19,34 +19,30 @@ function SketchPage04(props) {
 
   const canvasSettings = useMemo(
     () => ({
-      speed: 6,
+      speed: 3,
       cols: 5,
       rows: 15,
-      rotation: 0.1,
+      rotation: 2,
     }),
     []
   );
-  // let canvasSettings.speed = 6;
-  // let canvasSettings.cols = 5;
-  // let canvasSettings.rows = 15;
-  // let canvasSettings.rotation = 0.1;
 
   let frame = 1;
 
-  const handleChangeSpeed = (event, newValue) => {
-    canvasSettings.speed = newValue * 2;
+  const handleChangeSpeed = (e, newValue) => {
+    canvasSettings.speed = newValue;
   };
 
-  const handleChangeColumns = (event, newValue) => {
+  const handleChangeColumns = (e, newValue) => {
     canvasSettings.cols = newValue;
   };
 
-  const handleChangeRows = (event, newValue) => {
+  const handleChangeRows = (e, newValue) => {
     canvasSettings.rows = newValue;
   };
 
-  const handleChangeRotation = (event, newValue) => {
-    canvasSettings.rotation = newValue * 5 * 10 ** -2;
+  const handleChangeRotation = (e, newValue) => {
+    canvasSettings.rotation = newValue;
   };
 
   const renderFrame = () => {
@@ -81,12 +77,11 @@ function SketchPage04(props) {
         const w = cellw * 0.8;
         const h = cellh * 0.8;
 
-        const n = random.noise2D(
-          x + frame * canvasSettings.speed * 0.5,
-          y,
-          0.001
-        );
-        const angle = n * Math.PI * canvasSettings.rotation;
+        const n = random.noise2D(x + frame * canvasSettings.speed, y, 0.001);
+
+        let adjustedRotation = canvasSettings.rotation * 5 * 10 ** -2;
+
+        const angle = n * Math.PI * adjustedRotation;
         const scale = math.mapRange(n, -1, 1, 1, 30);
 
         context.save();
@@ -157,7 +152,7 @@ function SketchPage04(props) {
               <h3>Speed:</h3>
               <Slider
                 color="secondary"
-                defaultValue={3}
+                defaultValue={canvasSettings.speed}
                 valueLabelDisplay="auto"
                 marks
                 min={0}
@@ -185,7 +180,7 @@ function SketchPage04(props) {
               <h3>Rotation:</h3>
               <Slider
                 color="secondary"
-                defaultValue={2}
+                defaultValue={canvasSettings.rotation}
                 marks
                 valueLabelDisplay="auto"
                 min={0}

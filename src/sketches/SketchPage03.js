@@ -21,7 +21,7 @@ function SketchPage03(props) {
     () => ({
       agents: [],
       initialQuantity: 3,
-      lineIntensity: 200,
+      lineIntensity: 2,
       speed: 1,
       bounce: false,
     }),
@@ -45,21 +45,16 @@ function SketchPage03(props) {
     }
   };
 
-  const handleSwitchBounceChange = () => {
-    canvasSettings.bounce = !canvasSettings.bounce;
+  const handleSwitchBounceChange = (e, boolean) => {
+    canvasSettings.bounce = boolean;
   };
 
-  const handleChangeLineIntensity = (event, newValue) => {
-    if (typeof newValue === "number") {
-      let newValueCorrected = (newValue * 10 * 1080) / 100;
-      canvasSettings.lineIntensity = newValueCorrected;
-    }
+  const handleChangeLineIntensity = (e, newValue) => {
+    canvasSettings.lineIntensity = newValue;
   };
 
-  const handleChangeSpeed = (event, newValue) => {
-    if (typeof newValue === "number") {
-      canvasSettings.speed = newValue;
-    }
+  const handleChangeSpeed = (e, newValue) => {
+    canvasSettings.speed = newValue;
   };
 
   useEffect(() => {
@@ -86,7 +81,9 @@ function SketchPage03(props) {
 
   const renderFrame = () => {
     try {
-      console.log(`Rendering a frame. sketch-03`);
+      console.log(`Rendering a frame. sketch-03 
+        bounce: ${canvasSettings.bounce}`);
+
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       const width = canvas.width;
@@ -102,12 +99,15 @@ function SketchPage03(props) {
           const other = canvasSettings.agents[j];
 
           const dist = agent.pos.getDistance(other.pos);
-          if (dist > canvasSettings.lineIntensity) continue;
+          let adjustedLineIntensity =
+            (canvasSettings.lineIntensity * 10 * 1080) / 100;
+
+          if (dist > adjustedLineIntensity) continue;
 
           context.lineWidth = math.mapRange(
             dist,
             0,
-            canvasSettings.lineIntensity,
+            adjustedLineIntensity,
             10,
             1
           );
@@ -206,7 +206,7 @@ function SketchPage03(props) {
               <h3>Line intensity:</h3>
               <Slider
                 color="secondary"
-                defaultValue={3}
+                defaultValue={canvasSettings.lineIntensity}
                 valueLabelDisplay="auto"
                 marks
                 min={0}
