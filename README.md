@@ -6,9 +6,9 @@
 
 ## Project recap:
 
-Creative Coode Gallery is my take on creating an interactive show room type page to demonstrate some interesting ways of using Javascript in oreder to create art.
+Creative Coode Gallery is my take on creating an interactive show room type page to demonstrate some interesting ways of using Javascript in order to create art.
 
-You can play with the sketches with the provided consols and save the art you've created.
+You can play with the sketches with the provided consoles and save the art you've created.
 
 Each of the 5 sketches sketches represents the use of various key programming concepts.
 
