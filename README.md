@@ -6,11 +6,11 @@
 
 ## Project recap:
 
-Creative Coode Gallery is my take on creating an interactive show room type page to demonstrate some interesting ways of using Javascript in order to create art.
+Creative Coode Gallery is my take on creating an interactive showroom-type page to demonstrate some interesting ways of using Javascript to create art.
 
 You can play with the sketches with the provided consoles and save the art you've created.
 
-Each of the 5 sketches sketches represents the use of various key programming concepts.
+Each of the 5 sketches  represents the use of various key programming concepts.
 
 Personally I find the 3rd one to be the most addictive. [link](https://0xleodev.github.io/Code-Gallery/#/sketch-03)
 
