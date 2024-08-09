@@ -1,7 +1,7 @@
 import "./Sketch.css";
-import Arows from "../Arows.js";
-import Navbar from "../Navbar.js";
-import Header from "../Header";
+import Arows from "./Arows.js";
+import Navbar from "./Navbar.js";
+import Header from "./Header";
 import React, { useRef, useEffect, useState } from "react";
 import { Slider, Stack, Switch } from "@mui/material";
 
@@ -16,11 +16,13 @@ let scaling = false;
 const handleChangeCursorWeight = (event, newValue) => {
   cursorWeight = newValue;
 };
-const handleChangeScaling = () => {
-  scaling = !scaling;
+const handleChangeScaling = (e, boolean) => {
+  scaling = boolean;
 };
 
 function SketchPage02(props) {
+  console.log("Rendering page 02");
+
   let arowPathLeft = "/sketch-01";
   let arowPathRight = "/sketch-03";
 
@@ -29,7 +31,7 @@ function SketchPage02(props) {
   const canvasRef = useRef(null);
 
   let canvas, context, width, height, x, y, particle, radius;
-  let bacgroundColor = "#1a1a1a";
+  let backgroundColor = "#1a1a1a";
   const particles = [];
   const numCircles = 16;
   let dotRadius = 12;
@@ -50,13 +52,6 @@ function SketchPage02(props) {
     window.addEventListener("mouseup", cleanAfterMove);
     onMouseMove(e);
   };
-
-  const onTouchstart = (e) => {
-    window.addEventListener("touchmove", onTouchMove);
-    window.addEventListener("touchend", cleanAfterMove);
-    window.addEventListener("touchcancel", cleanAfterMove);
-  };
-
   const onMouseMove = (e) => {
     const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
     const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
@@ -64,52 +59,72 @@ function SketchPage02(props) {
     cursor.y = y;
   };
 
-  const onTouchMove = (e) => {
-    var rect = e.target.getBoundingClientRect();
-    const x =
-      ((e.targetTouches[0].pageX - rect.left) / canvas.offsetWidth) *
-      canvas.width;
-    const y =
-      ((e.targetTouches[0].pageY - rect.top) / canvas.offsetHeight) *
-      canvas.height;
+  function onTouchClick(e) {
+    const x = (e.offsetX / canvas.offsetWidth) * canvas.width;
+    const y = (e.offsetY / canvas.offsetHeight) * canvas.height;
     cursor.x = x;
     cursor.y = y;
+    setTimeout(() => {
+      cursor.x = 9999;
+      cursor.y = 999;
+    }, 1000);
+  }
+  const onTouchstart = (e) => {
+    disableScroll();
+    window.addEventListener("touchmove", onTouchMove);
+    window.addEventListener("touchend", cleanAfterMove);
+    window.addEventListener("touchcancel", cleanAfterMove);
   };
-
+  const onTouchMove = (e) => {
+    try {
+      console.log(e);
+      var rect = e.target.getBoundingClientRect();
+      const x =
+        ((e.targetTouches[0].pageX - rect.left) / canvas.offsetWidth) *
+        canvas.width;
+      const y =
+        ((e.targetTouches[0].pageY - rect.top - window.scrollY) /
+          canvas.offsetHeight) *
+        canvas.height;
+      cursor.x = x;
+      cursor.y = y;
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
   const cleanAfterMove = () => {
     window.removeEventListener("mousemove", onMouseMove);
     window.removeEventListener("mouseup", cleanAfterMove);
     window.removeEventListener("touchmove", onMouseMove);
     window.removeEventListener("touchend", cleanAfterMove);
     window.removeEventListener("touchcancel", cleanAfterMove);
+    enableScroll();
     cursor.x = 9999;
     cursor.y = 9999;
   };
 
-  const renderFrame = () => {
-    try {
-      console.log("render");
-      updateCanvasData();
-      context.fillStyle = bacgroundColor;
-      context.fillRect(0, 0, width, height);
+  function disableScroll() {
+    console.log("Scroll disabled.");
+    document.body.classList.add("no-scroll");
+  }
+  function enableScroll() {
+    console.log("Scroll enabled.");
+    document.body.classList.remove("no-scroll");
+  }
 
-      particles.forEach((particle) => {
-        particle.update();
-        particle.draw(context);
-      });
-
-      requestAnimationFrame(renderFrame);
-    } catch (error) {}
-  };
+  useEffect(() => {
+    initCanva();
+  }, []);
 
   const initCanva = () => {
     try {
       updateCanvasData();
-      context.fillStyle = bacgroundColor;
+      context.fillStyle = backgroundColor;
       context.fillRect(0, 0, width, height);
 
       canvas.addEventListener("mousedown", onMousedown);
       canvas.addEventListener("touchstart", onTouchstart);
+      canvas.addEventListener("click", onTouchClick);
 
       for (let i = 0; i < numCircles; i++) {
         const circumference = Math.PI * 2 * cirRadius;
@@ -137,12 +152,28 @@ function SketchPage02(props) {
         dotRadius = (1 - eases.quadOut(i / numCircles)) * fitRadius;
       }
       renderFrame();
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
-  useEffect(() => {
-    initCanva();
-  }, []);
+  const renderFrame = () => {
+    try {
+      console.log("Rendering a frame. sketch-02");
+      updateCanvasData();
+      context.fillStyle = backgroundColor;
+      context.fillRect(0, 0, width, height);
+
+      particles.forEach((particle) => {
+        particle.update();
+        particle.draw(context);
+      });
+
+      requestAnimationFrame(renderFrame);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
@@ -155,7 +186,7 @@ function SketchPage02(props) {
       <Header setNavbarStatus={setNavbarStatus} />
       <Arows pathLeft={arowPathLeft} pathRight={arowPathRight} />
       <div className="mainPageContainer">
-        <div className="canvas clicky">
+        <div className="canvas pointer">
           <canvas
             ref={canvasRef}
             style={{ width: "100%", height: "100%" }}
@@ -173,10 +204,10 @@ function SketchPage02(props) {
 
         {navbarStatus == false && (
           <div className="panel">
-            <div className="title">
+            <div>
               <h2 className="skethTitle">sketch-02</h2>
               <h3 className="skethSecondTitle">
-                Click and move your cursor over the canvas.
+                Click and move your cursor over the canva.
               </h3>
             </div>
             <div className="optionsList">
@@ -193,16 +224,6 @@ function SketchPage02(props) {
                   { value: 3, label: "Heavy" },
                 ]}
               />
-              {/* <h3>Circles density</h3>
-              <Slider
-                color="secondary"
-                defaultValue={1}
-                valueLabelDisplay="auto"
-                marks
-                min={1}
-                max={10}
-                onChange={console.log("t")}
-              /> */}
               <h3>Scaling:</h3>
               <Stack
                 spacing={2}

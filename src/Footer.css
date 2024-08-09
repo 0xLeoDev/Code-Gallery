@@ -1,17 +1,17 @@
 .footer {
+  padding: 8px;
   position: fixed;
   bottom: 0;
-  background: var(--main-bg-color);
   width: 100%;
   text-align: center;
-  padding: 8px;
 }
 .socialIcon {
   margin: 0 10px 0;
 }
 .socialIcon:hover {
-  scale: 1.05;
+  scale: 1.08;
   cursor: pointer;
+  transition: 0.3s;
 }
 .SnackbarProviderButton {
   background-color: transparent;
@@ -22,4 +22,10 @@
   cursor: pointer;
   color: rgb(225, 82, 173);
   background-color: transparent;
+}
+
+@media only screen and (max-width: 1150px) {
+  body .footer {
+    background: var(--main-bg-color);
+  }
 }

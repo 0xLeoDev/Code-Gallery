@@ -11,19 +11,26 @@ import preview05 from "./IMG/sketch-prew-05.png";
 
 function HomePage() {
   const setPreview = (newPreview) => {
-    let preview = document.getElementById("preview");
-    preview.src = newPreview;
+    setTimeout(() => {
+      let preview = document.getElementById("preview");
+      preview.src = newPreview;
+    }, 100);
   };
 
   return (
     <>
       <div className="app">
         <div className="previewContainer">
-          <img id="preview" src={logo_b} alt="preview" />
+          <img
+            className="imgInContainer"
+            id="preview"
+            src={logo_b}
+            alt="preview"
+          />
         </div>
 
         <div className="menuContainer">
-          <div className="menulHeader">Choose the sketch to play with:</div>
+          <div className="menulHeader">Choose a sketch to play with:</div>
           <div className="linkList">
             <NavLink
               onMouseOver={() => setPreview(preview01)}

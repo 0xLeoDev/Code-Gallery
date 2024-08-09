@@ -1,141 +1,85 @@
-@media only screen and (max-width: 1150px) {
-  body {
-    .mainPageContainer {
-      height: auto;
-      width: min(100% - 140px, 500px);
-      margin-bottom: 80px;
-    }
-    .canvas {
-      width: 90%;
-      height: auto;
-      aspect-ratio: 1/1;
-      margin-bottom: 30px;
-    }
-    .panel {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-
-      width: 90%;
-      height: auto;
-      margin-bottom: 10px;
-      padding: 0;
-    }
-    .optionsList {
-      width: 90%;
-      margin-bottom: 20px;
-    }
-    .skethTitle {
-      margin: 10px;
-    }
-    .button-main {
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-  }
-}
-
-@media only screen and (max-width: 660px) {
-  body {
-    .mainPageContainer {
-      width: 90%;
-    }
-    .canvas {
-      width: min(90% - 20px, 500px);
-    }
-    .panel {
-      width: min(100% - 100px, 500px);
-    }
-  }
-}
-
 .mainPageContainer {
   display: flex;
   flex-wrap: wrap;
-
   width: min(100% - 140px, 1100px);
   height: 83vh;
-
   margin-inline: auto;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 .canvas {
-  aspect-ratio: 1/1;
   height: 80%;
-
+  aspect-ratio: 1 / 1;
   background-color: var(--second-bg-color);
-
   border: 10px solid var(--text-border-color);
   box-shadow: #f02eaa66 -5px 5px, #f02eaa4d -10px 10px, #f02eaa33 -15px 15px,
     #f02eaa1a -20px 20px, #f02eaa0d -25px 25px;
-
   margin: auto;
+}
+
+.pointer:hover {
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.no-scroll {
+  overflow: hidden;
 }
 .panel {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   min-width: 27%;
   max-width: 290px;
   height: 90%;
-
   overflow: auto;
   overflow-x: hidden;
   background-color: var(--second-bg-color);
   border: 10px solid var(--text-border-color);
-
   background: var(--second-bg-color);
-
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
     rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
     rgba(240, 46, 170, 0.05) 25px 25px;
+  padding: 2%;
+  margin: auto;
+
+  z-index: 1;
+}
+
+.navbarPanel {
+  position: absolute;
+  background-color: pink;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 27%;
+  max-width: 290px;
+  height: 90%;
+  overflow: auto;
+  overflow-x: hidden;
 
   padding: 2%;
   margin: auto;
+
+  z-index: 10;
 }
+
 .skethTitle {
   align-self: flex-end;
   font-weight: 300;
+  width: 100%;
 }
 .skethSecondTitle {
-  margin-left: 5%;
-  margin-right: 5%;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  font-size: 14px;
 }
-
 .optionsList {
   width: 90%;
-}
-
-button {
-  align-self: strech;
-  background-color: var(--main-bg-color);
-
-  width: 90%;
-
-  font-family: "laceddays";
-  font-size: 20px;
-  color: var(--text-border-color);
-
-  border: 7px solid var(--text-border-color);
-  border-radius: 0;
-  padding: 2%;
-}
-
-button:hover {
-  background-color: rgba(240, 46, 170, 0.2);
-  cursor: pointer;
-  transform: scale(0.98);
-}
-
-.clicky:hover {
-  cursor: pointer;
-}
-
-.title {
-  width: 100%;
+  margin: 20px 0px 20px;
 }
 .panelFooter {
   width: 100%;
@@ -145,7 +89,46 @@ button:hover {
   align-items: center;
 }
 
-.button-main {
-  font-weight: 600;
-  margin-top: 10px;
+@media only screen and (max-width: 1150px) {
+  body .mainPageContainer {
+    height: auto;
+    width: min(100% - 140px, 500px);
+    margin-bottom: 80px;
+  }
+  body .canvas {
+    width: 90%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 30px;
+  }
+  body .panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  body .optionsList {
+    margin: 20px 0px 20px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  body .mainPageContainer {
+    width: 90%;
+  }
+  body .canvas {
+    width: min(90% - 20px, 500px);
+    width: 80%;
+    aspect-ratio: 1 / 1;
+  }
+  body .panel {
+    width: min(100% - 100px, 500px);
+  }
+  .skethSecondTitle {
+    font-size: 11px;
+  }
 }

@@ -1,11 +1,11 @@
 .arrowLeft {
   position: fixed;
   left: 10px;
-  top: 50%;
+  bottom: 40%;
 }
 .arrowRight {
   position: fixed;
-  top: 50%;
+  bottom: 40%;
   right: 10px;
   transform: rotate(180deg);
 }

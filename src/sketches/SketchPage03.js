@@ -1,27 +1,35 @@
 import "./Sketch.css";
-import Arows from "../Arows.js";
-import Header from "../Header";
-import Navbar from "../Navbar.js";
-import React, { useState, useRef, useEffect } from "react";
+import Arows from "./Arows.js";
+import Header from "./Header";
+import Navbar from "./Navbar.js";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import { Slider, Stack, Switch } from "@mui/material";
 const random = require("canvas-sketch-util/random");
 const math = require("canvas-sketch-util/math");
 
 function SketchPage03(props) {
+  console.log("Rendering page 03");
+
   let arowPathLeft = "/sketch-02";
   let arowPathRight = "/sketch-04";
 
   const [navbarStatus, setNavbarStatus] = useState(false);
 
   const canvasRef = useRef(null);
-  const agents = [];
-  let initialQuantity = 3;
-  let bounce = false;
-  let lineIntensity = 200;
-  let speed = 1;
+
+  const canvasSettings = useMemo(
+    () => ({
+      agents: [],
+      initialQuantity: 3,
+      lineIntensity: 2,
+      speed: 1,
+      bounce: false,
+    }),
+    []
+  );
 
   const handleChangeQuantity = (event, newValue) => {
-    let numbOfNewAgents = newValue - agents.length;
+    let numbOfNewAgents = newValue - canvasSettings.agents.length;
     if (numbOfNewAgents >= 1) {
       for (let i = 0; i < numbOfNewAgents; i++) {
         const canvas = canvasRef.current;
@@ -29,34 +37,53 @@ function SketchPage03(props) {
         const height = canvas.height;
         const x = random.range(0, width);
         const y = random.range(0, height);
-        agents.push(new Agent(x, y));
+        canvasSettings.agents.push(new Agent(x, y));
       }
     }
     if (numbOfNewAgents <= -1) {
-      agents.splice(0, Math.abs(numbOfNewAgents));
+      canvasSettings.agents.splice(0, Math.abs(numbOfNewAgents));
     }
   };
 
-  const handleSwitchBounceChange = () => {
-    bounce = !bounce;
+  const handleSwitchBounceChange = (e, boolean) => {
+    canvasSettings.bounce = boolean;
   };
 
-  const handleChangeLineIntensity = (event, newValue) => {
-    if (typeof newValue === "number") {
-      let newValueCorrected = (newValue * 10 * 1080) / 100;
-      lineIntensity = newValueCorrected;
-    }
+  const handleChangeLineIntensity = (e, newValue) => {
+    canvasSettings.lineIntensity = newValue;
   };
 
-  const handleChangeSpeed = (event, newValue) => {
-    if (typeof newValue === "number") {
-      speed = newValue;
+  const handleChangeSpeed = (e, newValue) => {
+    canvasSettings.speed = newValue;
+  };
+
+  useEffect(() => {
+    initCanva();
+  }, []);
+
+  const initCanva = () => {
+    try {
+      const canvas = canvasRef.current;
+      const width = canvas.width;
+      const height = canvas.height;
+
+      for (let i = 0; i < canvasSettings.initialQuantity; i++) {
+        const x = random.range(0, width);
+        const y = random.range(0, height);
+        canvasSettings.agents.push(new Agent(x, y));
+      }
+
+      renderFrame();
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
   };
 
   const renderFrame = () => {
     try {
-      console.log("Rendering a frame.");
+      console.log(`Rendering a frame. sketch-03 
+        bounce: ${canvasSettings.bounce}`);
+
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       const width = canvas.width;
@@ -65,62 +92,53 @@ function SketchPage03(props) {
       context.fillStyle = "#1a1a1a";
       context.fillRect(0, 0, width, height);
 
-      for (let i = 0; i < agents.length; i++) {
-        const agent = agents[i];
+      for (let i = 0; i < canvasSettings.agents.length; i++) {
+        const agent = canvasSettings.agents[i];
 
-        for (let j = i + 1; j < agents.length; j++) {
-          const other = agents[j];
+        for (let j = i + 1; j < canvasSettings.agents.length; j++) {
+          const other = canvasSettings.agents[j];
 
           const dist = agent.pos.getDistance(other.pos);
-          if (dist > lineIntensity) continue;
+          let adjustedLineIntensity =
+            (canvasSettings.lineIntensity * 10 * 1080) / 100;
 
-          context.lineWidth = math.mapRange(dist, 0, lineIntensity, 10, 1);
+          if (dist > adjustedLineIntensity) continue;
+
+          context.lineWidth = math.mapRange(
+            dist,
+            0,
+            adjustedLineIntensity,
+            10,
+            1
+          );
           context.strokeStyle = "#f5f5f5";
 
           context.beginPath();
           context.moveTo(
-            agent.pos.x + agent.vel.x * speed,
-            agent.pos.y + agent.vel.y * speed
+            agent.pos.x + agent.vel.x * canvasSettings.speed,
+            agent.pos.y + agent.vel.y * canvasSettings.speed
           );
           context.lineTo(
-            other.pos.x + other.vel.x * speed,
-            other.pos.y + other.vel.y * speed
+            other.pos.x + other.vel.x * canvasSettings.speed,
+            other.pos.y + other.vel.y * canvasSettings.speed
           );
           context.stroke();
         }
       }
-      agents.forEach((agent) => {
-        agent.upadate(speed);
+      canvasSettings.agents.forEach((agent) => {
+        agent.upadate(canvasSettings.speed);
         agent.draw(context);
-        if (bounce == true) {
+        if (canvasSettings.bounce == true) {
           agent.bounce(width, height);
         } else {
           agent.pass(width, height);
         }
       });
       requestAnimationFrame(renderFrame);
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
-
-  const initCanva = () => {
-    try {
-      const canvas = canvasRef.current;
-      const width = canvas.width;
-      const height = canvas.height;
-
-      for (let i = 0; i < initialQuantity; i++) {
-        const x = random.range(0, width);
-        const y = random.range(0, height);
-        agents.push(new Agent(x, y));
-      }
-
-      renderFrame();
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    initCanva();
-  }, []);
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
@@ -154,7 +172,7 @@ function SketchPage03(props) {
               <h3>Quantity:</h3>
               <Slider
                 color="secondary"
-                defaultValue={initialQuantity}
+                defaultValue={canvasSettings.initialQuantity}
                 valueLabelDisplay="auto"
                 min={1}
                 max={50}
@@ -171,14 +189,14 @@ function SketchPage03(props) {
                 <Switch
                   color="secondary"
                   onChange={handleSwitchBounceChange}
-                  defaultValue={bounce}
+                  defaultValue={canvasSettings.bounce}
                 />
                 <p>bounce</p>
               </Stack>
               <h3>Speed:</h3>
               <Slider
                 color="secondary"
-                defaultValue={speed}
+                defaultValue={canvasSettings.speed}
                 valueLabelDisplay="auto"
                 marks
                 min={0}
@@ -188,7 +206,7 @@ function SketchPage03(props) {
               <h3>Line intensity:</h3>
               <Slider
                 color="secondary"
-                defaultValue={3}
+                defaultValue={canvasSettings.lineIntensity}
                 valueLabelDisplay="auto"
                 marks
                 min={0}

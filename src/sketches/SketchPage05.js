@@ -1,7 +1,7 @@
 import "./Sketch.css";
-import Arows from "../Arows.js";
-import Navbar from "../Navbar.js";
-import Header from "../Header";
+import Arows from "./Arows.js";
+import Navbar from "./Navbar.js";
+import Header from "./Header";
 import React, { useRef, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { Slider, Stack, Switch } from "@mui/material";
@@ -10,6 +10,8 @@ const math = require("canvas-sketch-util/math");
 const random = require("canvas-sketch-util/random");
 
 function SketchPage05(props) {
+  console.log("Rendering page 05");
+
   let arowPathLeft = "/sketch-04";
   let arowPathRight = "/sketch-01";
 
@@ -23,25 +25,25 @@ function SketchPage05(props) {
   const [text, setText] = useState("A");
   const [edges, setEdges] = useState("->+");
   const [filings, setFilings] = useState("-/_*");
-  const [density, setDensity] = useState(20);
+  const [density, setDensity] = useState(6);
 
   let fontSize;
   let fontFamily = "serif";
 
-  const handleChangeScale = (event, newValue) => {
-    let valueAdjustedScale = math.mapRange(newValue, 1, 10, 40, 10);
-    setDensity(valueAdjustedScale);
-    console.log(valueAdjustedScale);
+  const handleChangeScale = (e, newValue) => {
+    setDensity(newValue);
   };
 
-  const initCanva = () => {
+  const renderNewCanva = () => {
     try {
+      console.log("Rendering a frame. sketch-05");
       const canvas = canvasRef.current;
       const width = canvas.width;
       const height = canvas.height;
       const context = canvas.getContext("2d");
 
-      const cell = density;
+      const cell = math.mapRange(density, 1, 10, 40, 10);
+
       const cols = Math.floor(width / cell);
       const rows = Math.floor(height / cell);
       const numCells = cols * rows;
@@ -101,7 +103,7 @@ function SketchPage05(props) {
 
         context.fillStyle = "#f5f5f5";
 
-        console.log(r);
+        // console.log(r);
         let glyph = getGlyph(r);
 
         context.font = `${cell * 2}px ${fontFamily}`;
@@ -118,11 +120,13 @@ function SketchPage05(props) {
         context.fillText(glyph, 0, 0);
         context.restore();
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   useEffect(() => {
-    initCanva();
+    renderNewCanva();
   }, []);
 
   const getGlyph = (v) => {
@@ -212,7 +216,7 @@ function SketchPage05(props) {
               <h3>Density:</h3>
               <Slider
                 color="secondary"
-                defaultValue={6}
+                value={density}
                 min={1}
                 max={10}
                 marks
@@ -221,8 +225,8 @@ function SketchPage05(props) {
               />
             </div>
             <div className="panelFooter">
-              <button className="button-main" onClick={initCanva}>
-                refresh canva{" "}
+              <button className="button-main" onClick={renderNewCanva}>
+                refresh canva
               </button>
               <button className="button-main" onClick={downloadImage}>
                 save as png
