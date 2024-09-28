@@ -133,12 +133,12 @@ function SketchPage05(props) {
     if (v < 50) return "";
     if (v < 200) {
       const edge = edges.split("");
-      if (edge.length == 0) {
+      if (edge.length === 0) {
         return "";
       } else return random.pick(edge);
     }
     const filing = filings.split("");
-    if (filing.length == 0) {
+    if (filing.length === 0) {
       return "";
     } else return random.pick(filing);
   };
@@ -163,13 +163,13 @@ function SketchPage05(props) {
             {...props}
           />
         </div>
-        {navbarStatus == true && (
+        {navbarStatus === true && (
           <div className="panel">
             <Navbar />
           </div>
         )}
 
-        {navbarStatus == false && (
+        {navbarStatus === false && (
           <div className="panel">
             <h2 className="skethTitle">sketch-05</h2>
             <div className="optionsList">

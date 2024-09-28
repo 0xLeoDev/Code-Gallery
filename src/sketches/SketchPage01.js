@@ -165,7 +165,7 @@ function SketchPage01(props) {
         point.y = point.iy + n;
       });
 
-      if (canvasSettings.drawDots == true) {
+      if (canvasSettings.drawDots === true) {
         points.forEach((point) => {
           point.draw(context);
         });
@@ -228,12 +228,12 @@ function SketchPage01(props) {
             {...props}
           />
         </div>
-        {navbarStatus == true && (
+        {navbarStatus === true && (
           <div className="panel">
             <Navbar />
           </div>
         )}
-        {navbarStatus == false && (
+        {navbarStatus === false && (
           <div className="panel">
             <h2 className="skethTitle">sketch-01</h2>
             <div className="optionsList">

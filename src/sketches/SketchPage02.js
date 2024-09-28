@@ -196,13 +196,13 @@ function SketchPage02(props) {
           />
         </div>
 
-        {navbarStatus == true && (
+        {navbarStatus === true && (
           <div className="panel">
             <Navbar />
           </div>
         )}
 
-        {navbarStatus == false && (
+        {navbarStatus === false && (
           <div className="panel">
             <div>
               <h2 className="skethTitle">sketch-02</h2>
