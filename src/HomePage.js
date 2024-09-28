@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./HomePage.css";
-import themeIcon from "./IMG/sun_W.png";
+// import themeIcon from "./IMG/sun_W.png";
 
 import logo_b from "./IMG/logo_b.png";
 import preview01 from "./IMG/sketch-prew-01.png";
