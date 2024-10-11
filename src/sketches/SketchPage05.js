@@ -4,7 +4,7 @@ import Navbar from "./Navbar.js";
 import Header from "./Header";
 import React, { useRef, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
-import { Slider, Stack, Switch } from "@mui/material";
+import { Slider, Stack } from "@mui/material";
 
 const math = require("canvas-sketch-util/math");
 const random = require("canvas-sketch-util/random");
@@ -97,9 +97,9 @@ function SketchPage05(props) {
         const y = row * cell;
 
         const r = typeData[i * 4 + 0];
-        const g = typeData[i * 4 + 1];
-        const b = typeData[i * 4 + 2];
-        const a = typeData[i * 4 + 3];
+        // const g = typeData[i * 4 + 1];
+        // const b = typeData[i * 4 + 2];
+        // const a = typeData[i * 4 + 3];
 
         context.fillStyle = "#f5f5f5";
 
@@ -133,12 +133,12 @@ function SketchPage05(props) {
     if (v < 50) return "";
     if (v < 200) {
       const edge = edges.split("");
-      if (edge.length == 0) {
+      if (edge.length === 0) {
         return "";
       } else return random.pick(edge);
     }
     const filing = filings.split("");
-    if (filing.length == 0) {
+    if (filing.length === 0) {
       return "";
     } else return random.pick(filing);
   };
@@ -163,13 +163,13 @@ function SketchPage05(props) {
             {...props}
           />
         </div>
-        {navbarStatus == true && (
+        {navbarStatus === true && (
           <div className="panel">
             <Navbar />
           </div>
         )}
 
-        {navbarStatus == false && (
+        {navbarStatus === false && (
           <div className="panel">
             <h2 className="skethTitle">sketch-05</h2>
             <div className="optionsList">

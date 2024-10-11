@@ -128,7 +128,7 @@ function SketchPage03(props) {
       canvasSettings.agents.forEach((agent) => {
         agent.upadate(canvasSettings.speed);
         agent.draw(context);
-        if (canvasSettings.bounce == true) {
+        if (canvasSettings.bounce === true) {
           agent.bounce(width, height);
         } else {
           agent.pass(width, height);
@@ -160,12 +160,12 @@ function SketchPage03(props) {
             {...props}
           />
         </div>
-        {navbarStatus == true && (
+        {navbarStatus === true && (
           <div className="panel">
             <Navbar />
           </div>
         )}
-        {navbarStatus == false && (
+        {navbarStatus === false && (
           <div className="panel">
             <h2 className="skethTitle">sketch-03</h2>
             <div className="optionsList">

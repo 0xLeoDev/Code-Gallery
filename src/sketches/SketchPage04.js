@@ -75,7 +75,7 @@ function SketchPage04(props) {
         const y = row * cellh;
 
         const w = cellw * 0.8;
-        const h = cellh * 0.8;
+        // const h = cellh * 0.8;
 
         const n = random.noise2D(x + frame * canvasSettings.speed, y, 0.001);
 
@@ -139,13 +139,13 @@ function SketchPage04(props) {
             {...props}
           />
         </div>
-        {navbarStatus == true && (
+        {navbarStatus === true && (
           <div className="panel">
             <Navbar />
           </div>
         )}
 
-        {navbarStatus == false && (
+        {navbarStatus === false && (
           <div className="panel">
             <h2 className="skethTitle">sketch-04</h2>
             <div className="optionsList">
